@@ -1,0 +1,46 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["prettier", "import", "@typescript-eslint"],
+  "extends": [
+      "plugin:prettier/recommended",
+      "prettier",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "env": {
+      "es6": true,
+      "browser": true,
+      "node": true
+  },
+  "ignorePatterns": ["*.config.js", "node_modules/", "dist/", "*.spec.*"],
+  "rules": {
+      "prettier/prettier":  ["error",{
+        "endOfLine": "auto"}
+      ],
+      "no-debugger": "off",
+      "no-console": 0,
+      "class-methods-use-this": "off",
+      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/no-var-requires": "off",
+      "no-plusplus": "off",
+      "max-len": ["warn", { "code": 120 }],
+      "@typescript-eslint/indent": "off",
+      "import/prefer-default-export": "off",
+      "@typescript-eslint/restrict-template-expressions": "off",
+      "linebreak-style": ["error", "windows"],
+      "comma-dangle": "off",
+      "@typescript-eslint/comma-dangle": ["off"],
+      "object-curly-newline": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-misused-promises": [
+        "error",
+        {
+          "checksVoidReturn": false
+        }
+      ]
+  }
+}
