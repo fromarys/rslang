@@ -3,7 +3,7 @@
     /* Language and Environment */
     // "target": "es2021",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     /* Modules */
-    "module": "commonjs",                                /* Specify what module code is generated. */
+    "module": "es2015",                                /* Specify what module code is generated. */
     /* Emit */
     "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
     /* Interop Constraints */
