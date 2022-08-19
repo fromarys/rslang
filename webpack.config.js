@@ -4,12 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const EslintPlugin = require('eslint-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
-const listOfHtmlPages = ['index'];
-const htmlPageLoader = listOfHtmlPages.map((pageName) => {
+const listOfHtmlPages = [['', 'index']];
+const htmlPageLoader = listOfHtmlPages.map((page) => {
   return new HtmlWebpackPlugin({
-    template: path.resolve(__dirname, `./src/${pageName}.html`),
-		filename: `${pageName}.html`,
+    template: path.resolve(__dirname, `./src/${page[0]}${page[1]}.html`),
+		filename: `${page[1]}.html`,
 		inject: 'body',
   });
 });
@@ -37,20 +38,6 @@ const baseConfig = {
         use: [MiniCSSExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/images/[name]_[hash][ext][query]'
-        },
-      },
-      {
-        test: /\.(svg)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/icons/[name]_[hash][ext][query]'
-        },
-      },
-      {
         test: /\.html$/i,
         loader: 'html-loader',
       },
@@ -62,6 +49,14 @@ const baseConfig = {
   },
   plugins: [
     ...htmlPageLoader,
+    new CopyPlugin({
+      patterns: [
+        { 
+          from: "public", to: "public",
+          noErrorOnMissing: true,
+        },
+      ],
+    }),
     new CleanWebpackPlugin(),
     new MiniCSSExtractPlugin({
       filename:'[hash].css'
