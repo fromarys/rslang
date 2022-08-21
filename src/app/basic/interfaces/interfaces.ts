@@ -4,7 +4,7 @@ export interface IUser {
   password: string;
 }
 
-export interface IRegisterResponse {
+export interface IUserResponse {
   id: string;
   name: string;
   email: string;
@@ -21,4 +21,9 @@ export interface IAuth {
 export interface IError {
   error: boolean;
   errorMessage: string;
+}
+
+export interface IUserWord {
+  difficulty: 'string';
+  optional: Record<string, string>;
 }

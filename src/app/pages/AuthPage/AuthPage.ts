@@ -1,4 +1,4 @@
-import { IAuth, IError, IRegisterResponse } from '../../basic/interfaces/interfaces';
+import { IAuth, IError, IUserResponse } from '../../basic/interfaces/interfaces';
 import AuthPageModel from './AuthPage.model';
 import AuthPageView from './AuthPage.view';
 import { ERegisterButtonText } from '../../basic/enums/enums';
@@ -24,7 +24,7 @@ export default class AuthPage {
       this.authPageView.setMessageText('Logining ...', 'green');
       this.loginUser(login, password);
     } else {
-      void this.authPageModel.registerNewUser(name, login, password).then((response: IRegisterResponse | IError) => {
+      void this.authPageModel.registerNewUser(name, login, password).then((response: IUserResponse | IError) => {
         if ('errorMessage' in response) {
           this.authPageView.setMessageText(response.errorMessage);
         } else {
