@@ -18,7 +18,10 @@ export default class AuthPage {
    */
   onClick(text: string): void {
     const [name, login, password] = this.authPageView.getLoginData();
-    if (text === ERegisterButtonText.login) {
+    if (text === ERegisterButtonText.cancel) {
+      this.destroy();
+    } else if (text === ERegisterButtonText.login) {
+      this.authPageView.setMessageText('Logining ...', 'green');
       this.loginUser(login, password);
     } else {
       void this.authPageModel.registerNewUser(name, login, password).then((response: IRegisterResponse | IError) => {
