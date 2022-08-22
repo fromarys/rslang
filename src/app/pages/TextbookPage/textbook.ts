@@ -1,7 +1,7 @@
 import TextbookPageView from './textbook.view';
 /* eslint-disable */
 import { WordCard, WordDetails, WordGroup } from '../../components';
-import WordGroupButton from '../../components/WordGroupCards/wordGroupButton';
+import WordGroupButton from '../../components/WordGroupButtons/wordGroupButton';
 import { groups } from '../../basic/common';
 
 export class Textbook {

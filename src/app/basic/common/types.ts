@@ -14,3 +14,7 @@ export interface IWord {
   textMeaningTranslate: string;
   wordTranslate: string;
 }
+
+export interface IGroups {
+  [key: string]: string;
+}
