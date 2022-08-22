@@ -4,10 +4,7 @@ import WordDetailsView from './wordDetails.view';
 export class WordDetails {
   view: WordDetailsView;
   constructor(parentNode: HTMLElement, word: IWord) {
+    parentNode.querySelector('.words__details')?.remove();
     this.view = new WordDetailsView(parentNode, word);
-  }
-
-  destroy() {
-    this.view.details.destroy();
   }
 }

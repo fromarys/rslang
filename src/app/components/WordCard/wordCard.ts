@@ -1,17 +1,14 @@
 import { IWord } from '../../basic/common';
 import WordCardView from './wordCard.view';
-import { WordDetails } from './wordDetails';
+import { WordDetails } from '../WordDetails/wordDetails';
 
+/* eslint-disable */
 export class WordCard {
   card;
-  constructor(wordsContainer: HTMLElement | null, wordsWrapper: HTMLElement | null, card: IWord) {
+  constructor(wordsContainer: HTMLElement | null, wordsWrapper: HTMLElement, card: IWord) {
     this.card = new WordCardView(wordsContainer, card.word, card.wordTranslate);
     this.card.node.addEventListener('click', () => {
-      
+      new WordDetails(wordsWrapper, card);
     });
-  }
-  
-  renderDetails() {
-    
   }
 }

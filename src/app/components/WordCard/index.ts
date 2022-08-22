@@ -1,2 +1,2 @@
 export * from './wordCard';
-export * from './wordDetails';
+export * from '../WordDetails/wordDetails';
