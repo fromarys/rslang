@@ -1,4 +1,4 @@
-import { IAuth, IUser, IUserResponse, IError, IUserWord } from '../interfaces/interfaces';
+import { IAuth, IUser, IUserResponse, IError, IUserWord, IStatistic, ISetting } from '../interfaces/interfaces';
 
 export default class Api {
   static instance: Api;
@@ -185,6 +185,79 @@ export default class Api {
    */
   public async deleteUserWord(wordId: string): Promise<boolean> {
     return this.sendDelete(`${this.baseUrl}/users/${Api.userId}/words/${wordId}`);
+  }
+
+  /*
+   *
+   *  Раздел Users/AggregatedWords
+   *
+   */
+
+  /**
+   * Возвращает массив Agregated слов
+   * @param query query-параметры запроса
+   * @returns Массив Agregated слов
+   */
+  public async getUserAllAgregatedWords(query: Record<string, string>): Promise<IUser[] | IError> {
+    const queryString = Object.entries(query)
+      .reduce((acc, cur) => acc + `${cur[0]}=${cur[1]}&`, '?')
+      .slice(0, -1);
+    return this.getGetAuth<IUser[]>(`${this.baseUrl}/users/${Api.userId}/aggregatedWords${queryString}`);
+  }
+
+  /**
+   * Возвращает информацию о Agregated слове
+   * @param wordId ID Agregated слова
+   * @returns Информацию о Agregated слове
+   */
+  public async getUserAgregatedWord(wordId: string): Promise<IUserWord | IError> {
+    return this.getGetAuth<IUserWord>(`${this.baseUrl}/users/${Api.userId}/aggregatedWords/${wordId}`);
+  }
+
+  /*
+   *
+   *  Раздел Users/Statistic
+   *
+   */
+
+  /**
+   * Возвращает статистику о пользователе
+   * @returns Статистика о пользователе
+   */
+  public async getUserStatistics(): Promise<IStatistic | IError> {
+    return this.getGetAuth<IStatistic>(`${this.baseUrl}/users/${Api.userId}/statistics`);
+  }
+
+  /**
+   * Устанавливает новую статистику
+   * @param body Новая статистика
+   * @returns Новая статистика
+   */
+  public async updateUserStatistics(body: IStatistic): Promise<IStatistic | IError> {
+    return this.sendPut<IStatistic>(`${this.baseUrl}/users/${Api.userId}/statistics`, body);
+  }
+
+  /*
+   *
+   *  Раздел Users/Setting
+   *
+   */
+
+  /**
+   * Возвращает настройки пользователя
+   * @returns Настройки пользователя
+   */
+  public async getUserSettings(): Promise<ISetting | IError> {
+    return this.getGetAuth<ISetting>(`${this.baseUrl}/users/${Api.userId}/settings`);
+  }
+
+  /**
+   * Устанавливает новые настройки
+   * @param body Новая статистика
+   * @returns Новая статистика
+   */
+  public async updateUserSettings(body: ISetting): Promise<ISetting | IError> {
+    return this.sendPut<ISetting>(`${this.baseUrl}/users/${Api.userId}/settings`, body);
   }
 
   /*
