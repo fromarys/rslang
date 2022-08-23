@@ -3,7 +3,6 @@ import { WordCard, WordDetails } from '../WordCard';
 import { TextbookService } from '../../basic';
 import TextbookPageView from '../../pages/TextbookPage/textbook.view';
 import WordGroupView from './wordGroup.view';
-// import { WordPagination } from '../WordPagination';
 
 /* eslint-disable */
 export class WordGroup {

@@ -12,6 +12,6 @@ export default class TextbookPageView {
     this.textbookHeader = new Creator(this.textbook.node, 'div', 'textbook__header');
     this.group = new Creator(this.textbookHeader.node, 'div', 'group');
     this.words = new Creator(this.textbook.node, 'div', 'words');
-    this.title = new Creator(this.words.node, 'h1', '', 'Слова');
+    this.title = new Creator(this.words.node, 'h1', 'words__title', 'Слова');
   }
 }
