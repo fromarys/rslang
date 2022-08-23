@@ -1,8 +1,7 @@
 import TextbookPageView from './textbook.view';
 /* eslint-disable */
-import { WordCard, WordDetails, WordGroup } from '../../components';
-import WordGroupButton from '../../components/WordGroupButtons/wordGroupButton';
-import { groups } from '../../basic/common';
+import { WordGroup, WordGroupButton, WordPagination } from '../../components';
+import { groups, maxWordsPages } from '../../basic/common';
 
 export class Textbook {
   textbook: TextbookPageView;
@@ -19,6 +18,8 @@ export class Textbook {
     Object.entries(groups).forEach((item) => {
       new WordGroupButton(this.textbook, item);
     });
+    const pagination = new WordPagination(this.textbook);
+    pagination.paginate(maxWordsPages);
     const wordGroup = new WordGroup(this.textbook);
     wordGroup.renderCards();
   }

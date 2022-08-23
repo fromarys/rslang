@@ -1,0 +1,32 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+  & ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px;
+    border-radius: 50px;
+    & li {
+      list-style: none;
+      line-height: 45px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s ease;
+      &.number {
+        list-style: none;
+        height: 45px;
+        width: 45px;
+        margin: 0 3px;
+        line-height: 45px;
+        border-radius: 50%;
+      }
+    }
+  }
+}

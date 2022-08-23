@@ -1,4 +1,5 @@
 import Creator from '../../basic/common/creator';
+import './wordCard.scss';
 
 export default class WordCardView extends Creator {
   constructor(parentNode: HTMLElement | null, word: string, translate: string) {

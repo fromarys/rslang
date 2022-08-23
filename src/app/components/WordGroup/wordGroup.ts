@@ -3,6 +3,8 @@ import { WordCard, WordDetails } from '../WordCard';
 import { TextbookService } from '../../basic';
 import TextbookPageView from '../../pages/TextbookPage/textbook.view';
 import WordGroupView from './wordGroup.view';
+// import { WordPagination } from '../WordPagination';
+
 /* eslint-disable */
 export class WordGroup {
   parentNode;
@@ -30,8 +32,10 @@ export class WordGroup {
     new WordDetails(this.wordsWrapper, word);
   }
 
-  public async renderCards(group: number = 0, page: number = 1) {
-    const cards = await this.getCards(group, page);
+  public async renderCards(group: number = 0, page: number = 0) {
+    const storagedPage = parseInt(localStorage.getItem('page') as string, 10);
+    const storagedGroup = parseInt(localStorage.getItem('group') as string, 10);
+    const cards = await this.getCards(group || storagedGroup, page || storagedPage);
     this.setWordDetails(cards[this.selectedCard]);
   }
 }

@@ -1,7 +1,4 @@
 import { IGroups } from './types';
-export enum Backend {
-  host = 'http://127.0.0.1:3000',
-}
 
 export const groups: IGroups = {
   A1: 'Easy',
@@ -11,3 +8,5 @@ export const groups: IGroups = {
   C1: 'Hard',
   C2: 'Hard',
 };
+
+export const maxWordsPages = 29;

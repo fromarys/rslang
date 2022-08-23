@@ -1,4 +1,4 @@
-import { Backend } from '../../common/constants';
+import { Backend } from '../../common';
 import { IWord } from '../../common';
 
 export class WordsApi {
