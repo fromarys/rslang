@@ -1,4 +1,4 @@
-import { IAuth, IUser, IUserResponse, IError, IUserWord, IStatistic, ISetting } from '../interfaces/interfaces';
+import { IAuth, IUser, IUserResponse, IError, IUserWord, IStatistic, ISetting, IWord } from '../interfaces/interfaces';
 
 export default class Api {
   static instance: Api;
@@ -62,7 +62,7 @@ export default class Api {
   }
 
   /**
-   * Отправляет GET запрос
+   * Отправляет GET запрос с авторизацией
    * @param url URL адрес
    * @returns Respose-ответ без декодирования
    */
@@ -71,6 +71,22 @@ export default class Api {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${Api.mainToken}`,
+        Accept: 'application/json',
+      },
+    }).then(async (resp: Response) => {
+      return resp.ok ? ((await resp.json()) as T) : { error: true, errorMessage: await resp.text() };
+    });
+  }
+
+  /**
+   * Отправляет GET запрос без авторизации
+   * @param url URL адрес
+   * @returns Respose-ответ без декодирования
+   */
+  private async getGet<T>(url: string): Promise<T | IError> {
+    return fetch(url, {
+      method: 'GET',
+      headers: {
         Accept: 'application/json',
       },
     }).then(async (resp: Response) => {
@@ -110,6 +126,31 @@ export default class Api {
         Authorization: `Bearer ${Api.mainToken}`,
       },
     }).then((resp: Response) => resp.ok);
+  }
+
+  /*
+   *
+   *  Раздел Words
+   *
+   */
+
+  /**
+   * Возвращает список слов заданной группы и страницы
+   * @param group Номер группы
+   * @param page Номер страницы
+   * @returns Массив слов заданной группы и страницы
+   */
+  public async getWords(group: string, page: string): Promise<IWord[] | IError> {
+    return this.getGet<IWord[]>(`${this.baseUrl}/words?group=${group}&page=${page}`);
+  }
+
+  /**
+   * Возвращает слово по ИД
+   * @param id ID слова
+   * @returns Массив слов заданной группы и страницы
+   */
+  public async getWordsById(id: string): Promise<IWord | IError> {
+    return this.getGet<IWord>(`${this.baseUrl}/words/${id}`);
   }
 
   /*
