@@ -1,22 +1,21 @@
-import Creator from '../../basic/common/creator';
-import TextbookPageView from '../../pages/TextbookPage/textbook.view';
+import { Creator } from '../../basic';
+import { TextbookView } from '../../pages';
 import './wordPagination.scss';
-/* eslint-disable */
+
 export class WordPaginationView {
-  pagination;
-  ul
-  // page;
-  constructor(textbook: TextbookPageView) {
+  private readonly pagination: Creator<HTMLElement>;
+  private readonly list: Creator<HTMLElement>;
+  constructor(textbook: TextbookView) {
     this.pagination = new Creator(textbook.textbook.node, 'div', 'pagination');
-    this.ul = new Creator(this.pagination.node, 'ul');
+    this.list = new Creator(this.pagination.node, 'ul');
   }
-  
-  createPage(className: string, content: string) {
-    const page = new Creator(this.ul.node, 'li', className, content);
+
+  public createPage(className: string, content: string): HTMLElement {
+    const page: Creator<HTMLElement> = new Creator(this.list.node, 'li', className, content);
     return page.node;
   }
 
-  destroy(): void {
+  public destroy(): void {
     this.pagination.node.remove();
   }
 }

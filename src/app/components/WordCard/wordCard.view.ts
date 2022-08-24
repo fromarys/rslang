@@ -1,10 +1,11 @@
-import Creator from '../../basic/common/creator';
+import { IWord, IWordCardView } from '../../basic';
+import { Creator } from '../../basic';
 import './wordCard.scss';
 
-export default class WordCardView extends Creator {
-  constructor(parentNode: HTMLElement | null, word: string, translate: string) {
-    const content = `<h2 class="words__word">${word}</h2>
-    <h3 class="words__translate">${translate}</h3>`;
-    super(parentNode, 'button', 'words__card', content);
+export default class WordCardView extends Creator implements IWordCardView {
+  constructor(parentNode: HTMLElement | null, wordInfo: IWord, className: string) {
+    const content = `<h2 class="words__word">${wordInfo.word}</h2>
+    <h3 class="words__translate">${wordInfo.wordTranslate}</h3>`;
+    super(parentNode, 'button', `words__card ${className}`, content);
   }
 }

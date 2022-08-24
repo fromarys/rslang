@@ -1,26 +1,21 @@
-import TextbookPageView from './textbook.view';
-/* eslint-disable */
+import { TextbookView } from './textbook.view';
 import { WordGroup, WordGroupButton, WordPagination } from '../../components';
-import { groups, maxWordsPages } from '../../basic/common';
+import { groups, maxWordsPages, routeParentNode, ITextbook } from '../../basic';
 
-export class Textbook {
-  textbook: TextbookPageView;
-  group;
-  textbookHeader;
+export class Textbook implements ITextbook {
+  public readonly textbook: TextbookView;
   constructor() {
-    const parentNode = document.querySelector('.root');
-    this.textbook = new TextbookPageView(parentNode as HTMLElement);
-    this.group = this.textbook.group.node;
-    this.textbookHeader = this.textbook.textbookHeader.node;
+    const parentNode = document.querySelector(routeParentNode);
+    this.textbook = new TextbookView(parentNode as HTMLElement);
   }
 
-  public renderPage() {
+  public renderPage(): void {
     Object.entries(groups).forEach((item) => {
       new WordGroupButton(this.textbook, item);
     });
-    const pagination = new WordPagination(this.textbook);
+    const pagination: WordPagination = new WordPagination(this.textbook);
     pagination.paginate(maxWordsPages);
-    const wordGroup = new WordGroup(this.textbook);
-    wordGroup.renderCards();
+    const wordGroup: WordGroup = new WordGroup(this.textbook);
+    void wordGroup.renderCards();
   }
 }

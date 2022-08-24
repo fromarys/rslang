@@ -8,9 +8,12 @@
   &__card {
     cursor: pointer;
     width: 100%;
-    max-width: 18rem;
+    max-width: 17rem;
     height: 10rem;
     border-radius: 1rem;
     border: none;
+    &.active {
+      background-color: lightblue;
+    }
   }
 }

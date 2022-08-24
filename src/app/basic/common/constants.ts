@@ -1,4 +1,4 @@
-import { IGroups } from './types';
+import { IGroups } from './types/textbook';
 
 export const groups: IGroups = {
   A1: 'Easy',
@@ -9,4 +9,10 @@ export const groups: IGroups = {
   C2: 'Hard',
 };
 
-export const maxWordsPages = 29;
+export const maxWordsPages = 30;
+
+export const cardOnLoad = 0;
+
+export const routeParentNode = '.root';
+
+export const activityClass = 'active';

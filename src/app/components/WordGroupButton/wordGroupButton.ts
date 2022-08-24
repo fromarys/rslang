@@ -1,38 +1,45 @@
-import { groups } from '../../basic/common';
-import TextbookPageView from '../../pages/TextbookPage/textbook.view';
-import { WordGroup } from '../WordGroup/wordGroup';
+import { activityClass, groups, IWordGroupButton } from '../../basic';
+import { TextbookView } from '../../pages';
+import { WordGroup } from '../WordGroup';
 import WordGroupButtonView from './wordGroupButton.view';
-/* eslint-disable */
-export class WordGroupButton  {
-  view;
-  parentNode;
-  group;
-  constructor(textbook: TextbookPageView, item: string[]) {
-    this.group = Object.keys(groups);
+
+export class WordGroupButton implements IWordGroupButton {
+  readonly view: WordGroupButtonView;
+  readonly parentNode: HTMLElement;
+  readonly groupList: string[];
+  readonly textbook: TextbookView;
+  groupClassName: string;
+  group: HTMLElement;
+  constructor(textbook: TextbookView, item: string[]) {
+    this.groupList = Object.keys(groups);
+    this.textbook = textbook;
     this.parentNode = textbook.group.node;
     this.view = new WordGroupButtonView(this.parentNode, item);
-    this.view.group.node.onclick = (event) => this.clickHandler(textbook, event);
+    this.group = this.view.group.node;
+    this.groupClassName = this.group.className;
+    this.view.group.node.onclick = (event: MouseEvent) => this.clickHandler(textbook, event);
+    if (this.group.classList.contains(activityClass)) this.textbook.activeGroup = this.group;
   }
 
-  clickHandler(textbook: TextbookPageView, event: MouseEvent) {
-    document.querySelector('.words__details')?.remove();
-    const wordContainers = Array.from(document.querySelectorAll('.words__container'));
-    wordContainers.forEach((container) => container.remove());
-    const group = new WordGroup(textbook);
-    const newGroupButton: HTMLElement | null = (event.target as HTMLElement).closest('.group__card');
-    const level = newGroupButton?.dataset.level;
+  private clickHandler(textbook: TextbookView, event: MouseEvent): void {
+    this.textbook.wordsContainer.node.innerHTML = '';
+    const group: WordGroup = new WordGroup(textbook);
+    const newGroupButton: HTMLElement | null = (event.target as HTMLElement).closest(`.${this.groupClassName}`);
+    const level: string | undefined = newGroupButton?.dataset.level;
     this.switchStyles(newGroupButton);
+    console.log(this.textbook.wordsContainer.node);
     if (level) {
-      const newGroupNumber = this.group.indexOf(level);
+      const newGroupNumber: number = this.groupList.indexOf(level);
       localStorage.setItem('group', JSON.stringify(newGroupNumber));
-      group.renderCards(newGroupNumber);
+      void group.renderCards(newGroupNumber);
     }
   }
 
-  switchStyles(newGroupButton: HTMLElement | null) {
-    const groupNumber = parseInt(localStorage.getItem('group') as string, 10);
-    const groupButton = document.querySelector(`[data-level=${this.group[groupNumber]}]`);
-    groupButton?.classList.remove('active');
-    newGroupButton?.classList.add('active');
+  private switchStyles(newGroupButton: HTMLElement | null): void {
+    this.textbook.activeGroup.classList.remove(activityClass);
+    if (newGroupButton) {
+      this.textbook.activeGroup = newGroupButton;
+      this.textbook.activeGroup.classList.add(activityClass);
+    }
   }
 }

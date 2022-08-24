@@ -1,7 +1,7 @@
 .group {
   display: flex;
   column-gap: 1.5rem;
-  &__card {
+  &__button {
     cursor: pointer;
     width: 100%;
     max-width: 22rem;
@@ -12,7 +12,9 @@
     border: none;
     align-items: center;
     padding: 0 2rem;
-
+    &.active {
+      background-color: lightblue;
+    }
     &-left, &-right {
       font-size: 2rem;
     }
