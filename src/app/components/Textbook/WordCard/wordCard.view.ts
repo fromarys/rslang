@@ -1,5 +1,5 @@
-import { IWord, IWordCardView } from '../../basic';
-import { Creator } from '../../basic';
+import { IWord, IWordCardView } from '../../../basic';
+import { Creator } from '../../Creator';
 import './wordCard.scss';
 
 export default class WordCardView extends Creator implements IWordCardView {

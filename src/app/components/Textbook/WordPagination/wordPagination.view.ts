@@ -1,5 +1,5 @@
-import { Creator } from '../../basic';
-import { TextbookView } from '../../pages';
+import Creator from '../../Creator/Creator';
+import { TextbookView } from '../../../pages';
 import './wordPagination.scss';
 
 export class WordPaginationView {

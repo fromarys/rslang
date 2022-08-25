@@ -1,5 +1,5 @@
-import { activityClass, groups, IWordGroupButton } from '../../basic';
-import { TextbookView } from '../../pages';
+import { activityClass, groups, IWordGroupButton } from '../../../basic';
+import { TextbookView } from '../../../pages';
 import { WordGroup } from '../WordGroup';
 import WordGroupButtonView from './wordGroupButton.view';
 

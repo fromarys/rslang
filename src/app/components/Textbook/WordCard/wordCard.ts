@@ -6,7 +6,7 @@ import {
   IWordDetails,
   IWordGroupView,
   ITextbookView,
-} from '../../basic';
+} from '../../../basic';
 import WordCardView from './wordCard.view';
 import { WordDetails } from '../WordDetails/wordDetails';
 

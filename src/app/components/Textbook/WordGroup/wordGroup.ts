@@ -1,5 +1,5 @@
-import { activityClass, IWord, TextbookService, IWordGroup, ITextbookView, IWordGroupView } from '../../basic';
-import { WordCard } from '../';
+import { activityClass, IWord, TextbookService, IWordGroup, ITextbookView, IWordGroupView } from '../../../basic';
+import { WordCard } from '../..';
 import WordGroupView from './wordGroup.view';
 
 export class WordGroup implements IWordGroup {

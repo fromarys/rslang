@@ -1,5 +1,5 @@
-import { Creator } from '../../basic';
-import { ICreator } from '../../basic';
+import { Creator } from '../../Creator';
+import { ICreator } from '../../../basic';
 import './wordGroupButton.scss';
 
 export default class WordGroupButtonView {

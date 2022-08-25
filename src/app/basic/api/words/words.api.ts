@@ -1,5 +1,5 @@
 import { Backend } from '../../common';
-import { IWord } from '../../common';
+import { IWord } from '../../interfaces/interfaces';
 
 export class WordsApi {
   public static async getWords(group: number, page: number): Promise<IWord[]> {

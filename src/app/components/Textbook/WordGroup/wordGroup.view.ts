@@ -1,4 +1,4 @@
-import { IWordGroupView, ITextbookView } from '../../basic';
+import { IWordGroupView, ITextbookView } from '../../../basic';
 
 export default class WordGroupView implements IWordGroupView {
   activeElement: HTMLElement;

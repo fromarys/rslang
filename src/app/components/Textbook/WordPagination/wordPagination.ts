@@ -1,5 +1,5 @@
-import { TextbookView } from '../../pages';
-import { WordGroup } from '../';
+import { TextbookView } from '../../../pages';
+import { WordGroup } from '../..';
 import { WordPaginationView } from './wordPagination.view';
 
 export class WordPagination {

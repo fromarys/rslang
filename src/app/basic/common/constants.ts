@@ -1,4 +1,4 @@
-import { IGroups } from './types/textbook';
+import { IGroups } from '../interfaces/textbook';
 
 export const groups: IGroups = {
   A1: 'Easy',

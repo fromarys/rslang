@@ -1,4 +1,4 @@
-import { Backend, IWord, IWordDetails, IWordDetailsView } from '../../basic';
+import { Backend, IWord, IWordDetails, IWordDetailsView } from '../../../basic';
 import WordDetailsView from './wordDetails.view';
 
 export class WordDetails implements IWordDetails {
