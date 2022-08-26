@@ -1,7 +1,6 @@
 import { IAuth, IUser, IUserResponse, IError, IUserWord, IStatistic, ISetting, IWord } from '../interfaces/interfaces';
 
 export default class Api {
-  static instance: Api;
   static mainToken = '';
   static refreshToken = '';
   static userId = '';
