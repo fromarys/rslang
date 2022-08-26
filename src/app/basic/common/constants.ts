@@ -13,6 +13,6 @@ export const maxWordsPages = 30;
 
 export const cardOnLoad = 0;
 
-export const routeParentNode = '.root';
-
 export const activityClass = 'active';
+
+export const baseUrl = 'http://127.0.0.1:8080';

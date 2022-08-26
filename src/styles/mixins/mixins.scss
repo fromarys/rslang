@@ -1,0 +1,19 @@
+@mixin recursive {
+    font-family:"Recursive", sans-serif;
+    font-style: normal;
+    letter-spacing: 0.02em;
+    color: $dark-blue;
+  }
+
+  @mixin noto-sans {
+    font-family: "Noto Sans", sans-serif;
+    font-style: normal;
+    letter-spacing: 0.02em;
+    color: $sky-blue;
+  }
+
+  @mixin images {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}

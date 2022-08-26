@@ -1,11 +1,11 @@
 import { TextbookView } from './textbook.view';
 import { WordGroup, WordGroupButton, WordPagination } from '../../components';
-import { groups, maxWordsPages, routeParentNode, ITextbook } from '../../basic';
+import { groups, maxWordsPages, ITextbook } from '../../basic';
 
 export class Textbook implements ITextbook {
   public readonly textbook: TextbookView;
   constructor() {
-    const parentNode = document.querySelector(routeParentNode);
+    const parentNode = document.querySelector('.root');
     this.textbook = new TextbookView(parentNode as HTMLElement);
   }
 

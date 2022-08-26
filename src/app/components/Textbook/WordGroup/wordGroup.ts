@@ -10,15 +10,17 @@ export class WordGroup implements IWordGroup {
     this.view = new WordGroupView(textbook);
   }
 
-  private async getCards(group: number, page: number): Promise<IWord[]> {
+  private async getCards(group: string, page: string): Promise<IWord[]> {
     const words: IWord[] = await TextbookService.getWords(group, page);
-    this.textbook.wordsContainer.node.innerHTML = '';
-    words.forEach((item, index) => {
-      let className = '';
-      if (index === 0) className = activityClass;
-      new WordCard(this.view, this.textbook, item, className);
-    });
-    return words;
+    if (words) {
+      this.textbook.wordsContainer.node.innerHTML = '';
+      words.forEach((item, index) => {
+        let className = '';
+        if (index === 0) className = activityClass;
+        new WordCard(this.view, this.textbook, item, className);
+      });
+      return words;
+    }
   }
 
   public renderCards(group = 0, page = 0): void {

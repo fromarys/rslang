@@ -1,6 +1,8 @@
+@import './variables/variables.scss';
+@import './mixins/mixins.scss';
+
 html {
   font-size: 10px;
-  height: 100%;
 }
 
 * {
@@ -8,5 +10,10 @@ html {
 }
 
 body {
-  height: 100%;
+  @include recursive;
+  margin: 0;
+}
+
+.hidden {
+  display: none;
 }
