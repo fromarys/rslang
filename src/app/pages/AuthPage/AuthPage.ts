@@ -16,7 +16,7 @@ export default class AuthPage {
    * Обработчик нажатия кнопки регистрации или логина
    * @param text Строка нажатой кнопки
    */
-  onClick(text: string): void {
+  onClick(this: AuthPage, text: string): void {
     const [name, login, password] = this.authPageView.getLoginData();
     if (text === ERegisterButtonText.cancel) {
       this.destroy();
