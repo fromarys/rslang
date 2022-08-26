@@ -1,4 +1,4 @@
-import { ICreator } from '../creator';
+import { ICreator } from '../interfaces';
 
 export interface IWordDetails {
   readonly view: IWordDetailsView;

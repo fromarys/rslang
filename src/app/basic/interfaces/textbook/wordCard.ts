@@ -1,5 +1,6 @@
-import { ICreator } from '../creator';
-import { IWord, IWordDetails, IWordGroupView } from '.';
+import { ICreator, IWord } from '../interfaces';
+import { IWordDetails, IWordGroupView } from './';
+
 export interface IWordCard {
   readonly wordCard: IWordCardView;
   readonly wordInfo: IWord;

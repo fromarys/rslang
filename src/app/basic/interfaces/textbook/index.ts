@@ -1,4 +1,3 @@
-export * from './word';
 export * from './textbook';
 export * from './wordCard';
 export * from './wordGroup';

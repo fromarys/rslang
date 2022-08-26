@@ -1,5 +1,4 @@
-import { WordsApi } from '../../basic';
-import { IWord } from '../common';
+import { WordsApi, IWord } from '../../basic';
 
 export class TextbookService {
   public static async getWords(group: number, page: number): Promise<IWord[]> {

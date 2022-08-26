@@ -4,12 +4,14 @@ import { WordPaginationView } from './wordPagination.view';
 
 export class WordPagination {
   private readonly textbook: TextbookView;
+  wordsContainer;
   constructor(textbook: TextbookView) {
     this.textbook = textbook;
+    this.wordsContainer = textbook.wordsContainer.node;
   }
 
   public paginate(totalPages: number, page?: number): void {
-    const currentPage: number = page || (JSON.parse(localStorage.getItem('page') as string) as number | undefined) || 1;
+    const currentPage: number = page || (JSON.parse(localStorage.getItem('page') as string) as number) + 1 || 1;
     const pagination: WordPaginationView = new WordPaginationView(this.textbook);
     if (currentPage > 1) {
       this.showPreviousButton(pagination, totalPages, currentPage);
@@ -28,8 +30,7 @@ export class WordPagination {
 
   private clickHandler(pagination: WordPaginationView, totalPages: number, page: number): void {
     const serverPagination: number = page - 1;
-    document.querySelector('.words__details')?.remove();
-    document.querySelector('.words__container')?.remove();
+    this.wordsContainer.innerHTML = '';
     pagination.destroy();
     this.paginate(totalPages, page);
     const wordGroup: WordGroup = new WordGroup(this.textbook);

@@ -1,4 +1,4 @@
-import Creator from '../../Creator/Creator';
+import { Creator } from '../../Creator';
 import { TextbookView } from '../../../pages';
 import './wordPagination.scss';
 

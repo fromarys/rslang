@@ -12,6 +12,7 @@ export class WordGroup implements IWordGroup {
 
   private async getCards(group: number, page: number): Promise<IWord[]> {
     const words: IWord[] = await TextbookService.getWords(group, page);
+    this.textbook.wordsContainer.node.innerHTML = '';
     words.forEach((item, index) => {
       let className = '';
       if (index === 0) className = activityClass;

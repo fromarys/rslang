@@ -2,7 +2,7 @@ import { activityClass, groups, IWordGroupButton } from '../../../basic';
 import { TextbookView } from '../../../pages';
 import { WordGroup } from '../WordGroup';
 import WordGroupButtonView from './wordGroupButton.view';
-
+/* disable eslint */
 export class WordGroupButton implements IWordGroupButton {
   readonly view: WordGroupButtonView;
   readonly parentNode: HTMLElement;
@@ -22,16 +22,14 @@ export class WordGroupButton implements IWordGroupButton {
   }
 
   private clickHandler(textbook: TextbookView, event: MouseEvent): void {
-    this.textbook.wordsContainer.node.innerHTML = '';
     const group: WordGroup = new WordGroup(textbook);
-    const newGroupButton: HTMLElement | null = (event.target as HTMLElement).closest(`.${this.groupClassName}`);
-    const level: string | undefined = newGroupButton?.dataset.level;
-    this.switchStyles(newGroupButton);
-    console.log(this.textbook.wordsContainer.node);
+    const switchedGroupButton: HTMLElement | null = (event.target as HTMLElement).closest(`.${this.groupClassName}`);
+    const level: string | undefined = switchedGroupButton?.dataset.level;
+    this.switchStyles(switchedGroupButton);
     if (level) {
       const newGroupNumber: number = this.groupList.indexOf(level);
       localStorage.setItem('group', JSON.stringify(newGroupNumber));
-      void group.renderCards(newGroupNumber);
+      group.renderCards(newGroupNumber);
     }
   }
 

@@ -1,6 +1,6 @@
-import './wordDetails.scss';
 import { Backend, IWord, IWordDetailsView } from '../../../basic';
 import { Creator } from '../../Creator';
+import './wordDetails.scss';
 
 export default class WordDetailsView implements IWordDetailsView {
   readonly details: Creator;

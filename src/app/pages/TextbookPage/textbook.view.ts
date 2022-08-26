@@ -1,13 +1,14 @@
-import { Creator, ITextbookView } from '../../basic';
+import { ITextbookView, ICreator } from '../../basic';
+import { Creator } from '../../components';
 import './textbook.scss';
 
 export class TextbookView implements ITextbookView {
-  public readonly textbook: Creator<HTMLElement>;
-  public readonly textbookHeader: Creator<HTMLElement>;
-  public readonly group: Creator<HTMLElement>;
-  public readonly words: Creator<HTMLElement>;
-  public readonly title: Creator<HTMLElement>;
-  public readonly wordsContainer: Creator<HTMLElement>;
+  public readonly textbook: ICreator<HTMLElement>;
+  public readonly textbookHeader: ICreator<HTMLElement>;
+  public readonly group: ICreator<HTMLElement>;
+  public readonly words: ICreator<HTMLElement>;
+  public readonly title: ICreator<HTMLElement>;
+  public readonly wordsContainer: ICreator<HTMLElement>;
   public activeGroup: HTMLElement;
   constructor(parentNode: HTMLElement | null) {
     this.textbook = new Creator(parentNode, 'div', 'textbook');

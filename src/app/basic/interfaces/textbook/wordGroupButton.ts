@@ -1,5 +1,5 @@
 import { ITextbookView } from './textbook';
-import { ICreator } from '../creator';
+import { ICreator } from '../interfaces';
 
 export interface IWordGroupButton {
   readonly view: IWordGroupButtonView;
