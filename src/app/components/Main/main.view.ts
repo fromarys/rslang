@@ -14,21 +14,21 @@ export const getTemplate = () => {
 
           <div class="app-features">
             <div class="card-app-features">
-              <img class="card-backgr" src="../public/static/card-backgr1.png" alt="background" />
+              <img class="card-backgr" src="../public/static/card-backgr1.jpeg" alt="background" />
               <div class="content-card">
                 <img class="icon-app-features" src="../public/static/textbook.png" alt="textbook" />
                 <p class="text-app-features">Electronic textbook with a database of words to study</p>
               </div>
             </div>
             <div class="card-app-features">
-              <img class="card-backgr" src="../public/static/card-backgr2.png" alt="background" />
+              <img class="card-backgr" src="../public/static/card-backgr2.jpeg" alt="background" />
               <div class="content-card">
                 <img class="icon-app-features" src="../public/static/play.png" alt="textbook" />
                 <p class="text-app-features">Mini-games for repeating the learned words</p>
               </div>
             </div>
             <div class="card-app-features">
-              <img class="card-backgr" src="../public/static/card-backgr3.png" alt="background" />
+              <img class="card-backgr" src="../public/static/card-backgr3.jpeg" alt="background" />
               <div class="content-card">
                 <img class="icon-app-features" src="../public/static/stat.png" alt="textbook" />
                 <p class="text-app-features">Detailed statistics of your achievements</p>
