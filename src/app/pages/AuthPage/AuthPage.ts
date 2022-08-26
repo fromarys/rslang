@@ -3,7 +3,7 @@ import AuthPageModel from './AuthPage.model';
 import AuthPageView from './AuthPage.view';
 import { ERegisterButtonText } from '../../basic/enums/enums';
 
-export default class AuthPage {
+export class AuthPage {
   authPageModel: AuthPageModel;
   authPageView: AuthPageView;
 
