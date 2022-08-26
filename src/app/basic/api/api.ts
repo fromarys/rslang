@@ -1,23 +1,21 @@
-import { IAuth, IUser, IUserResponse, IError, IUserWord } from '../interfaces/interfaces';
+import { IAuth, IUser, IUserResponse, IError, IUserWord, IStatistic, ISetting, IWord } from '../interfaces/interfaces';
+import { baseUrl } from '../common/constants';
 
 export default class Api {
-  static instance: Api;
   static mainToken = '';
   static refreshToken = '';
   static userId = '';
 
-  constructor(private baseUrl: string) {
-    if (typeof Api.instance === 'object') {
-      return Api.instance;
-    }
-    Api.instance = this;
+  constructor(...rest: unknown[]) {
+    throw new Error("This class can't be invoked through constructor");
+    console.log(rest);
   }
 
   /**
    * Проверяет авторизирован ли пользователь
    * @returns true - пользователь авторизирован
    */
-  public isAuthorized(): boolean {
+  static isAuthorized(): boolean {
     return !!Api.mainToken;
   }
 
@@ -25,21 +23,21 @@ export default class Api {
    * Возвращает токен-строку или null, если не авторизирован
    * @returns Токен-строка или null, если не авторизирован
    */
-  public getAuthToken(): Pick<IAuth, 'token' | 'userId'> | null {
-    return this.isAuthorized() ? { token: Api.mainToken, userId: Api.userId } : null;
+  static getAuthToken(): Pick<IAuth, 'token' | 'userId'> | null {
+    return Api.isAuthorized() ? { token: Api.mainToken, userId: Api.userId } : null;
   }
 
   /**
    * Сохраняет токен и ИД пользователя для дальнейших запросов
    * @param response Токен логина и ИД
    */
-  public setAuthData(response: IAuth): void {
+  static setAuthData(response: IAuth): void {
     Api.mainToken = response.token;
     Api.refreshToken = response.refreshToken;
     Api.userId = response.userId;
   }
 
-  //private async responseHandler<T>(response: Response): Promise<T | IError> {}
+  //static async responseHandler<T>(response: Response): Promise<T | IError> {}
 
   /**
    * Отправляет POST запрос
@@ -47,7 +45,7 @@ export default class Api {
    * @param body Отправляемые данные
    * @returns Respose-ответ без декодирования
    */
-  private async sendPost<T>(url: string, body: unknown, auth = false): Promise<T | IError> {
+  static async sendPost<T>(url: string, body: unknown, auth = false): Promise<T | IError> {
     return fetch(url, {
       method: 'POST',
       headers: {
@@ -62,15 +60,31 @@ export default class Api {
   }
 
   /**
-   * Отправляет GET запрос
+   * Отправляет GET запрос с авторизацией
    * @param url URL адрес
    * @returns Respose-ответ без декодирования
    */
-  private async getGetAuth<T>(url: string): Promise<T | IError> {
+  static async getGetAuth<T>(url: string): Promise<T | IError> {
     return fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${Api.mainToken}`,
+        Accept: 'application/json',
+      },
+    }).then(async (resp: Response) => {
+      return resp.ok ? ((await resp.json()) as T) : { error: true, errorMessage: await resp.text() };
+    });
+  }
+
+  /**
+   * Отправляет GET запрос без авторизации
+   * @param url URL адрес
+   * @returns Respose-ответ без декодирования
+   */
+  static async getGet<T>(url: string): Promise<T | IError> {
+    return fetch(url, {
+      method: 'GET',
+      headers: {
         Accept: 'application/json',
       },
     }).then(async (resp: Response) => {
@@ -84,7 +98,7 @@ export default class Api {
    * @param body Отправляемые данные
    * @returns Respose-ответ без декодирования
    */
-  private async sendPut<T>(url: string, body: unknown): Promise<T | IError> {
+  static async sendPut<T>(url: string, body: unknown): Promise<T | IError> {
     return fetch(url, {
       method: 'PUT',
       headers: {
@@ -103,13 +117,38 @@ export default class Api {
    * @param url URL адрес
    * @returns Respose-ответ без декодирования
    */
-  private async sendDelete(url: string): Promise<boolean> {
+  static async sendDelete(url: string): Promise<boolean> {
     return fetch(url, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${Api.mainToken}`,
       },
     }).then((resp: Response) => resp.ok);
+  }
+
+  /*
+   *
+   *  Раздел Words
+   *
+   */
+
+  /**
+   * Возвращает список слов заданной группы и страницы
+   * @param group Номер группы
+   * @param page Номер страницы
+   * @returns Массив слов заданной группы и страницы
+   */
+  static async getWords(group: string, page: string): Promise<IWord[] | IError> {
+    return Api.getGet<IWord[]>(`${baseUrl}/words?group=${group}&page=${page}`);
+  }
+
+  /**
+   * Возвращает слово по ИД
+   * @param id ID слова
+   * @returns Массив слов заданной группы и страницы
+   */
+  static async getWordsById(id: string): Promise<IWord | IError> {
+    return Api.getGet<IWord>(`${baseUrl}/words/${id}`);
   }
 
   /*
@@ -123,16 +162,16 @@ export default class Api {
    * @param user Данные о пользователе
    * @returns Ответ о регистрации или ошибка
    */
-  public async createNewUser(user: IUser): Promise<IUserResponse | IError> {
-    return this.sendPost<IUserResponse>(`${this.baseUrl}/users`, user);
+  static async createNewUser(user: IUser): Promise<IUserResponse | IError> {
+    return Api.sendPost<IUserResponse>(`${baseUrl}/users`, user);
   }
 
   /**
    * Возвращает имя и пароль текущего пользователя
    * @returns Имя и пароль пользователя
    */
-  public async getUserInfo(): Promise<IUserResponse | IError> {
-    return this.getGetAuth<IUserResponse>(`${this.baseUrl}/users/${Api.userId}`);
+  static async getUserInfo(): Promise<IUserResponse | IError> {
+    return Api.getGetAuth<IUserResponse>(`${baseUrl}/users/${Api.userId}`);
   }
 
   /*
@@ -145,8 +184,8 @@ export default class Api {
    * Возвращает массив пользовательских слов
    * @returns Массив пользовательских слов
    */
-  public async getUserAllWords(): Promise<IUserWord[] | IError> {
-    return this.getGetAuth<IUserWord[]>(`${this.baseUrl}/users/${Api.userId}/words`);
+  static async getUserAllWords(): Promise<IUserWord[] | IError> {
+    return Api.getGetAuth<IUserWord[]>(`${baseUrl}/users/${Api.userId}/words`);
   }
 
   /**
@@ -155,8 +194,8 @@ export default class Api {
    * @param body Информация о слове
    * @returns Информация о слове
    */
-  public async createUserWord(wordId: string, body: IUserWord): Promise<IUserWord | IError> {
-    return this.sendPost<IUserWord>(`${this.baseUrl}/users/${Api.userId}/words/${wordId}`, body);
+  static async createUserWord(wordId: string, body: IUserWord): Promise<IUserWord | IError> {
+    return Api.sendPost<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`, body);
   }
 
   /**
@@ -164,8 +203,8 @@ export default class Api {
    * @param wordId ID слова пользователя
    * @returns Информацию о слове пользователя
    */
-  public async getUserWord(wordId: string): Promise<IUserWord | IError> {
-    return this.getGetAuth<IUserWord>(`${this.baseUrl}/users/${Api.userId}/words/${wordId}`);
+  static async getUserWord(wordId: string): Promise<IUserWord | IError> {
+    return Api.getGetAuth<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`);
   }
 
   /**
@@ -174,8 +213,8 @@ export default class Api {
    * @param body Информация о слове
    * @returns Информация о слове
    */
-  public async updateUserWord(wordId: string, body: IUserWord): Promise<IUserWord | IError> {
-    return this.sendPut<IUserWord>(`${this.baseUrl}/users/${Api.userId}/words/${wordId}`, body);
+  static async updateUserWord(wordId: string, body: IUserWord): Promise<IUserWord | IError> {
+    return Api.sendPut<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`, body);
   }
 
   /**
@@ -183,8 +222,81 @@ export default class Api {
    * @param wordId ID пользовательского слова
    * @returns Удачно или нет
    */
-  public async deleteUserWord(wordId: string): Promise<boolean> {
-    return this.sendDelete(`${this.baseUrl}/users/${Api.userId}/words/${wordId}`);
+  static async deleteUserWord(wordId: string): Promise<boolean> {
+    return Api.sendDelete(`${baseUrl}/users/${Api.userId}/words/${wordId}`);
+  }
+
+  /*
+   *
+   *  Раздел Users/AggregatedWords
+   *
+   */
+
+  /**
+   * Возвращает массив Agregated слов
+   * @param query query-параметры запроса
+   * @returns Массив Agregated слов
+   */
+  static async getUserAllAgregatedWords(query: Record<string, string>): Promise<IUser[] | IError> {
+    const queryString = Object.entries(query)
+      .reduce((acc, cur) => acc + `${cur[0]}=${cur[1]}&`, '?')
+      .slice(0, -1);
+    return Api.getGetAuth<IUser[]>(`${baseUrl}/users/${Api.userId}/aggregatedWords${queryString}`);
+  }
+
+  /**
+   * Возвращает информацию о Agregated слове
+   * @param wordId ID Agregated слова
+   * @returns Информацию о Agregated слове
+   */
+  static async getUserAgregatedWord(wordId: string): Promise<IUserWord | IError> {
+    return Api.getGetAuth<IUserWord>(`${baseUrl}/users/${Api.userId}/aggregatedWords/${wordId}`);
+  }
+
+  /*
+   *
+   *  Раздел Users/Statistic
+   *
+   */
+
+  /**
+   * Возвращает статистику о пользователе
+   * @returns Статистика о пользователе
+   */
+  static async getUserStatistics(): Promise<IStatistic | IError> {
+    return Api.getGetAuth<IStatistic>(`${baseUrl}/users/${Api.userId}/statistics`);
+  }
+
+  /**
+   * Устанавливает новую статистику
+   * @param body Новая статистика
+   * @returns Новая статистика
+   */
+  static async updateUserStatistics(body: IStatistic): Promise<IStatistic | IError> {
+    return Api.sendPut<IStatistic>(`${baseUrl}/users/${Api.userId}/statistics`, body);
+  }
+
+  /*
+   *
+   *  Раздел Users/Setting
+   *
+   */
+
+  /**
+   * Возвращает настройки пользователя
+   * @returns Настройки пользователя
+   */
+  static async getUserSettings(): Promise<ISetting | IError> {
+    return Api.getGetAuth<ISetting>(`${baseUrl}/users/${Api.userId}/settings`);
+  }
+
+  /**
+   * Устанавливает новые настройки
+   * @param body Новая статистика
+   * @returns Новая статистика
+   */
+  static async updateUserSettings(body: ISetting): Promise<ISetting | IError> {
+    return Api.sendPut<ISetting>(`${baseUrl}/users/${Api.userId}/settings`, body);
   }
 
   /*
@@ -198,7 +310,7 @@ export default class Api {
    * @param user Имя и пароль пользователя
    * @returns Токен логина или ошибка
    */
-  public async loginUser(user: { email: string; password: string }): Promise<IAuth | IError> {
-    return this.sendPost<IAuth>(`${this.baseUrl}/signin`, user);
+  static async loginUser(user: { email: string; password: string }): Promise<IAuth | IError> {
+    return Api.sendPost<IAuth>(`${baseUrl}/signin`, user);
   }
 }
