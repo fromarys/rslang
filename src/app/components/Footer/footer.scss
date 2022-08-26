@@ -1,0 +1,44 @@
+@import '../../../styles/variables/variables.scss';
+@import '../../../styles/mixins/mixins.scss';
+
+// Footer
+footer {
+    display: flex;
+    align-items: center;
+    height: 150px;
+    background-color: $bluish-grey;
+    font-size: 1.5rem;
+  
+    .content-footer {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+  
+  .link-github {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  
+    .link-github-footer {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+  
+  .item-link-github {
+    margin-right: 20px;
+  }
+  
+  .link-github-footer:hover .item-link-github {
+    color: $sky-blue;
+  }
+  
+  .rslink-footer {
+    margin-right: 40px;
+  }
