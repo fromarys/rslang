@@ -1,8 +1,15 @@
 import Api from '../../basic/api/api';
-import { IAuth, IError } from '../../basic/interfaces/interfaces';
+import { IAuth, IError, IUserResponse } from '../../basic/interfaces/interfaces';
 
 export default class AuthPageModel {
-  public registerNewUser(name: string, email: string, password: string) {
+  /**
+   * Производит регистрацию нового пользователя
+   * @param name Имя пользователя
+   * @param email е-мейл пользователя
+   * @param password Пароль пользователя
+   * @returns Данные о регистрации или ошибку
+   */
+  public async registerNewUser(name: string, email: string, password: string): Promise<IUserResponse | IError> {
     return Api.createNewUser({ name, email, password });
   }
 

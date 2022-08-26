@@ -3,7 +3,7 @@ import AuthPageModel from './AuthPage.model';
 import AuthPageView from './AuthPage.view';
 import { ERegisterButtonText } from '../../basic/enums/enums';
 
-export default class AuthPage {
+export class AuthPage {
   authPageModel: AuthPageModel;
   authPageView: AuthPageView;
 
@@ -16,7 +16,7 @@ export default class AuthPage {
    * Обработчик нажатия кнопки регистрации или логина
    * @param text Строка нажатой кнопки
    */
-  onClick(this: AuthPage, text: string): void {
+  onClick(text: string): void {
     const [name, login, password] = this.authPageView.getLoginData();
     if (text === ERegisterButtonText.cancel) {
       this.destroy();
