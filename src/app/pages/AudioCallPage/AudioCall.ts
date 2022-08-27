@@ -33,9 +33,13 @@ export class AudioCall {
     }
     for (let i = 0; i < WORDS_IN_GAME; i++) {
       const game = new GamePage(this.parent, i, gameWords, words);
-      game.onSelect
+      const promise = new Promise((resolve) => {
+        game.onNext = (str) => resolve(str);
+      });
+      const result = await promise;
+      game.destroy();
+      console.log(result);
     }
-
   }
 
   private getRandomInt(maxInt: number): number {

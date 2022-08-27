@@ -1,6 +1,6 @@
 import Button from '../../../components/Button/Button';
 import Creator from '../../../components/Creator/Creator';
-import { PARTS_AMOUNT } from '../../../basic/common/constants';
+import { GROUP_AMOUNT } from '../../../basic/common/constants';
 
 export default class Rules extends Creator {
   onClick!: (num: number) => void;
@@ -16,7 +16,7 @@ export default class Rules extends Creator {
       new Button(this.node, 'rules_button', 'Ok', () => this.onClick(0));
     } else {
       this.node.innerHTML += '<p class="rules__rules">Выберите раздел</p>';
-      for (let i = 1; i <= PARTS_AMOUNT; i++) {
+      for (let i = 1; i <= GROUP_AMOUNT; i++) {
         const btn = new Button(this.node, 'rules_button', `${i}`, () => this.onClick(i));
         btn.node.style.backgroundColor = this.getColorFromNumber(i);
       }
@@ -29,7 +29,7 @@ export default class Rules extends Creator {
    * @param e Событие KeyboardEvent
    */
   private keyHandler(e: KeyboardEvent) {
-    if (e.key > '0' && e.key <= `${PARTS_AMOUNT}`) {
+    if (e.key > '0' && e.key <= `${GROUP_AMOUNT}`) {
       this.onClick(parseInt(e.key));
     }
   }

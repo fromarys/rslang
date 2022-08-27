@@ -1,5 +1,5 @@
 import Api from '../../basic/api/api';
-import { PAGES_PER_GROUP, PAGES_PER_PART } from '../../basic/common/constants';
+import { PAGES_PER_GROUP } from '../../basic/common/constants';
 import { IError, IWord } from '../../basic/interfaces/interfaces';
 
 export default class AudioCallModel {
