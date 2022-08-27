@@ -1,5 +1,5 @@
-import Creator from '../../components/Creator/Creator';
-import Button from '../../components/Button/Button';
+import { Creator } from '../../components/Creator';
+import { Button } from '../../components/Button';
 import LabelInput from './LabelInput';
 import './register.scss';
 import { ERegisterButtonText } from '../../basic/enums/enums';

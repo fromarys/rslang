@@ -1,6 +1,6 @@
-import Creator from '../Creator/Creator';
+import { Creator } from '../Creator';
 
-export default class Input extends Creator<HTMLInputElement> {
+export class Input extends Creator<HTMLInputElement> {
   constructor(parent: HTMLElement, className: string) {
     super(parent, 'input', className);
     this.node.type = 'text';

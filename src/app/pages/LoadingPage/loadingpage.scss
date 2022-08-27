@@ -1,0 +1,91 @@
+.loading {
+  position: fixed;
+  z-index: 10;
+  background-color: #00000080;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__text {
+    margin-bottom: 20px;
+    color: #fff;
+    font: 400 2em Arial, Helvetica, sans-serif;
+    animation: text-blink 1s infinite alternate;
+  }
+
+  &__outer-box {
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+
+  &__inner-box {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+
+.inner-box1 {
+  left: 0;
+  top: 0;
+  background-color: #f00;
+  animation: box-move 4s infinite;
+}
+
+.inner-box2 {
+  left: 50px;
+  top: 0;
+  background-color: #0f0;
+  animation: box-move 4s -3s infinite;
+}
+
+.inner-box3 {
+  left: 0;
+  top: 50px;
+  background-color: #00f;
+  animation: box-move 4s -2s infinite;
+}
+
+.inner-box4 {
+  left: 50px;
+  top: 50px;
+  background-color: #ff0;
+  animation: box-move 4s -1s infinite;
+}
+
+@keyframes text-blink {
+  from {
+    color: #ffffffff;
+  }
+  to {
+    color: #00000000;
+  }
+}
+
+@keyframes box-move {
+  0% {
+    left: 0;
+    top: 0;
+  }
+  25% {
+    left: 50px;
+    top: 0;
+  }
+  50% {
+    left: 50px;
+    top: 50px;
+  }
+  75% {
+    left: 0;
+    top: 50px;
+  }
+  100% {
+    left: 0;
+    top: 0;
+  }
+}
