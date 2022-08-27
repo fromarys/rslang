@@ -2,7 +2,7 @@ import { activityClass, groups, IWordGroupButton } from '../../../basic';
 import { TextbookView } from '../../../pages';
 import { WordGroup } from '../WordGroup';
 import WordGroupButtonView from './wordGroupButton.view';
-/* disable eslint */
+
 export class WordGroupButton implements IWordGroupButton {
   readonly view: WordGroupButtonView;
   readonly parentNode: HTMLElement;
