@@ -1,6 +1,6 @@
 import { IWord } from '../../../basic/interfaces/interfaces';
-import Button from '../../../components/Button/Button';
-import Creator from '../../../components/Creator/Creator';
+import { Button } from '../../../components/Button/';
+import { Creator } from '../../../components/Creator';
 
 const ANSWER_BUTTONS = 5;
 
@@ -48,7 +48,6 @@ export default class GamePage extends Creator {
   }
 
   private onAnswer(str: string) {
-    
-
+    console.log(str);
   }
 }

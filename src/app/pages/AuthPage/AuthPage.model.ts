@@ -1,4 +1,4 @@
-import Api from '../../basic/api/api';
+import { Api } from '../../basic/api';
 import { IAuth, IError, IUserResponse } from '../../basic/interfaces/interfaces';
 
 export default class AuthPageModel {

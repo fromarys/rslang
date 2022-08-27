@@ -1,4 +1,4 @@
-import Creator from '../../components/Creator/Creator';
+import { Creator } from '../../components/Creator';
 import Rules from './Rules/Rules';
 
 export default class AudioCallView extends Creator {

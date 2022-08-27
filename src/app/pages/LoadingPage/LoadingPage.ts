@@ -1,4 +1,4 @@
-import Creator from '../../components/Creator/Creator';
+import { Creator } from '../../components/Creator';
 import './loadingpage.scss';
 
 export default class LoadingPage extends Creator {

@@ -1,5 +1,5 @@
-import Creator from '../../components/Creator/Creator';
-import Input from '../../components/Input/Input';
+import { Creator } from '../../components/Creator';
+import { Input } from '../../components/Input';
 
 export default class LabelInput {
   wnd: Creator<HTMLElement>;

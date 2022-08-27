@@ -1,4 +1,4 @@
-import Api from '../../basic/api/api';
+import { Api } from '../../basic/api/api';
 import { PAGES_PER_GROUP } from '../../basic/common/constants';
 import { IError, IWord } from '../../basic/interfaces/interfaces';
 

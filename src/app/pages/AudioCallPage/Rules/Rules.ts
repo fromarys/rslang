@@ -1,5 +1,5 @@
-import Button from '../../../components/Button/Button';
-import Creator from '../../../components/Creator/Creator';
+import { Button } from '../../../components/Button';
+import { Creator } from '../../../components/Creator';
 import { GROUP_AMOUNT } from '../../../basic/common/constants';
 
 export default class Rules extends Creator {
