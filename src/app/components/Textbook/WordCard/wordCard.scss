@@ -1,0 +1,19 @@
+.words {
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__card {
+    cursor: pointer;
+    width: 100%;
+    max-width: 17rem;
+    height: 10rem;
+    border-radius: 1rem;
+    border: none;
+    &.active {
+      background-color: lightblue;
+    }
+  }
+}
