@@ -1,4 +1,4 @@
-export default class Creator<NodeType extends HTMLElement = HTMLElement> {
+export class Creator<NodeType extends HTMLElement = HTMLElement> {
   public node: NodeType;
 
   constructor(parentNode: HTMLElement | null, tagName = 'div', className = '', content = '') {

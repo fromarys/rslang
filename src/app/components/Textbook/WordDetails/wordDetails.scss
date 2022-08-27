@@ -1,0 +1,17 @@
+.words {
+  &__audio {
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    border-color: transparent;
+    &-icon {
+      width: 2rem;
+      height: 2rem;
+      color: #a39998;
+      cursor: pointer;
+      &.active {
+        color: #393837;
+      }
+    }
+  }
+}
