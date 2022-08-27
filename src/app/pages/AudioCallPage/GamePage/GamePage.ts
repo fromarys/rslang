@@ -1,3 +1,4 @@
+import { baseUrl } from '../../../basic';
 import { IWord } from '../../../basic/interfaces/interfaces';
 import { Button } from '../../../components/Button/';
 import { Creator } from '../../../components/Creator';
@@ -12,6 +13,8 @@ export default class GamePage extends Creator {
   btnNext: Button;
   btnBack: Button;
   word: IWord;
+  audio: HTMLAudioElement;
+  btnPlay: Button;
 
   constructor(parent: HTMLElement, curIndex: number, gameWords: IWord[], words: IWord[]) {
     super(parent);
@@ -19,6 +22,10 @@ export default class GamePage extends Creator {
     console.log(curIndex, gameWords, words);
     // audio
     this.audioWindow = new Creator(this.node, 'div', 'gamepage__audio-window', 'Here will be sound');
+    this.btnPlay = new Button(this.audioWindow.node, 'gamepage__play', 'Play', () => this.playWord());
+    this.audio = new Audio(`${baseUrl}/${this.word.audio}`);
+    this.audio.oncanplaythrough = () => this.playWord();
+
     for (let i = 0; i < ANSWER_BUTTONS; i++) {
       const btnText = gameWords[curIndex].word;
       this.btnMass.push(new Button(this.node, 'gamepage__answer', btnText, () => this.onAnswer(btnText)));
@@ -49,5 +56,9 @@ export default class GamePage extends Creator {
 
   private onAnswer(str: string) {
     console.log(str);
+  }
+
+  private playWord() {
+    void this.audio.play();
   }
 }
