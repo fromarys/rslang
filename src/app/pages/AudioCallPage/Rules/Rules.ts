@@ -1,27 +1,36 @@
 import { Button } from '../../../components/Button';
 import { Creator } from '../../../components/Creator';
 import { GROUP_AMOUNT } from '../../../basic/common/constants';
+import './rules.scss';
 
 export default class Rules extends Creator {
   onClick!: (num: number) => void;
+  keyHandlerBind!: (e: KeyboardEvent) => void;
 
   constructor(parent: HTMLElement, fromBook = false) {
-    super(parent, 'div', 'rules_window');
-    this.node.innerHTML = `
-      <h2 class="rules__title">Правила игры "Аудиовызов"</h2>
-      <p class="rules__rules">Игра "Аудиовызов" позволяет улучшить восприятие слов на слух.</p>
-      <p class="rules__rules">Вы должны выбрать перевод услышанного слова.</p>
-      `;
+    super(parent, 'div', 'rules');
+    const wnd = new Creator(
+      this.node,
+      'div',
+      'rules__window',
+      `
+        <h2 class="rules__title">Правила игры "Аудиовызов"</h2>
+        <p class="rules__rules">Игра "Аудиовызов" позволяет улучшить восприятие слов на слух.</p>
+        <p class="rules__rules">Вы должны выбрать перевод услышанного слова.</p>
+      `
+    );
+    const btnWrapper = new Creator(wnd.node, 'div', 'rules__btn-wrapper');
     if (fromBook) {
-      new Button(this.node, 'rules_button', 'Ok', () => this.onClick(0));
+      new Button(btnWrapper.node, 'rules__button', 'Ok', () => this.onClick(0));
     } else {
-      this.node.innerHTML += '<p class="rules__rules">Выберите раздел</p>';
+      btnWrapper.node.innerHTML += '<p class="rules__rules">Выберите группу сложности:</p>';
       for (let i = 1; i <= GROUP_AMOUNT; i++) {
-        const btn = new Button(this.node, 'rules_button', `${i}`, () => this.onClick(i));
+        const btn = new Button(btnWrapper.node, 'rules__button', `${i}`, () => this.onClick(i));
         btn.node.style.backgroundColor = this.getColorFromNumber(i);
       }
     }
-    this.initHandler();
+    this.keyHandlerBind = this.keyHandler.bind(this);
+    window.addEventListener('keyup', this.keyHandlerBind);
   }
 
   /**
@@ -34,12 +43,8 @@ export default class Rules extends Creator {
     }
   }
 
-  private initHandler(): void {
-    window.addEventListener('keyup', this.keyHandler.bind(this));
-  }
-
   public destroy() {
-    window.removeEventListener('keyup', this.keyHandler.bind(this));
+    window.removeEventListener('keyup', this.keyHandlerBind);
     super.destroy();
   }
 
