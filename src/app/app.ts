@@ -13,13 +13,13 @@ export class App {
     this.view = new AppView(this.root);
     this.parentNode = this.view.main.instance;
     this.routes = {
-      '/': new Textbook(this.parentNode),
-      auth: new Textbook(this.parentNode),
-      games: new Textbook(this.parentNode),
-      sprint: new Textbook(this.parentNode),
-      textbook: new Textbook(this.parentNode),
-      audiocall: new Textbook(this.parentNode),
-      statistics: new Textbook(this.parentNode),
+      '/': Textbook,
+      auth: Textbook,
+      games: Textbook,
+      sprint: Textbook,
+      textbook: Textbook,
+      audiocall: Textbook,
+      statistics: Textbook,
     };
     this.router = new Router(this.view, this.routes);
   }

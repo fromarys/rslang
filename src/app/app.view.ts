@@ -14,8 +14,8 @@ export class AppView {
     this.footer.init();
   }
 
-  public renderPage(page: ITextbook) {
+  public renderPage(route: ITextbook) {
     this.main.instance.innerHTML = '';
-    page.render();
+    route.render();
   }
 }

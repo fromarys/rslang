@@ -3,3 +3,8 @@ export enum ERegisterButtonText {
   login = 'Login',
   cancel = 'Cancel',
 }
+
+export enum ERoutes {
+  main = '/',
+  textbook = 'textbook',
+}
