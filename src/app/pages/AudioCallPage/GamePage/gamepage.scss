@@ -1,0 +1,158 @@
+@import '../../../../styles/variables/variables.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.gamepage {
+  height: 100vh;
+  width: 100vw;
+  background-color: $background-main-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__progress-window {
+    margin-bottom: 20px;
+  }
+
+  &__progress-item {
+    display: inline-block;
+    margin: 5px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #a0a0a0;
+  }
+
+  &__audio-window {
+    min-height: 260px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__play {
+    margin: 50px;
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    background-image: url(../../../../../public/static/audio.svg);
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s;
+
+    &:hover {
+      background-size: 85%;
+    }
+  }
+
+  &__answer {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    border-radius: 5px;
+    background-color: $background-main-color;
+
+    padding: 15px 20px;
+    margin: 10px;
+    font-size: 1.5em;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($background-main-color, 3%);
+      box-shadow: 5px 5px 5px 0px darken($background-main-color, 5%),
+        inset -3px -3px 3px 3px darken($background-main-color, 3%),
+        inset 3px 3px 3px 3px lighten($background-main-color, 3%);
+    }
+  }
+
+  &__next,
+  &__back {
+    width: 100px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: 0 0 10px 10px $blue;
+    }
+  }
+  &__back:hover {
+    box-shadow: 0 0 10px 10px #A00000;
+  }
+}
+
+.audio-window {
+  &__img {
+    margin: 0 50px;
+    height: 260px;
+    border-radius: 5px;
+  }
+
+  &__right-box {
+    height: 100%;
+    padding: 15px;
+    color: $text-main-color;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+  }
+
+  &__play {
+    margin-right: 10px;
+    height: 3em;
+    width: 3em;
+    vertical-align: baseline;
+    border-radius: 50%;
+    background-image: url(../../../../../public/static/audio.svg);
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s;
+
+    &:hover {
+      background-size: 85%;
+    }
+  }
+
+  &__trascript {
+    margin-left: 10px;
+    color: rgb(255, 171, 0);
+  }
+
+  &__text {
+    padding: 5px 0 5px;
+  }
+}
+
+$answer-shadow: 5px;
+$wrong-color: #A00000;
+$right-color: #00A000;
+
+.answer_wrong {
+  box-shadow: 0 0 15px 5px $wrong-color,
+              inset 0 0 10px 0 $wrong-color;
+              
+  &:hover {
+    box-shadow: 0 0 15px 5px $wrong-color,
+                inset 0 0 10px 0 $wrong-color;
+  }
+}
+.answer_right {
+  box-shadow: 0 0 15px 5px $right-color,
+  inset 0 0 10px 0 $right-color;
+
+  &:hover {
+    box-shadow: 0 0 15px 5px  $right-color,
+                inset 0 0 10px 0 $right-color;
+  }
+}

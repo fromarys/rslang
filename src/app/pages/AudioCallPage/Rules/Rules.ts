@@ -17,6 +17,7 @@ export default class Rules extends Creator {
         <h2 class="rules__title">Правила игры "Аудиовызов"</h2>
         <p class="rules__rules">Игра "Аудиовызов" позволяет улучшить восприятие слов на слух.</p>
         <p class="rules__rules">Вы должны выбрать перевод услышанного слова.</p>
+        <p class="rules__rules">Управлять можно кнопками 1 - 5 выбор, Enter - следущий</p>
       `
     );
     const btnWrapper = new Creator(wnd.node, 'div', 'rules__btn-wrapper');
