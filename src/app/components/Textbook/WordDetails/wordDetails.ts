@@ -1,4 +1,4 @@
-import { Backend, IWord, IWordDetails, IWordDetailsView } from '../../../basic';
+import { baseUrl, IWord, IWordDetails, IWordDetailsView } from '../../../basic';
 import WordDetailsView from './wordDetails.view';
 
 export class WordDetails implements IWordDetails {
@@ -15,7 +15,7 @@ export class WordDetails implements IWordDetails {
   private clickHandler(wordInfo: IWord): void {
     const button: HTMLElement | null = this.view.audioButton.node;
     const icon = button.children[0];
-    const audio: HTMLAudioElement = new Audio(`${Backend.host}/${wordInfo.audio}`);
+    const audio: HTMLAudioElement = new Audio(`${baseUrl}/${wordInfo.audio}`);
     icon?.classList.add('active');
     void audio.play();
     audio.onended = () => icon?.classList.remove('active');
