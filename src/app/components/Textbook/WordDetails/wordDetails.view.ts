@@ -1,4 +1,4 @@
-import { Backend, IWord, IWordDetailsView } from '../../../basic';
+import { baseUrl, IWord, IWordDetailsView } from '../../../basic';
 import { Creator } from '../../Creator';
 import './wordDetails.scss';
 
@@ -12,7 +12,7 @@ export default class WordDetailsView implements IWordDetailsView {
   readonly header: Creator;
   readonly audioButton: Creator<HTMLElement>;
   constructor(parentNode: HTMLElement, word: IWord) {
-    this.image = `<img src="${Backend.host}/${word.image}" class="words__image"></img>`;
+    this.image = `<img src="${baseUrl}/${word.image}" class="words__image"></img>`;
     this.headerContent = this.renderHeader(word);
     this.descriptionContent = this.renderDescription(word);
     this.details = new Creator(parentNode, 'div', 'words__details');
