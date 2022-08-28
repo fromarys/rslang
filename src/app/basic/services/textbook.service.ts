@@ -1,4 +1,4 @@
-import { IWord, IError } from '../../basic';
+import { IWord } from '../../basic';
 import { Api } from '../api';
 
 export class TextbookService {
