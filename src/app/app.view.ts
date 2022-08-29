@@ -16,7 +16,7 @@ export class AppView {
 
   /**
    * Генерирует страницу
-   * @param route Инстанс класса роутера
+   * @param route Инстанс класса роута
    */
   public renderPage(route: ITextbook) {
     this.main.instance.innerHTML = '';

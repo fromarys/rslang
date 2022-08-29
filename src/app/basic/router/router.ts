@@ -22,7 +22,7 @@ export class Router {
   }
   
   /**
-   * Переключает роут
+   * Создает инстанс класса роута и передает номер страницы и группы в качестве аргумента
    * @param hash URL hash
    */
   private switchRoute(hash: string): void {

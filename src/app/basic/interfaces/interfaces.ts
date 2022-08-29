@@ -65,3 +65,8 @@ export interface ICreator<NodeType extends HTMLElement = HTMLElement> {
 export interface IRoutes {
   textbook: ITextbook;
 }
+
+export interface IAggregatedWords {
+  paginatedResults: IWord[];
+  totalCount: Record<string, number>;
+}
