@@ -4,6 +4,7 @@ export enum ERegisterButtonText {
   cancel = 'Cancel',
 }
 
-export enum Backend {
-  host = 'http://127.0.0.1:3000',
+export enum ERoutes {
+  main = '/',
+  textbook = 'textbook',
 }

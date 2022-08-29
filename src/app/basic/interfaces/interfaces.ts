@@ -1,3 +1,5 @@
+import { ITextbook } from './textbook';
+
 export interface IUser {
   name: string;
   email: string;
@@ -58,4 +60,8 @@ export interface ISetting {
 export interface ICreator<NodeType extends HTMLElement = HTMLElement> {
   node: NodeType;
   destroy(): void;
+}
+
+export interface IRoutes {
+  textbook: ITextbook;
 }
