@@ -1,12 +1,12 @@
 import { baseUrl } from '../../../basic';
 import { IWord } from '../../../basic/interfaces/interfaces';
-import { Button } from '../../../components/Button/';
+import { Button } from '../../../components/Button';
 import { Creator } from '../../../components/Creator';
 import './gamepage.scss';
 
 const ANSWER_BUTTONS = 5;
 
-export default class GamePage extends Creator {
+export default class AudioCallGamePage extends Creator {
   onBack!: () => void;
   onNext!: (result: boolean) => void;
   keyHandlerBind: (e: KeyboardEvent) => void;
@@ -88,6 +88,7 @@ export default class GamePage extends Creator {
     new Button(rightWnd.node, 'audio-window__play', '', () => this.playWord());
     new Creator(rightWnd.node, 'span', '', this.word.word);
     new Creator(rightWnd.node, 'span', 'audio-window__trascript', this.word.transcription);
+    new Creator(rightWnd.node, 'span', '', ` - ${this.word.wordTranslate}`);
     new Creator(rightWnd.node, 'div', 'audio-window__text', this.word.textExample);
     new Creator(rightWnd.node, 'div', 'audio-window__text', this.word.textExampleTranslate);
   }

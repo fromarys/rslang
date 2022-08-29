@@ -3,7 +3,7 @@ import { Creator } from '../../../components/Creator';
 import { GROUP_AMOUNT } from '../../../basic/common/constants';
 import './rules.scss';
 
-export default class Rules extends Creator {
+export default class AudioCallRules extends Creator {
   onClick!: (num: number) => void;
   keyHandlerBind!: (e: KeyboardEvent) => void;
 

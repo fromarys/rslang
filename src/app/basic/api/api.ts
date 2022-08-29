@@ -195,7 +195,7 @@ export class Api {
    * @returns Информация о слове
    */
   static async createUserWord(wordId: string, body: IUserWord): Promise<IUserWord | IError> {
-    return Api.sendPost<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`, body);
+    return Api.sendPost<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`, body, true);
   }
 
   /**
