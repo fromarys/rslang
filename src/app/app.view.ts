@@ -14,6 +14,10 @@ export class AppView {
     this.footer.init();
   }
 
+  /**
+   * Генерирует страницу
+   * @param route Инстанс класса роутера
+   */
   public renderPage(route: ITextbook) {
     this.main.instance.innerHTML = '';
     route.render();

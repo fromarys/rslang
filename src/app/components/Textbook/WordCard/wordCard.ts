@@ -1,27 +1,15 @@
-import {
-  activityClass,
-  IWord,
-  IWordCard,
-  IWordCardView,
-  IWordDetails,
-  IWordGroupView,
-  ITextbookView,
-} from '../../../basic';
+import { activityClass, IWord, IWordCardView, IWordGroupView, ITextbookView } from '../../../basic';
 import WordCardView from './wordCard.view';
 import { WordDetails } from '../WordDetails/wordDetails';
 
-export class WordCard implements IWordCard {
-  readonly wordCard: IWordCardView;
-  readonly wordInfo: IWord;
-  readonly wordsWrapper: HTMLElement;
-  readonly wordsContainer: HTMLElement;
-  readonly wordDetails: IWordDetails | undefined;
-  readonly wordGroup: IWordGroupView;
-  constructor(wordGroup: IWordGroupView, textbook: ITextbookView, wordInfo: IWord, className: string) {
-    this.wordGroup = wordGroup;
+export class WordCard {
+  private readonly wordCard: IWordCardView;
+  private readonly wordsWrapper: HTMLElement;
+  private readonly wordsContainer: HTMLElement;
+  private readonly wordDetails: WordDetails | undefined;
+  constructor(private wordGroup: IWordGroupView, textbook: ITextbookView, private wordInfo: IWord, className: string) {
     this.wordsWrapper = textbook.words.node;
     this.wordsContainer = textbook.wordsContainer.node;
-    this.wordInfo = wordInfo;
     this.wordCard = new WordCardView(this.wordsContainer, wordInfo, className);
     if (className) this.wordDetails = new WordDetails(this.wordsWrapper, wordInfo);
     if (className) this.wordGroup.activeElement = this.wordCard.node;

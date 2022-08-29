@@ -1,6 +1,4 @@
-import { IGroups } from '../interfaces/textbook';
-
-export const groups: IGroups = {
+export const groups: Record<string, string> = {
   A1: 'Easy',
   A2: 'Easy',
   B1: 'Medium',

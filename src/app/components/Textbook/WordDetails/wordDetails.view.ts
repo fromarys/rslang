@@ -3,19 +3,19 @@ import { Creator } from '../../Creator';
 import './wordDetails.scss';
 
 export default class WordDetailsView implements IWordDetailsView {
-  readonly details: Creator;
-  readonly image: string;
-  readonly headerContent: string;
-  readonly information: Creator<HTMLElement>;
-  readonly descriptionContent: string;
-  readonly description: Creator<HTMLElement>;
-  readonly header: Creator;
-  readonly audioButton: Creator<HTMLElement>;
-  constructor(parentNode: HTMLElement, word: IWord) {
-    this.image = `<img src="${baseUrl}/${word.image}" class="words__image"></img>`;
-    this.headerContent = this.renderHeader(word);
-    this.descriptionContent = this.renderDescription(word);
-    this.details = new Creator(parentNode, 'div', 'words__details');
+  private readonly details: Creator;
+  private readonly image: string;
+  private readonly headerContent: string;
+  private readonly information: Creator<HTMLElement>;
+  private readonly descriptionContent: string;
+  private readonly description: Creator<HTMLElement>;
+  private readonly header: Creator;
+  public readonly audioButton: Creator<HTMLElement>;
+  constructor(private parentNode: HTMLElement, private word: IWord) {
+    this.image = `<img src="${baseUrl}/${this.word.image}" class="words__image"></img>`;
+    this.headerContent = this.renderHeader(this.word);
+    this.descriptionContent = this.renderDescription(this.word);
+    this.details = new Creator(this.parentNode, 'div', 'words__details');
     this.details.node.innerHTML = this.image;
     this.information = new Creator(this.details.node, 'div', 'words__information');
     this.header = new Creator(this.information.node, 'div', 'words__header', this.headerContent);

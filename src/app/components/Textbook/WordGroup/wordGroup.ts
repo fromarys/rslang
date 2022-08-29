@@ -3,11 +3,9 @@ import { WordCard } from '../..';
 import WordGroupView from './wordGroup.view';
 
 export class WordGroup implements IWordGroup {
-  readonly view: IWordGroupView;
-  readonly textbook: ITextbookView;
-  constructor(textbook: ITextbookView) {
-    this.textbook = textbook;
-    this.view = new WordGroupView(textbook);
+  private readonly view: IWordGroupView;
+  constructor(private textbook: ITextbookView) {
+    this.view = new WordGroupView(this.textbook);
   }
 
   private async getCards(group: string, page: string): Promise<IWord[] | void> {
