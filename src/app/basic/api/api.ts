@@ -1,4 +1,4 @@
-import { IAuth, IUser, IUserResponse, IError, IUserWord, IStatistic, ISetting, IWord } from '../interfaces/interfaces';
+import { IAuth, IUser, IUserResponse, IError, IUserWord, IStatistic, ISetting, IWord } from '../interfaces';
 import { baseUrl } from '../common/constants';
 
 export class Api {

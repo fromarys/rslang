@@ -1,0 +1,22 @@
+@import '../../../styles/variables/variables.scss';
+@import '../../../styles/mixins/mixins.scss';
+
+.advantages {
+  display: flex;
+  background-color: $sky-blue;
+  margin: 40px 20px;
+  justify-content: space-around;
+}
+
+.left-content-advantages {
+  padding-top: 120px;
+  width: 30%;
+
+  .title-advantages {
+    font-size: 2em;
+  }
+
+  .text-advantages {
+    margin: 0;
+  }
+}

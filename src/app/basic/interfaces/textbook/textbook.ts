@@ -1,8 +1,7 @@
 import { ICreator } from '../interfaces';
 
 export interface ITextbook {
-  readonly textbook: ITextbookView;
-  renderPage(): void;
+  render(): void;
 }
 
 export interface ITextbookView {

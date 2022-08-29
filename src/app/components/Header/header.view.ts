@@ -1,34 +1,35 @@
 import './header.scss';
+import { IHeaderMenu } from '../../basic/events/models';
 
-export function getTemplate(): string {
+export function getTemplate(menu: typeof IHeaderMenu): string {
   return `
         <div class="content-header">
           <div class="logo">
-            <a href="#" class="link-logo">
+            <a href="/" class="link-logo">
               <img class="img-logo" src="../../../public/static/logo.jpg" alt="logo" />
               <h1 class="title-logo">RSLang</h1>
             </a>
           </div>
 
-          <nav class="header-menu">
+          <nav data-role="header-menu" class="header-menu">
             <div class="menu">
-              <div class="item">
-                <a href="#"><span>Main</span></a>
+              <div data-id="${menu.Main}" class="item">
+                <a href="#"><span>${menu.Main}</span></a>
               </div>
-              <div class="item">
-                <a href="#"><span>Textbook</span></a>
+              <div data-id="${menu.Textbook}" class="item">
+                <a href="#"><span>${menu.Textbook}</span></a>
               </div>
-              <div class="item">
-                <a href="#"><span>Games</span></a>
+              <div data-id="${menu.Games}" class="item">
+                <a href="#"><span>${menu.Games}</span></a>
               </div>
-              <div class="item">
-                <a href="#"><span>Statistics</span></a>
+              <div data-id="${menu.Statistics}" class="item">
+                <a href="#"><span>${menu.Statistics}</span></a>
               </div>
             </div>
           </nav>
 
-          <div class="log-in">
-          <a href="#"><span>Log in</span></a>
-            </div>
+          <div data-role="auth" class="log-in">
+            <a href="#"><span>${menu.Login}</span></a>
+          </div>
   `;
 }
