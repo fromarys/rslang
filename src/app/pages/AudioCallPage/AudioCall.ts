@@ -8,13 +8,17 @@ import AudioCallRules from './AudioCallRules/AudioCallRules';
 const WORDS_IN_GAME = 20;
 
 export class AudioCall {
-  private rules: AudioCallRules;
+  private rules!: AudioCallRules;
   private audioCallModel: AudioCallModel;
   private parent: HTMLElement;
+  public onExit!: () => void;
 
   constructor(parent: HTMLElement, private group?: number, private page?: number) {
     this.parent = parent;
     this.audioCallModel = new AudioCallModel();
+  }
+
+  public render(): void {
     this.rules = new AudioCallRules(this.parent, !!this.page);
     this.rules.onClick = (group: number) => {
       this.rules.destroy();
@@ -32,7 +36,7 @@ export class AudioCall {
     const gameWords = words.sort(() => Math.random() - 0.5).slice(0, WORDS_IN_GAME);
     console.log(gameWords);
     for (let i = 0; i < gameWords.length; i++) {
-      const game = new AudioCallGamePage(this.parent, i, gameWords);
+      const game = new AudioCallGamePage(this.parent, i, gameWords, () => this.onExit());
       const promise = new Promise<boolean>((resolve) => {
         game.onNext = (str) => resolve(str);
       });
@@ -43,6 +47,6 @@ export class AudioCall {
     if (Api.isAuthorized()) {
       void this.audioCallModel.saveResultToServer(gameWords, answerResult);
     }
-    new AudioCallResultPage(this.parent, gameWords, answerResult);
+    new AudioCallResultPage(this.parent, gameWords, answerResult, () => this.onExit());
   }
 }
