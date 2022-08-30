@@ -1,3 +1,5 @@
+import { EUserWordStatus } from '../enums';
+
 import { ITextbook } from './textbook';
 
 export interface IUser {
@@ -26,8 +28,10 @@ export interface IError {
 }
 
 export interface IUserWord {
-  difficulty: string;
-  optional: Record<string, string>;
+  difficulty: EUserWordStatus;
+  optional: {
+    gamesRight: number;
+  };
 }
 
 export interface IWord {

@@ -15,6 +15,7 @@ export class Api {
   static mainToken = '';
   static refreshToken = '';
   static userId = '';
+  static tokenTime = 0;
 
   constructor(...rest: unknown[]) {
     throw new Error("This class can't be invoked through constructor");
@@ -33,18 +34,19 @@ export class Api {
    * Возвращает токен-строку или null, если не авторизирован
    * @returns Токен-строка или null, если не авторизирован
    */
-  static getAuthToken(): Pick<IAuth, 'token' | 'userId'> | null {
-    return Api.isAuthorized() ? { token: Api.mainToken, userId: Api.userId } : null;
+  static getAuthToken(): Pick<IAuth, 'token' | 'userId' | 'refreshToken'> | null {
+    return Api.isAuthorized() ? { token: Api.mainToken, userId: Api.userId, refreshToken: Api.refreshToken } : null;
   }
 
   /**
    * Сохраняет токен и ИД пользователя для дальнейших запросов
    * @param response Токен логина и ИД
    */
-  static setAuthData(response: IAuth): void {
+  static setAuthData(response: IAuth, time?: number): void {
     Api.mainToken = response.token;
     Api.refreshToken = response.refreshToken;
     Api.userId = response.userId;
+    Api.tokenTime = time ? time : Date.now();
   }
 
   //static async responseHandler<T>(response: Response): Promise<T | IError> {}
@@ -74,11 +76,11 @@ export class Api {
    * @param url URL адрес
    * @returns Respose-ответ без декодирования
    */
-  static async getGetAuth<T>(url: string): Promise<T | IError> {
+  static async getGetAuth<T>(url: string, mainToken = true): Promise<T | IError> {
     return fetch(url, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${Api.mainToken}`,
+        Authorization: `Bearer ${mainToken ? Api.mainToken : Api.refreshToken}`,
         Accept: 'application/json',
       },
     }).then(async (resp: Response) => {
@@ -184,6 +186,10 @@ export class Api {
     return Api.getGetAuth<IUserResponse>(`${baseUrl}/users/${Api.userId}`);
   }
 
+  static async getUserNewToken(): Promise<IAuth | IError> {
+    return Api.getGetAuth<IAuth>(`${baseUrl}/users/${Api.userId}/tokens`, false);
+  }
+
   /*
    *
    *  Раздел Users/Words
@@ -205,7 +211,7 @@ export class Api {
    * @returns Информация о слове
    */
   static async createUserWord(wordId: string, body: IUserWord): Promise<IUserWord | IError> {
-    return Api.sendPost<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`, body);
+    return Api.sendPost<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`, body, true);
   }
 
   /**
