@@ -1,5 +1,5 @@
 import { ICreator } from '../interfaces';
 
-export interface IWordGroupButtonView {
+export interface IWordTabView {
   readonly group: ICreator;
 }

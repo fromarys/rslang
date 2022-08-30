@@ -7,6 +7,10 @@ export const groups: Record<string, string> = {
   C2: 'Hard',
 };
 
+export const difficult: Record<string, string> = {
+  '': 'Difficult words',
+};
+
 export const maxWordsPages = 30;
 
 export const cardOnLoad = 0;

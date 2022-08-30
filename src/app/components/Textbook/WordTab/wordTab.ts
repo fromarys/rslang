@@ -1,19 +1,22 @@
 import { activityClass, groups } from '../../../basic';
 import { TextbookView } from '../../../pages';
 import { WordGroup } from '../WordGroup';
-import WordGroupButtonView from './wordGroupButton.view';
+import WordTabView from './wordTab.view';
 
-export class WordGroupButton {
-  private readonly view: WordGroupButtonView;
+export class WordTab {
+  private readonly view: WordTabView;
   private readonly parentNode: HTMLElement;
   private readonly groupClassName: string;
   private readonly groupButton: HTMLElement;
   private readonly groupNumber;
-  constructor(private textbook: TextbookView, private item: string[]) {
+  private readonly group;
+  constructor(private textbook: TextbookView, private groupData: string[]) {
     this.parentNode = this.textbook.group.node;
-    this.groupNumber = Object.keys(groups).indexOf(this.item[0]);
-    this.view = new WordGroupButtonView(this.parentNode, this.item);
-    this.groupButton = this.view.group.node;
+    this.groupNumber = this.groupData[0] ? Object.keys(groups).indexOf(this.groupData[0]) : 0;
+    this.view = new WordTabView(this.parentNode, this.groupData);
+    this.group = new WordGroup(this.textbook);
+    this.group.renderCards();
+    this.groupButton = this.view.groupButton.node;
     this.groupClassName = this.groupButton.className;
     this.groupButton.onclick = () => this.clickHandler();
     if (this.groupButton.classList.contains(activityClass)) this.textbook.activeGroup = this.groupButton;
