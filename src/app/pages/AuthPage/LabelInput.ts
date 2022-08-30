@@ -27,4 +27,8 @@ export default class LabelInput {
   public setInputType(type: string): void {
     this.input.node.type = type;
   }
+
+  public showInput(show: boolean): void {
+    this.wnd.node.style.display = show ? 'block' : 'none';
+  }
 }
