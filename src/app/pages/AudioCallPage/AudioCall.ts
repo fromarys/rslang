@@ -1,20 +1,21 @@
-import { IWord } from '../../basic/interfaces/interfaces';
+import { Api } from '../../basic';
 import LoadingPage from '../LoadingPage/LoadingPage';
 import AudioCallModel from './AudioCall.model';
-import GamePage from './GamePage/GamePage';
-import Rules from './Rules/Rules';
+import AudioCallGamePage from './AudioCallGamePage/AudioCallGamePage';
+import AudioCallResultPage from './AudioCallResultPage/AudioCallResultPage';
+import AudioCallRules from './AudioCallRules/AudioCallRules';
 
-const WORDS_IN_GAME = 30;
+const WORDS_IN_GAME = 20;
 
 export class AudioCall {
-  private rules: Rules;
+  private rules: AudioCallRules;
   private audioCallModel: AudioCallModel;
   private parent: HTMLElement;
 
   constructor(parent: HTMLElement, private group?: number, private page?: number) {
     this.parent = parent;
     this.audioCallModel = new AudioCallModel();
-    this.rules = new Rules(this.parent, !!this.page);
+    this.rules = new AudioCallRules(this.parent, !!this.page);
     this.rules.onClick = (group: number) => {
       this.rules.destroy();
       void this.mainCycle(group);
@@ -26,23 +27,22 @@ export class AudioCall {
     const currGroup = this.group ? this.group : group;
     const words = await this.audioCallModel.getWordsFromGroup(currGroup, this.page);
     loading.destroy();
-    const gameWords: IWord[] = [];
+    const answerResult: boolean[] = [];
 
-    for (let i = 0; i < WORDS_IN_GAME; i++) {
-      gameWords.push(words[this.getRandomInt(words.length)]);
-    }
-    for (let i = 0; i < WORDS_IN_GAME; i++) {
-      const game = new GamePage(this.parent, i, gameWords, words);
-      const promise = new Promise((resolve) => {
+    const gameWords = words.sort(() => Math.random() - 0.5).slice(0, WORDS_IN_GAME);
+    console.log(gameWords);
+    for (let i = 0; i < gameWords.length; i++) {
+      const game = new AudioCallGamePage(this.parent, i, gameWords);
+      const promise = new Promise<boolean>((resolve) => {
         game.onNext = (str) => resolve(str);
       });
-      const result = await promise;
+      const result: boolean = await promise;
       game.destroy();
-      console.log(result);
+      answerResult.push(result);
     }
-  }
-
-  private getRandomInt(maxInt: number): number {
-    return Math.floor(Math.random() * maxInt);
+    if (Api.isAuthorized()) {
+      void this.audioCallModel.saveResultToServer(gameWords, answerResult);
+    }
+    new AudioCallResultPage(this.parent, gameWords, answerResult);
   }
 }

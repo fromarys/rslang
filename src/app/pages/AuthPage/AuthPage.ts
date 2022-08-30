@@ -6,6 +6,7 @@ import { ERegisterButtonText } from '../../basic/enums/enums';
 export class AuthPage {
   authPageModel: AuthPageModel;
   authPageView: AuthPageView;
+  onExit: (() => void) | undefined;
 
   constructor(parent: HTMLElement) {
     this.authPageModel = new AuthPageModel();
@@ -20,6 +21,7 @@ export class AuthPage {
     const [name, login, password] = this.authPageView.getLoginData();
     if (text === ERegisterButtonText.cancel) {
       this.destroy();
+      this.tryLaunchExit();
     } else if (text === ERegisterButtonText.login) {
       this.authPageView.setMessageText('Logining ...', 'green');
       this.loginUser(login, password);
@@ -46,6 +48,7 @@ export class AuthPage {
       } else {
         this.authPageModel.setAuthData(response);
         this.destroy();
+        this.tryLaunchExit();
       }
     });
   }
@@ -56,5 +59,11 @@ export class AuthPage {
   public destroy(): void {
     // TODO Сделать плавную анимацию исчезновеня
     this.authPageView.destroy();
+  }
+
+  tryLaunchExit() {
+    if (this.onExit !== undefined) {
+      this.onExit();
+    }
   }
 }
