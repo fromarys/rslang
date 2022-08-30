@@ -3,9 +3,7 @@ import { Button, Creator } from '../../../components';
 import './result.scss';
 
 export default class AudioCallResultPage extends Creator {
-  onExit!: () => void;
-
-  constructor(parent: HTMLElement, gameWords: IWord[], gameResult: boolean[]) {
+  constructor(parent: HTMLElement, gameWords: IWord[], gameResult: boolean[], onExit: () => void) {
     super(
       parent,
       'div',
@@ -72,7 +70,7 @@ export default class AudioCallResultPage extends Creator {
           <label for="radio2" class="low-bar__label"></label>
         </div>`
     );
-    new Button(lowBar.node, 'result__exit', 'Exit', () => this.onExit());
+    new Button(lowBar.node, 'result__exit', 'Exit', () => onExit());
   }
 
   drawPie(element: SVGSVGElement, angle: number) {
