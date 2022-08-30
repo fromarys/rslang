@@ -22,7 +22,7 @@ export class App {
       audiocall: AudioCall,
       statistics: Textbook,
     };
-    this.router = new Router(this.view, this.routes);
+    this.router = new Router(this.root, this.view, this.routes);
   }
 
   public start(): void {

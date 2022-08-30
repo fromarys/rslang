@@ -4,10 +4,10 @@ import { ERoutes } from '../enums';
 
 export class Router {
   page: string;
-  parentNode: HTMLElement;
-  constructor(private main: AppView, private routes: TRoutes) {
+  mainNode: HTMLElement;
+  constructor(private root: HTMLElement | null, private main: AppView, private routes: TRoutes) {
     this.page = '';
-    this.parentNode = this.main.main.instance;
+    this.mainNode = this.main.main.instance;
   }
 
   public run(): void {
@@ -20,16 +20,21 @@ export class Router {
   private switchRoute(hash: string): void {
     const key: string = this.routes[hash] ? hash : ERoutes.main;
     const Route: RouteClass = this.routes[key];
+    //TODO Исправить роутинг так, что бы игры загружались в root, остальные в main.
     if (key === ERoutes.textbook) {
-      const route: RouteInstance = new Route(this.parentNode);
+      this.mainNode.innerHTML = '';
+      const route: RouteInstance = new Route(this.mainNode);
       this.page = ERoutes.textbook;
       this.main.renderPage(route);
     } else {
       const page: number = Number(localStorage.getItem('page')) || 0;
       const group: number = Number(localStorage.getItem('group')) || 0;
-      const route = new Route(this.parentNode, group, page);
-      this.page = '';
-      this.main.renderPage(route);
+      if (this.root) {
+        this.root.innerHTML = '';
+        const route = new Route(this.root, group, page);
+        this.page = '';
+        this.main.renderPage(route);
+      }
     }
   }
 
