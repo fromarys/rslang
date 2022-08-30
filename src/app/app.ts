@@ -1,6 +1,7 @@
 import { AppView } from './app.view';
 import { TRoutes, Router } from './basic';
 import { Textbook } from './pages';
+import { AudioCall } from './pages/AudioCallPage';
 
 export class App {
   private readonly view: AppView;
@@ -18,7 +19,7 @@ export class App {
       games: Textbook,
       sprint: Textbook,
       textbook: Textbook,
-      audiocall: Textbook,
+      audiocall: AudioCall,
       statistics: Textbook,
     };
     this.router = new Router(this.view, this.routes);
