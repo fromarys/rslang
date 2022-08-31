@@ -1,5 +1,5 @@
 export interface IWordGroup {
-  renderCards(group: number, page: number): void;
+  renderCards(group: number, page: number, isGroup: boolean): void;
 }
 
 export interface IWordGroupView {

@@ -14,3 +14,13 @@ export enum EUserWordStatus {
   normal = 'normal',
   difficult = 'difficult',
 }
+
+export enum DiffButtonState {
+  normal = 'Mark as difficult',
+  difficult = 'Mark as easy',
+}
+
+export enum StudButtonState {
+  normal = 'Studied',
+  studied = 'Not studied',
+}

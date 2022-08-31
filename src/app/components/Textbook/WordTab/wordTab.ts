@@ -9,25 +9,23 @@ export class WordTab {
   private readonly groupClassName: string;
   private readonly groupButton: HTMLElement;
   private readonly groupNumber;
-  private readonly group;
-  isGroup: boolean;
+  private readonly isGroup: boolean;
   constructor(private textbook: TextbookView, private groupData: string[]) {
     this.isGroup = !!this.groupData[0];
     this.parentNode = this.textbook.group.node;
     this.groupNumber = this.isGroup ? Object.keys(groups).indexOf(this.groupData[0]) : 0;
     this.view = new WordTabView(this.parentNode, this.groupData);
-    this.group = new WordGroup(this.textbook, this.isGroup);
-    this.group.renderCards();
+    this.renderGroupOnLoad();
     this.groupButton = this.view.groupButton.node;
     this.groupClassName = this.groupButton.className;
     this.groupButton.onclick = () => this.clickHandler();
-    if (this.groupButton.classList.contains(activityClass)) this.textbook.activeGroup = this.groupButton;
+    this.setActiveTab();
   }
 
   private clickHandler(): void {
-    const group: WordGroup = new WordGroup(this.textbook, this.isGroup);
+    const group: WordGroup = new WordGroup(this.textbook);
     localStorage.setItem('group', JSON.stringify(this.groupNumber));
-    group.renderCards(this.groupNumber);
+    group.renderCards(this.groupNumber, undefined, this.isGroup);
     this.switchStyles();
   }
 
@@ -35,5 +33,16 @@ export class WordTab {
     this.textbook.activeGroup.classList.remove(activityClass);
     this.textbook.activeGroup = this.groupButton;
     this.textbook.activeGroup.classList.add(activityClass);
+  }
+
+  private renderGroupOnLoad(): void {
+    if (!WordGroup.instance) {
+      const group = new WordGroup(this.textbook);
+      group.renderCards(this.groupNumber, undefined, this.isGroup);
+    }
+  }
+
+  private setActiveTab(): void {
+    if (this.groupButton.classList.contains(activityClass)) this.textbook.activeGroup = this.groupButton;
   }
 }

@@ -1,4 +1,4 @@
-import { baseUrl, IWord, IWordDetailsView } from '../../../basic';
+import { Api, baseUrl, IWord, IWordDetailsView } from '../../../basic';
 import { Creator } from '../../Creator';
 import './wordDetails.scss';
 
@@ -11,12 +11,16 @@ export default class WordDetailsView implements IWordDetailsView {
   private readonly description: Creator<HTMLElement>;
   private readonly header: Creator;
   public readonly audioButton: Creator<HTMLElement>;
+  private detailsButtons: Creator<HTMLElement> | undefined;
+  public difficultButton: Creator<HTMLElement> | undefined;
+  public studiedButton: Creator<HTMLElement> | undefined;
   constructor(private parentNode: HTMLElement, private word: IWord) {
     this.image = `<img src="${baseUrl}/${this.word.image}" class="words__image"></img>`;
     this.headerContent = this.renderHeader(this.word);
     this.descriptionContent = this.renderDescription(this.word);
     this.details = new Creator(this.parentNode, 'div', 'words__details');
     this.details.node.innerHTML = this.image;
+    this.renderButtons();
     this.information = new Creator(this.details.node, 'div', 'words__information');
     this.header = new Creator(this.information.node, 'div', 'words__header', this.headerContent);
     this.description = new Creator(this.information.node, 'div', 'words__description', this.descriptionContent);
@@ -48,5 +52,15 @@ export default class WordDetailsView implements IWordDetailsView {
       <use xlink:href="../../../public/static/audio.svg#audio"></use>
     </svg>
     `;
+  }
+
+  private renderButtons(): void {
+    if (Api.isAuthorized()) {
+      this.detailsButtons = new Creator(this.details.node, 'div', 'words__buttons');
+      const diffBtnClass = 'words__buttons-difficult';
+      const studBtnClass = 'words__buttons-studied';
+      this.difficultButton = new Creator(this.detailsButtons.node, 'button', diffBtnClass, 'Mark as difficult');
+      this.studiedButton = new Creator(this.detailsButtons.node, 'button', studBtnClass, 'Mark as studied');
+    }
   }
 }

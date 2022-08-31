@@ -12,8 +12,8 @@ import {
 import { baseUrl } from '../common/constants';
 /* eslint-disable */
 export class Api {
-  static mainToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsImlhdCI6MTY2MTk0NjI5OCwiZXhwIjoxNjYxOTYwNjk4fQ.SDaQvgo-eshq1Thb_6Vk3Cp5Ql-RBufcEAu_jKv4Qp0';
-  static refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsInRva2VuSWQiOiIxZTQxNzZhZi01ZTcyLTQzNTQtYTZkMS1hNjQwZjQyYTQwYTEiLCJpYXQiOjE2NjE5NDYyOTgsImV4cCI6MTY2MTk2MjQ5OH0.gwvVGXQaCW9Zr13D-sfaS1SCau8Ovy74z-CDTNKI164';
+  static mainToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsImlhdCI6MTY2MTk2MTA0MSwiZXhwIjoxNjYxOTc1NDQxfQ.-q9nlCnm65Zz0i1VNor6Kxyfy2iBuGEcYlLInIm177c';
+  static refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsInRva2VuSWQiOiJiMzllZmY3NC03NTlkLTQ2NWMtYTAzYS05YWY4NzVmMmU4YzMiLCJpYXQiOjE2NjE5NjEwNDEsImV4cCI6MTY2MTk3NzI0MX0.XLQyEK2CaLyOodaAk29wPYkP4CH85adBKI-Atzh3y_A';
   static userId = '630cfef8f0b88e4ebc680998';
   static tokenTime = 0;
 
