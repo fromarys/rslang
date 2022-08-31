@@ -4,12 +4,12 @@ import WordGroupView from './wordGroup.view';
 
 export class WordGroup implements IWordGroup {
   private readonly view: IWordGroupView;
-  constructor(private textbook: ITextbookView) {
+  constructor(private textbook: ITextbookView, private isGroup: boolean) {
     this.view = new WordGroupView(this.textbook);
   }
 
   private async getCards(group: string, page: string): Promise<IWord[] | void> {
-    const words: IWord[] | void = await TextbookService.getWords(group, page);
+    const words: IWord[] | void = await TextbookService.getWords(group, page, this.isGroup);
     if (words) {
       this.textbook.wordsContainer.node.innerHTML = '';
       words.forEach((item, index) => {

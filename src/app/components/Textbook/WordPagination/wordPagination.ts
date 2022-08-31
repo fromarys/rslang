@@ -31,7 +31,8 @@ export class WordPagination {
     this.wordsContainer.innerHTML = '';
     pagination.destroy();
     this.paginate(totalPages, page);
-    const wordGroup: WordGroup = new WordGroup(this.textbook);
+    //TODO изменить правило создание пагинации. Необходимо чтобы пагинация создавалась со вкладками
+    const wordGroup: WordGroup = new WordGroup(this.textbook, false);
     localStorage.setItem('page', JSON.stringify(serverPagination));
     void wordGroup.renderCards(undefined, serverPagination);
   }

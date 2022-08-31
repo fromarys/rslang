@@ -22,7 +22,7 @@ export class Textbook implements ITextbook {
     Object.entries(groups).forEach((item) => {
       new WordTab(textbook, item);
     });
-    if (!Api.isAuthorized()) {
+    if (Api.isAuthorized()) {
       new WordTab(textbook, Object.entries(difficult)[0]);
     }
   }

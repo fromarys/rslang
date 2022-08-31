@@ -10,11 +10,11 @@ import {
   IAggregatedWords,
 } from '../interfaces';
 import { baseUrl } from '../common/constants';
-
+/* eslint-disable */
 export class Api {
-  static mainToken = '';
-  static refreshToken = '';
-  static userId = '';
+  static mainToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsImlhdCI6MTY2MTkyMjY1MywiZXhwIjoxNjYxOTM3MDUzfQ.OhO9mmQG2XHej_HjKrat7nztUlCvmJ2M8zsokSPIgRI';
+  static refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsInRva2VuSWQiOiIyZDQzODc5OS0yMzMwLTQ0ZWQtODFlZC05NjFhODI3ZGYzYzYiLCJpYXQiOjE2NjE5MjI2NTMsImV4cCI6MTY2MTkzODg1M30.kuIzZzdZ3xjMYJsgTFnKxm3459qwG_YlPXUMFsXMSPw';
+  static userId = '630cfef8f0b88e4ebc680998';
   static tokenTime = 0;
 
   constructor(...rest: unknown[]) {

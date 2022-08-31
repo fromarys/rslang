@@ -10,11 +10,13 @@ export class WordTab {
   private readonly groupButton: HTMLElement;
   private readonly groupNumber;
   private readonly group;
+  isGroup: boolean;
   constructor(private textbook: TextbookView, private groupData: string[]) {
+    this.isGroup = !!this.groupData[0];
     this.parentNode = this.textbook.group.node;
-    this.groupNumber = this.groupData[0] ? Object.keys(groups).indexOf(this.groupData[0]) : 0;
+    this.groupNumber = this.isGroup ? Object.keys(groups).indexOf(this.groupData[0]) : 0;
     this.view = new WordTabView(this.parentNode, this.groupData);
-    this.group = new WordGroup(this.textbook);
+    this.group = new WordGroup(this.textbook, this.isGroup);
     this.group.renderCards();
     this.groupButton = this.view.groupButton.node;
     this.groupClassName = this.groupButton.className;
@@ -23,7 +25,7 @@ export class WordTab {
   }
 
   private clickHandler(): void {
-    const group: WordGroup = new WordGroup(this.textbook);
+    const group: WordGroup = new WordGroup(this.textbook, this.isGroup);
     localStorage.setItem('group', JSON.stringify(this.groupNumber));
     group.renderCards(this.groupNumber);
     this.switchStyles();

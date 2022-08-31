@@ -1,21 +1,17 @@
 import { IAggregatedWords, IError, IWord } from '../interfaces';
-import { WORDS_PER_PAGE } from '../common';
+import { WORDS_PER_PAGE, DIFFICULT_WORDS_PER_PAGE } from '../common';
 import { Api } from '../api';
 
 export class TextbookService {
-  public static async getWords(group: string, page: string): Promise<void | IWord[]> {
+  public static async getWords(group: string, page: string, isGroup: boolean): Promise<void | IWord[]> {
     const response: void | IWord[] = Api.isAuthorized()
-      ? await this.getUserAllAggregatedWords(group, page)
+      ? await this.getUserAggregatedWords(group, page, isGroup)
       : await this.getAllWords(group, page);
     return response;
   }
 
-  private static async getUserAllAggregatedWords(group: string, page: string): Promise<IWord[] | void> {
-    const query: Record<string, string> = {
-      group: group,
-      page: page,
-      wordsPerPage: `${WORDS_PER_PAGE}`,
-    };
+  private static async getUserAggregatedWords(group: string, page: string, isGroup: boolean): Promise<IWord[] | void> {
+    const query = this.setQuery(group, page, isGroup);
     const response: void | IError | IAggregatedWords[] = await Api.getUserAllAgregatedWords(query).catch((error) =>
       console.log(error)
     );
@@ -29,5 +25,23 @@ export class TextbookService {
     if (Array.isArray(response)) {
       return response;
     }
+  }
+
+  private static setQuery(group: string, page: string, isGroup: boolean): Record<string, string> {
+    const filter = {
+      userWord: {
+        difficulty: 'difficult',
+      },
+    };
+    const query: Record<string, string> = {
+      group: group,
+      page: page,
+      wordsPerPage: `${WORDS_PER_PAGE}`,
+    };
+    if (!isGroup) {
+      query.filter = JSON.stringify(filter);
+      query.wordsPerPage = `${DIFFICULT_WORDS_PER_PAGE}`;
+    }
+    return query;
   }
 }

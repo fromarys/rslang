@@ -2,7 +2,7 @@ import { Creator } from '../../Creator';
 import { ICreator } from '../../../basic';
 import './wordHardButton.scss';
 
-export default class WordGroupButtonView {
+export default class WordHardTabView {
   public readonly group: ICreator;
   private readonly left: ICreator;
   private readonly right: ICreator;
