@@ -7,6 +7,10 @@ export enum ERegisterButtonText {
 export enum ERoutes {
   main = '/',
   textbook = 'textbook',
+  statistics = 'statistics',
+  audiocall = 'audiocall',
+  sprint = 'sprint',
+  auth = 'auth',
 }
 
 export enum EUserWordStatus {

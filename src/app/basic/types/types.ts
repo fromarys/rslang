@@ -1,3 +1,8 @@
+import { Main } from '../../components';
 import { Textbook } from '../../pages';
-export type Routes = typeof Textbook;
-export type TRoutes = Record<string, Routes>;
+import { AudioCall } from '../../pages/AudioCallPage';
+import { AuthPage } from '../../pages/AuthPage';
+
+export type RouteClass = typeof Textbook | typeof AudioCall | typeof Main | typeof AuthPage;
+export type RouteInstance = Textbook | AudioCall | Main | AuthPage;
+export type TRoutes = Record<string, RouteClass>;
