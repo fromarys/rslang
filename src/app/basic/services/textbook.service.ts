@@ -1,6 +1,7 @@
 import { IAggregatedWords, IError, IWord } from '../interfaces';
 import { WORDS_PER_PAGE, DIFFICULT_WORDS_PER_PAGE } from '../common';
 import { Api } from '../api';
+import { EUserWordStatus } from '../enums';
 
 export class TextbookService {
   public static async getWords(group: string, page: string, isGroup: boolean): Promise<void | IWord[]> {
@@ -30,7 +31,7 @@ export class TextbookService {
   private static setQuery(group: string, page: string, isGroup: boolean): Record<string, string> {
     const filter = {
       userWord: {
-        difficulty: 'difficult',
+        difficulty: EUserWordStatus.difficult,
       },
     };
     const query: Record<string, string> = {
