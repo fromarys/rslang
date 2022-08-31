@@ -8,11 +8,9 @@ export class App {
   private readonly root: HTMLElement | null;
   private readonly routes: TRoutes;
   private readonly router: Router;
-  private readonly parentNode: HTMLElement;
   constructor() {
     this.root = document.querySelector('.root');
     this.view = new AppView(this.root);
-    this.parentNode = this.view.main.instance;
     this.routes = {
       '/': Textbook,
       auth: Textbook,

@@ -5,9 +5,11 @@ import { ERoutes } from '../enums';
 export class Router {
   page: string;
   mainNode: HTMLElement;
+  // mainNode2: HTMLElement;
   constructor(private root: HTMLElement | null, private main: AppView, private routes: TRoutes) {
     this.page = '';
     this.mainNode = this.main.main.instance;
+    // this.mainNode2 = this.main.mainNode.node;
   }
 
   public run(): void {
@@ -17,28 +19,37 @@ export class Router {
     });
   }
 
+  private getHash() {
+    return window.location.hash.slice(1);
+  }
+
   private switchRoute(hash: string): void {
     const key: string = this.routes[hash] ? hash : ERoutes.main;
     const Route: RouteClass = this.routes[key];
-    //TODO Исправить роутинг так, что бы игры загружались в root, остальные в main.
-    if (key === ERoutes.textbook) {
-      this.mainNode.innerHTML = '';
-      const route: RouteInstance = new Route(this.mainNode);
-      this.page = ERoutes.textbook;
-      this.main.renderPage(route);
+    if (key === ERoutes.sprint || key === ERoutes.audiocall) {
+      this.loadGame(Route);
     } else {
-      const page: number = Number(localStorage.getItem('page')) || 0;
-      const group: number = Number(localStorage.getItem('group')) || 0;
-      if (this.root) {
-        this.root.innerHTML = '';
-        const route = new Route(this.root, group, page);
-        this.page = '';
-        this.main.renderPage(route);
-      }
+      this.loadPage(Route, key);
     }
   }
 
-  private getHash() {
-    return window.location.hash.slice(1);
+  private loadGame(Route: RouteClass): void {
+    const page: number = Number(localStorage.getItem('page')) || 0;
+    const group: number = Number(localStorage.getItem('group')) || 0;
+    if (this.root) {
+      const route = new Route(this.root, group, page);
+      this.page = '';
+      this.main.renderGame(route);
+    }
+  }
+
+  private loadPage(Route: RouteClass, key: string): void {
+    const route: RouteInstance = new Route(this.mainNode);
+    if (key === ERoutes.textbook) {
+      this.page = ERoutes.textbook;
+    } else {
+      this.page = '';
+    }
+    this.main.renderPage(route);
   }
 }
