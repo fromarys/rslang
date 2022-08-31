@@ -1,5 +1,6 @@
 import './header.scss';
 import { IHeaderMenu } from '../../basic/events/models';
+import { ERoutes } from '../../basic';
 
 export function getTemplate(menu: typeof IHeaderMenu): string {
   return `
@@ -14,22 +15,22 @@ export function getTemplate(menu: typeof IHeaderMenu): string {
           <nav data-role="header-menu" class="header-menu">
             <div class="menu">
               <div data-id="${menu.Main}" class="item">
-                <a href="#"><span>${menu.Main}</span></a>
+                <a href="${ERoutes.main}"><span>${menu.Main}</span></a>
               </div>
               <div data-id="${menu.Textbook}" class="item">
-                <a href="#textbook"><span>${menu.Textbook}</span></a>
+                <a href="#${ERoutes.textbook}"><span>${menu.Textbook}</span></a>
               </div>
               <div data-id="${menu.Games}" class="item">
-                <a href="#audiocall"><span>${menu.Games}</span></a>
+                <a href="#${ERoutes.audiocall}"><span>${menu.Games}</span></a>
               </div>
               <div data-id="${menu.Statistics}" class="item">
-                <a href="#"><span>${menu.Statistics}</span></a>
+                <a href="#${ERoutes.statistics}"><span>${menu.Statistics}</span></a>
               </div>
             </div>
           </nav>
 
           <div data-role="auth" class="log-in">
-            <a href="#auth"><span>${menu.Login}</span></a>
+            <a href="#${ERoutes.auth}"><span>${menu.Login}</span></a>
           </div>
   `;
 }

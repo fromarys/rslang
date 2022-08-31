@@ -15,7 +15,7 @@ export const cardOnLoad = 0;
 
 export const activityClass = 'active';
 
-export const baseUrl = 'http://127.0.0.1:8080';
+export const baseUrl = 'http://127.0.0.1:3000';
 
 export const GROUP_AMOUNT = 6;
 
