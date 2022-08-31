@@ -1,5 +1,6 @@
 import { AppView } from './app.view';
 import { TRoutes, Router } from './basic';
+import { Main } from './components';
 import { Textbook } from './pages';
 import { AudioCall } from './pages/AudioCallPage';
 
@@ -12,7 +13,7 @@ export class App {
     this.root = document.querySelector('.root');
     this.view = new AppView(this.root);
     this.routes = {
-      '/': Textbook,
+      '/': Main,
       auth: Textbook,
       games: Textbook,
       sprint: Textbook,

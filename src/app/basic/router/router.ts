@@ -5,11 +5,9 @@ import { ERoutes } from '../enums';
 export class Router {
   page: string;
   mainNode: HTMLElement;
-  // mainNode2: HTMLElement;
   constructor(private root: HTMLElement | null, private main: AppView, private routes: TRoutes) {
     this.page = '';
     this.mainNode = this.main.main.instance;
-    // this.mainNode2 = this.main.mainNode.node;
   }
 
   public run(): void {
