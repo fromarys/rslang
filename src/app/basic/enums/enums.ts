@@ -10,6 +10,7 @@ export enum ERoutes {
   statistics = 'statistics',
   audiocall = 'audiocall',
   sprint = 'sprint',
+  auth = 'auth',
 }
 
 export enum EUserWordStatus {

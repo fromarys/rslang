@@ -29,7 +29,7 @@ export function getTemplate(menu: typeof IHeaderMenu): string {
           </nav>
 
           <div data-role="auth" class="log-in">
-            <a href="#"><span>${menu.Login}</span></a>
+            <a href="#auth"><span>${menu.Login}</span></a>
           </div>
   `;
 }

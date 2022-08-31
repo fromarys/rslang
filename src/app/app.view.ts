@@ -1,5 +1,6 @@
 import { Header, Main, Footer } from './';
 import { RouteInstance } from './basic/types';
+import { AuthPage } from './pages/AuthPage';
 
 export class AppView {
   private readonly header: Header;
@@ -25,6 +26,11 @@ export class AppView {
     this.main.init();
     this.main.instance.innerHTML = '';
     this.footer.init();
+    route.render();
+  }
+
+  public renderModal(route: AuthPage, previousRoute: string) {
+    route.onExit = () => window.location.hash = previousRoute;
     route.render();
   }
 }
