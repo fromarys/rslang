@@ -1,7 +1,7 @@
-import { activityClass, IWord, IWordCardView, IWordGroupView, ITextbookView } from '../../../basic';
+/* eslint-disable */
+import { activityClass, IWord, IUserWord, IWordCardView, IWordGroupView, ITextbookView } from '../../../basic';
 import WordCardView from './wordCard.view';
 import { WordDetails } from '../WordDetails/wordDetails';
-
 export class WordCard {
   private readonly wordCard: IWordCardView;
   private readonly wordsWrapper: HTMLElement;

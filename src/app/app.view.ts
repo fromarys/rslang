@@ -1,11 +1,12 @@
 import { Header, Main, Footer } from './';
-import { ITextbook } from './basic';
+import { RouteInstance } from './basic/types';
+import { AuthPage } from './pages/AuthPage';
 
 export class AppView {
   private readonly header: Header;
   public readonly main: Main;
   private readonly footer: Footer;
-  constructor(root: HTMLElement | null) {
+  constructor(private root: HTMLElement | null) {
     this.header = new Header(root);
     this.header.init();
     this.main = new Main(root);
@@ -18,8 +19,22 @@ export class AppView {
    * Генерирует страницу
    * @param route Инстанс класса роута
    */
-  public renderPage(route: ITextbook) {
+  public renderGame(route: RouteInstance): void {
+    if (this.root) this.root.innerHTML = '';
+    route.render();
+  }
+
+  public renderPage(route: RouteInstance): void {
+    if (this.root) this.root.innerHTML = '';
+    this.header.init();
+    this.main.init();
     this.main.instance.innerHTML = '';
+    this.footer.init();
+    route.render();
+  }
+
+  public renderModal(route: AuthPage, previousRoute: string) {
+    route.onExit = () => (window.location.hash = previousRoute);
     route.render();
   }
 }

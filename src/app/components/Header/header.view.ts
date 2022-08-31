@@ -17,10 +17,10 @@ export function getTemplate(menu: typeof IHeaderMenu): string {
                 <a href="#"><span>${menu.Main}</span></a>
               </div>
               <div data-id="${menu.Textbook}" class="item">
-                <a href="#"><span>${menu.Textbook}</span></a>
+                <a href="#textbook"><span>${menu.Textbook}</span></a>
               </div>
               <div data-id="${menu.Games}" class="item">
-                <a href="#"><span>${menu.Games}</span></a>
+                <a href="#audiocall"><span>${menu.Games}</span></a>
               </div>
               <div data-id="${menu.Statistics}" class="item">
                 <a href="#"><span>${menu.Statistics}</span></a>
@@ -29,7 +29,7 @@ export function getTemplate(menu: typeof IHeaderMenu): string {
           </nav>
 
           <div data-role="auth" class="log-in">
-            <a href="#"><span>${menu.Login}</span></a>
+            <a href="#auth"><span>${menu.Login}</span></a>
           </div>
   `;
 }

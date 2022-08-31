@@ -1,18 +1,19 @@
-import { activityClass, Api, baseUrl, IWord, IWordDetailsView } from '../../../basic';
+/* eslint-disable */
+import { activityClass, Api, baseUrl, DiffButtonState, IWord, IWordDetailsView, TextbookService } from '../../../basic';
 import WordDetailsView from './wordDetails.view';
-
 export class WordDetails {
   private readonly view: IWordDetailsView;
   private readonly audio: HTMLElement;
   difficultButton;
   studiedButton;
-  constructor(parentNode: HTMLElement, wordInfo: IWord) {
-    const currentDetails = parentNode.childNodes[2];
+  constructor(private parentNode: HTMLElement, private wordInfo: IWord) {
+    const currentDetails = this.parentNode.childNodes[2];
     currentDetails?.remove();
-    this.view = new WordDetailsView(parentNode, wordInfo);
+    this.view = new WordDetailsView(this.parentNode, this.wordInfo);
     this.audio = this.view.audioButton.node;
-    this.audio.onclick = () => this.audioClickHandler(wordInfo);
+    this.audio.onclick = () => this.audioClickHandler(this.wordInfo);
     if (Api.isAuthorized()) {
+      console.log(wordInfo);
       this.difficultButton = this.view.difficultButton?.node;
       this.studiedButton = this.view.studiedButton?.node;
       if (this.difficultButton) this.difficultButton.onclick = () => this.difficultClickHandler();
@@ -30,6 +31,12 @@ export class WordDetails {
   }
 
   private difficultClickHandler() {
+    // const difficulty = {
+    //   difficult: DiffButtonState.difficult
+    // }
+    // if (this.difficultButton) {
+    //   const request = TextbookService.setWordState(this.wordInfo.id,)
+    // }
     console.log('hello');
   }
 

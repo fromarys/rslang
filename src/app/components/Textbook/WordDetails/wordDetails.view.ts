@@ -1,4 +1,4 @@
-import { Api, baseUrl, IWord, IWordDetailsView } from '../../../basic';
+import { Api, baseUrl, DiffButtonState, IWord, IWordDetailsView, StudButtonState } from '../../../basic';
 import { Creator } from '../../Creator';
 import './wordDetails.scss';
 
@@ -59,8 +59,8 @@ export default class WordDetailsView implements IWordDetailsView {
       this.detailsButtons = new Creator(this.details.node, 'div', 'words__buttons');
       const diffBtnClass = 'words__buttons-difficult';
       const studBtnClass = 'words__buttons-studied';
-      this.difficultButton = new Creator(this.detailsButtons.node, 'button', diffBtnClass, 'Mark as difficult');
-      this.studiedButton = new Creator(this.detailsButtons.node, 'button', studBtnClass, 'Mark as studied');
+      this.difficultButton = new Creator(this.detailsButtons.node, 'button', diffBtnClass, DiffButtonState.normal);
+      this.studiedButton = new Creator(this.detailsButtons.node, 'button', studBtnClass, StudButtonState.normal);
     }
   }
 }

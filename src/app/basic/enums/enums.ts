@@ -7,6 +7,10 @@ export enum ERegisterButtonText {
 export enum ERoutes {
   main = '/',
   textbook = 'textbook',
+  statistics = 'statistics',
+  audiocall = 'audiocall',
+  sprint = 'sprint',
+  auth = 'auth',
 }
 
 export enum EUserWordStatus {
@@ -21,6 +25,6 @@ export enum DiffButtonState {
 }
 
 export enum StudButtonState {
-  normal = 'Studied',
-  studied = 'Not studied',
+  normal = 'Add to studied',
+  studied = 'Remove from studied',
 }

@@ -1,4 +1,4 @@
-import { IAggregatedWords, IError, IWord } from '../interfaces';
+import { IAggregatedWords, IError, IUserWord, IWord } from '../interfaces';
 import { WORDS_PER_PAGE, DIFFICULT_WORDS_PER_PAGE } from '../common';
 import { Api } from '../api';
 import { EUserWordStatus } from '../enums';
@@ -44,5 +44,10 @@ export class TextbookService {
       query.wordsPerPage = `${DIFFICULT_WORDS_PER_PAGE}`;
     }
     return query;
+  }
+
+  public static async setWordState(wordId: string, body: IUserWord) {
+    const result = await Api.createUserWord(wordId, body).catch((error) => console.log(error));
+    console.log(result);
   }
 }
