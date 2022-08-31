@@ -30,7 +30,7 @@ export class AppView {
   }
 
   public renderModal(route: AuthPage, previousRoute: string) {
-    route.onExit = () => window.location.hash = previousRoute;
+    route.onExit = () => (window.location.hash = previousRoute);
     route.render();
   }
 }
