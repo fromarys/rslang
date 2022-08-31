@@ -33,49 +33,54 @@ export default class AudioCallModel {
     });
   }
 
-  public saveResultToServer(words: IWord[], answers: boolean[]): void {
-    words.forEach((word: IWord, index) => {
-      void Api.getUserWord(word.id).then((wordInfo) => {
-        if ('difficulty' in wordInfo) {
-          const updateWordInfo: IUserWord = {
-            difficulty: wordInfo.difficulty,
-            optional: {
-              gamesRight: wordInfo.optional.gamesRight,
-            },
-          };
-          // Если запись уже существует, то исправляем и обновляем
-          if (answers[index]) {
-            // Если правильный ответ
-            updateWordInfo.optional.gamesRight++;
-            if (
-              (updateWordInfo.difficulty === EUserWordStatus.normal &&
-                updateWordInfo.optional.gamesRight > NORMAL_DIFFICULTY) ||
-              (updateWordInfo.difficulty === EUserWordStatus.difficult &&
-                updateWordInfo.optional.gamesRight > DIFFICULT_DIFFICULTY)
-            ) {
-              updateWordInfo.difficulty = EUserWordStatus.studied;
-            }
-          } else {
-            // Если неправильный
-            updateWordInfo.optional.gamesRight = 0;
-            if (updateWordInfo.difficulty === EUserWordStatus.normal) {
-              updateWordInfo.difficulty = EUserWordStatus.difficult;
-            } else if (updateWordInfo.difficulty === EUserWordStatus.studied) {
-              updateWordInfo.difficulty = EUserWordStatus.normal;
-            }
+  public saveResultToServer(word: IWord, answer: boolean): void {
+    void Api.getUserWord(word.id).then((wordInfo) => {
+      if ('difficulty' in wordInfo) {
+        // Если запись уже существует, то исправляем и обновляем
+        delete wordInfo.id;
+        delete wordInfo.wordId;
+        if (answer) {
+          // Если правильный ответ
+          wordInfo.optional.audioCall.right++;
+          wordInfo.optional.audioCall.longRight++;
+          if (
+            (wordInfo.difficulty === EUserWordStatus.normal &&
+              wordInfo.optional.audioCall.longRight > NORMAL_DIFFICULTY) ||
+            (wordInfo.difficulty === EUserWordStatus.difficult &&
+              wordInfo.optional.audioCall.longRight > DIFFICULT_DIFFICULTY)
+          ) {
+            wordInfo.difficulty = EUserWordStatus.studied;
           }
-          void Api.updateUserWord(word.id, updateWordInfo);
         } else {
-          // Иначе создаем новую запись
-          const newWordInfo: IUserWord = {
-            difficulty: answers[index] ? EUserWordStatus.normal : EUserWordStatus.difficult,
-            optional: {
-              gamesRight: answers[index] ? 1 : 0,
-            },
-          };
-          void Api.createUserWord(word.id, newWordInfo);
+          // Если неправильный
+          wordInfo.optional.audioCall.wrong++;
+          wordInfo.optional.audioCall.longRight = 0;
+          if (wordInfo.difficulty === EUserWordStatus.normal) {
+            wordInfo.difficulty = EUserWordStatus.difficult;
+          } else if (wordInfo.difficulty === EUserWordStatus.studied) {
+            wordInfo.difficulty = EUserWordStatus.normal;
+          }
         }
-      });
+        void Api.updateUserWord(word.id, wordInfo);
+      } else {
+        // Иначе создаем новую запись
+        const newWordInfo: IUserWord = {
+          difficulty: answer ? EUserWordStatus.normal : EUserWordStatus.difficult,
+          optional: {
+            sprint: {
+              right: 0,
+              wrong: 0,
+              longRight: 0,
+            },
+            audioCall: {
+              right: answer ? 1 : 0,
+              wrong: !answer ? 1 : 0,
+              longRight: answer ? 1 : 0,
+            },
+          },
+        };
+        void Api.createUserWord(word.id, newWordInfo);
+      }
     });
   }
 }

@@ -28,9 +28,20 @@ export interface IError {
 }
 
 export interface IUserWord {
+  id?: string;
+  wordId?: string;
   difficulty: EUserWordStatus;
   optional: {
-    gamesRight: number;
+    sprint: {
+      right: number;
+      wrong: number;
+      longRight: number;
+    };
+    audioCall: {
+      right: number;
+      wrong: number;
+      longRight: number;
+    };
   };
 }
 
