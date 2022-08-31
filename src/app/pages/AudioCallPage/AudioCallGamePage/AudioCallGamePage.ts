@@ -23,7 +23,6 @@ export default class AudioCallGamePage extends Creator {
   constructor(parent: HTMLElement, curIndex: number, gameWords: IWord[], onExit: () => void) {
     super(parent, 'div', 'gamepage');
     this.word = gameWords[curIndex];
-    console.log(this.word);
     const progressWnd = new Creator(this.node, 'div', 'gamepage__progress-window');
     for (let i = 0; i < gameWords.length; i++) {
       const item = new Creator(progressWnd.node, 'div', 'gamepage__progress-item');
@@ -36,7 +35,6 @@ export default class AudioCallGamePage extends Creator {
 
     const btnWrapper1 = new Creator(this.node, 'div', 'gamepage__btn-wrapper');
     const answersNum = this.generateRandomSequence(ANSWER_BUTTONS - 1, gameWords.length, curIndex);
-    console.log(answersNum);
     answersNum.push(curIndex);
     this.answers = answersNum.sort(() => Math.random() - 0.5).map((num) => gameWords[num].wordTranslate);
     this.answers.forEach((btnText, index) => {

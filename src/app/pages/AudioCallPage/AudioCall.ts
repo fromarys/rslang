@@ -19,7 +19,7 @@ export class AudioCall {
   }
 
   public render(): void {
-    this.rules = new AudioCallRules(this.parent, !!this.page);
+    this.rules = new AudioCallRules(this.parent, this.page !== undefined);
     this.rules.onClick = (group: number) => {
       this.rules.destroy();
       void this.mainCycle(group);
@@ -28,7 +28,7 @@ export class AudioCall {
 
   private async mainCycle(group: number) {
     const loading = new LoadingPage(this.parent);
-    const currGroup = this.group ? this.group : group;
+    const currGroup = this.group !== undefined ? this.group : group;
     const words = await this.audioCallModel.getWordsFromGroup(currGroup, this.page);
     loading.destroy();
     const answerResult: boolean[] = [];
@@ -36,17 +36,22 @@ export class AudioCall {
     const gameWords = words.sort(() => Math.random() - 0.5).slice(0, WORDS_IN_GAME);
     console.log(gameWords);
     for (let i = 0; i < gameWords.length; i++) {
-      const game = new AudioCallGamePage(this.parent, i, gameWords, () => this.onExit());
+      const game = new AudioCallGamePage(this.parent, i, gameWords, () => this.exitGame());
       const promise = new Promise<boolean>((resolve) => {
         game.onNext = (str) => resolve(str);
       });
       const result: boolean = await promise;
       game.destroy();
       answerResult.push(result);
+      if (Api.isAuthorized()) {
+        void this.audioCallModel.saveResultToServer(gameWords[i], result);
+      }
     }
-    if (Api.isAuthorized()) {
-      void this.audioCallModel.saveResultToServer(gameWords, answerResult);
-    }
-    new AudioCallResultPage(this.parent, gameWords, answerResult, () => this.onExit());
+    new AudioCallResultPage(this.parent, gameWords, answerResult, () => this.exitGame());
+  }
+
+  private exitGame(): void {
+    this.parent.innerHTML = '';
+    this.onExit();
   }
 }
