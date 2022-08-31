@@ -15,7 +15,7 @@ export class AuthPage {
   constructor(private parent: HTMLElement) {
     this.authPageModel = new AuthPageModel();
     this.authPageView = new AuthPageView(this.parent);
-    this.authPageView.onClick = (text) => this.onClick(text);
+    this.authPageView.onClick = (text: string) => this.onClick(text);
   }
 
   public render(): void {
@@ -138,5 +138,9 @@ export class AuthPage {
     if (Api.isAuthorized()) return true;
     if (this.restoreAuthFromLocalStorage()) return true;
     return false;
+  }
+
+  public clearAuthInLocalStorage() {
+    localStorage.removeItem('rslang-auth');
   }
 }
