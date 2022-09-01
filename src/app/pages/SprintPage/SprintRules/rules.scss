@@ -1,0 +1,55 @@
+@import '../../../../styles/variables/variables.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.rules {
+  height: 100vh;
+  width: 100vw;
+  background-color: $background-main-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  &__window {
+    padding: 20px;
+    color: $text-secondary-color;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: $background-secondary-color;
+    border-radius: 20px;
+  }
+
+  &__title {
+    padding: 1em;
+    font-size: 2em;
+    text-align: center;
+  }
+
+  &__rules {
+    padding: 0.5em;
+    font-size: 1.5em;
+  }
+
+  &__btn-wrapper {
+    margin: 1em auto;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__button {
+    width: 100px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: 0 0 10px 10px $blue;
+    }
+  }
+}

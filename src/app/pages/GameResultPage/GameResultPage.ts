@@ -1,8 +1,8 @@
-import { baseUrl, IWord } from '../../../basic';
-import { Button, Creator } from '../../../components';
+import { baseUrl, IWord } from '../../basic';
+import { Button, Creator } from '../../components';
 import './result.scss';
 
-export default class AudioCallResultPage extends Creator {
+export default class GameResultPage extends Creator {
   constructor(parent: HTMLElement, gameWords: IWord[], gameResult: boolean[], onExit: () => void) {
     super(
       parent,

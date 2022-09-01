@@ -8,14 +8,17 @@ type AuthFull = (Pick<IAuth, 'token' | 'userId' | 'refreshToken'> & { time?: num
 const TOKEN_WORK_TIME = 4; //часа
 
 export class AuthPage {
-  authPageModel: AuthPageModel;
-  authPageView: AuthPageView;
+  authPageModel!: AuthPageModel;
+  authPageView!: AuthPageView;
   onExit: (() => void) | undefined;
+  static instance: AuthPage;
 
   constructor(private parent: HTMLElement) {
+    if (typeof AuthPage.instance === 'object') return AuthPage.instance;
     this.authPageModel = new AuthPageModel();
     this.authPageView = new AuthPageView(this.parent);
     this.authPageView.onClick = (text: string) => this.onClick(text);
+    AuthPage.instance = this;
   }
 
   public render(): void {
