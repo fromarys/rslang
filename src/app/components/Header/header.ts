@@ -1,6 +1,7 @@
 import { BaseComponent } from '../base-component';
 import { getTemplate } from './header.view';
-import { IHeaderMenu, AUTH_BUTTON_CLICK_EVENT } from '../../basic';
+import { IHeaderMenu, AUTH_BUTTON_CLICK_EVENT, ERoutes } from '../../basic';
+import { AuthPage } from '../../pages/AuthPage';
 
 export class Header extends BaseComponent {
   private navButtons: HTMLElement | null = null;
@@ -23,6 +24,14 @@ export class Header extends BaseComponent {
     this.root?.prepend(this.element);
     this.navButtons = <HTMLElement>document.querySelector('[data-role="header-menu"]');
     this.authButton = <HTMLElement>document.querySelector('[data-role="auth"]');
+    const auth = new AuthPage(document.body);
+    if (auth.isAuthorized()) {
+      this.authButton.classList.add('hidden');
+      this.authButton.innerHTML = '';
+    } else {
+      this.authButton.classList.remove('hidden');
+      this.authButton.innerHTML = `<a href="#${ERoutes.auth}"><span>${IHeaderMenu.Login}</span></a>`;
+    }
   }
 
   private listen(): void {

@@ -29,8 +29,6 @@ export function getTemplate(menu: typeof IHeaderMenu): string {
             </div>
           </nav>
 
-          <div data-role="auth" class="log-in">
-            <a href="#${ERoutes.auth}"><span>${menu.Login}</span></a>
-          </div>
-  `;
+          <div data-role="auth" class="visible"></div>
+          `;
 }
