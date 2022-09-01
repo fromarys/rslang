@@ -140,6 +140,11 @@ export class AuthPage {
     return false;
   }
 
+  public unloginUser(): void {
+    Api.unloginUser();
+    this.clearAuthInLocalStorage();
+  }
+
   public clearAuthInLocalStorage() {
     localStorage.removeItem('rslang-auth');
   }
