@@ -31,14 +31,18 @@ export class Router {
       this.loadGame(Route);
     } else if (key === ERoutes.auth) {
       this.loadModal(Route as typeof AuthPage);
+    } else if (key === ERoutes.main) {
+      this.main.renderMain();
     } else {
       this.loadPage(Route, key);
     }
   }
 
   private loadGame(Route: RouteClass): void {
-    const page: number = Number(localStorage.getItem('page')) || 0;
-    const group: number = Number(localStorage.getItem('group')) || 0;
+    const page: number | undefined =
+      this.previousRoute === ERoutes.textbook ? Number(localStorage.getItem('page')) : undefined;
+    const group: number | undefined =
+      this.previousRoute === ERoutes.textbook ? Number(localStorage.getItem('group')) : undefined;
     if (this.root) {
       const route = new Route(this.root, group, page);
       this.route = '';
