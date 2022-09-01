@@ -329,4 +329,11 @@ export class Api {
   static async loginUser(user: { email: string; password: string }): Promise<IAuth | IError> {
     return Api.sendPost<IAuth>(`${baseUrl}/signin`, user);
   }
+
+  static unloginUser(): void {
+    Api.mainToken = '';
+    Api.refreshToken = '';
+    Api.userId = '';
+    Api.tokenTime = 0;
+  }
 }

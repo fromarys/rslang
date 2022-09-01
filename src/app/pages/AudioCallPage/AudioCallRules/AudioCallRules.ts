@@ -22,7 +22,7 @@ export default class AudioCallRules extends Creator {
     );
     const btnWrapper = new Creator(wnd.node, 'div', 'rules__btn-wrapper');
     if (fromBook) {
-      new Button(btnWrapper.node, 'rules__button', 'Ok', () => this.onClick(0));
+      new Button(btnWrapper.node, 'rules__button', 'Ok', () => this.onClick(-1));
     } else {
       btnWrapper.node.innerHTML += '<p class="rules__rules">Выберите группу сложности:</p>';
       for (let i = 1; i <= GROUP_AMOUNT; i++) {
