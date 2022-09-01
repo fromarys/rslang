@@ -20,11 +20,12 @@ export default class WordDetailsView implements IWordDetailsView {
     this.descriptionContent = this.renderDescription(this.word);
     this.details = new Creator(this.parentNode, 'div', 'words__details');
     this.details.node.innerHTML = this.image;
-    this.renderButtons();
+    if (Api.isAuthorized()) this.renderButtons();
     this.information = new Creator(this.details.node, 'div', 'words__information');
     this.header = new Creator(this.information.node, 'div', 'words__header', this.headerContent);
     this.description = new Creator(this.information.node, 'div', 'words__description', this.descriptionContent);
     this.audioButton = new Creator(this.header.node, 'button', 'words__audio', this.renderAudioButton());
+    if (Api.isAuthorized()) this.details.node.insertAdjacentHTML('beforeend', this.renderStatistics());
   }
 
   private renderHeader(word: IWord): string {
@@ -55,12 +56,34 @@ export default class WordDetailsView implements IWordDetailsView {
   }
 
   private renderButtons(): void {
-    if (Api.isAuthorized()) {
-      this.detailsButtons = new Creator(this.details.node, 'div', 'words__buttons');
-      const diffBtnClass = 'words__buttons-difficult';
-      const studBtnClass = 'words__buttons-studied';
-      this.difficultButton = new Creator(this.detailsButtons.node, 'button', diffBtnClass, DiffButtonState.normal);
-      this.studiedButton = new Creator(this.detailsButtons.node, 'button', studBtnClass, StudButtonState.normal);
-    }
+    this.detailsButtons = new Creator(this.details.node, 'div', 'words__buttons');
+    const diffBtnClass = 'words__buttons-difficult';
+    const studBtnClass = 'words__buttons-studied';
+    this.difficultButton = new Creator(this.detailsButtons.node, 'button', diffBtnClass, DiffButtonState.normal);
+    this.studiedButton = new Creator(this.detailsButtons.node, 'button', studBtnClass, StudButtonState.normal);
+  }
+
+  private renderStatistics(): string {
+    const statistics = this.word.userWord?.optional;
+    const audiocall = statistics?.audioCall;
+    const sprint = statistics?.sprint;
+    return `
+      <div class="words__statistics">
+        <div class="words__statistics-wrapper">
+          <div class="words__statistics-game">Audiocall</div>
+          <div class="words__statistics-score">
+            <span class="words__statistics-right">${audiocall?.right || 0}</span>
+            <span class="words__statistics-wrong">${audiocall?.wrong || 0}</span>
+          </div>
+        </div>
+        <div class="words__statistics-wrapper">
+          <div class="words__statistics-game">Sprint</div>
+          <div class="words__statistics-score">
+            <span class="words__statistics-right">${sprint?.right || 0}</span>
+            <span class="words__statistics-wrong">${sprint?.wrong || 0}</span>
+          </div>
+        </div>
+      </div>
+      `;
   }
 }
