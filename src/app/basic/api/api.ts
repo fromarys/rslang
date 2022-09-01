@@ -12,8 +12,8 @@ import {
 import { baseUrl } from '../common/constants';
 /* eslint-disable */
 export class Api {
-  static mainToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsImlhdCI6MTY2MTk2MTA0MSwiZXhwIjoxNjYxOTc1NDQxfQ.-q9nlCnm65Zz0i1VNor6Kxyfy2iBuGEcYlLInIm177c';
-  static refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsInRva2VuSWQiOiJiMzllZmY3NC03NTlkLTQ2NWMtYTAzYS05YWY4NzVmMmU4YzMiLCJpYXQiOjE2NjE5NjEwNDEsImV4cCI6MTY2MTk3NzI0MX0.XLQyEK2CaLyOodaAk29wPYkP4CH85adBKI-Atzh3y_A';
+  static mainToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsImlhdCI6MTY2MjAyMzgxNSwiZXhwIjoxNjYyMDM4MjE1fQ.GbyxCQXnE_Igu1K79dsDE3llqVgSTHc4328GlkIlgxs';
+  static refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsInRva2VuSWQiOiI3NDFmZTcxYS03MGQ3LTRjODQtOGIzMC03ODBlOThhMTc0YjMiLCJpYXQiOjE2NjIwMjM4MTUsImV4cCI6MTY2MjA0MDAxNX0.VTqslkpRBsSb_lxPfbZyVkb9fHPow09zLZCnofJ-1SU';
   static userId = '630cfef8f0b88e4ebc680998';
   static tokenTime = 0;
 
@@ -211,6 +211,7 @@ export class Api {
    * @returns Информация о слове
    */
   static async createUserWord(wordId: string, body: IUserWord): Promise<IUserWord | IError> {
+    console.log(body);
     return Api.sendPost<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`, body, true);
   }
 

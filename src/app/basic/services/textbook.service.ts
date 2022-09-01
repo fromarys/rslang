@@ -2,7 +2,7 @@ import { IAggregatedWords, IError, IUserWord, IWord } from '../interfaces';
 import { WORDS_PER_PAGE, DIFFICULT_WORDS_PER_PAGE } from '../common';
 import { Api } from '../api';
 import { EUserWordStatus } from '../enums';
-
+/* eslint-disable */
 export class TextbookService {
   public static async getWords(group: string, page: string, isGroup: boolean): Promise<void | IWord[]> {
     const response: void | IWord[] = Api.isAuthorized()
@@ -30,9 +30,7 @@ export class TextbookService {
 
   private static setQuery(group: string, page: string, isGroup: boolean): Record<string, string> {
     const filter = {
-      userWord: {
-        difficulty: EUserWordStatus.difficult,
-      },
+      'userWord.difficulty': EUserWordStatus.difficult,
     };
     const query: Record<string, string> = {
       group: group,
@@ -46,8 +44,11 @@ export class TextbookService {
     return query;
   }
 
-  public static async setWordState(wordId: string, body: IUserWord) {
-    const result = await Api.createUserWord(wordId, body).catch((error) => console.log(error));
-    console.log(result);
+  public static async createUserWord(wordId: string, body: IUserWord) {
+    const result = await Api.createUserWord(wordId, body).catch((error: IError) => console.log(error.errorMessage));
+  }
+
+  public static async updateUserWord(wordId: string, body: IUserWord) {
+    const result = await Api.updateUserWord(wordId, body).catch((error: IError) => console.log(error.errorMessage));
   }
 }
