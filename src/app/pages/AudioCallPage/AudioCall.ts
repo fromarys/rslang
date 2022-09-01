@@ -2,7 +2,7 @@ import { Api } from '../../basic';
 import LoadingPage from '../LoadingPage/LoadingPage';
 import AudioCallModel from './AudioCall.model';
 import AudioCallGamePage from './AudioCallGamePage/AudioCallGamePage';
-import AudioCallResultPage from './AudioCallResultPage/AudioCallResultPage';
+import GameResultPage from '../GameResultPage/GameResultPage';
 import AudioCallRules from './AudioCallRules/AudioCallRules';
 
 const WORDS_IN_GAME = 20;
@@ -47,7 +47,7 @@ export class AudioCall {
         void this.audioCallModel.saveResultToServer(gameWords[i], result);
       }
     }
-    new AudioCallResultPage(this.parent, gameWords, answerResult, () => this.exitGame());
+    new GameResultPage(this.parent, gameWords, answerResult, () => this.exitGame());
   }
 
   private exitGame(): void {
