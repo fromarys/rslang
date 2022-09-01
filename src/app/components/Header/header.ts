@@ -1,11 +1,11 @@
 import { BaseComponent } from '../base-component';
 import { getTemplate } from './header.view';
-import { IHeaderMenu, AUTH_BUTTON_CLICK_EVENT, ERoutes } from '../../basic';
+import { IHeaderMenu, ERoutes, Api, IUserResponse } from '../../basic';
 import { AuthPage } from '../../pages/AuthPage';
 
 export class Header extends BaseComponent {
-  private navButtons: HTMLElement | null = null;
   private authButton: HTMLElement | null = null;
+  private auth: AuthPage = new AuthPage(document.body);
 
   protected element: HTMLElement = document.createElement('header');
   protected template: string = getTemplate(IHeaderMenu);
@@ -20,17 +20,26 @@ export class Header extends BaseComponent {
     super.destroy();
   }
 
-  protected attachElement(): void {
+  protected async attachElement(): Promise<void> {
     this.root?.prepend(this.element);
-    this.navButtons = <HTMLElement>document.querySelector('[data-role="header-menu"]');
     this.authButton = <HTMLElement>document.querySelector('[data-role="auth"]');
-    const auth = new AuthPage(document.body);
-    if (auth.isAuthorized()) {
-      this.authButton.classList.add('hidden');
-      this.authButton.innerHTML = '';
+
+    if (this.auth.isAuthorized()) {
+      this.authButton.setAttribute('autorized', '');
+      const { name } = await this.getUser();
+      this.authButton.innerHTML = `${name} <a href="#"><span>${IHeaderMenu.Logout}</span></a>`;
     } else {
-      this.authButton.classList.remove('hidden');
+      this.authButton.removeAttribute('autorized');
       this.authButton.innerHTML = `<a href="#${ERoutes.auth}"><span>${IHeaderMenu.Login}</span></a>`;
+    }
+  }
+
+  private async getUser(): Promise<IUserResponse> {
+    try {
+      const user: IUserResponse = (await Api.getUserInfo()) as IUserResponse;
+      return user;
+    } catch {
+      return {} as IUserResponse;
     }
   }
 
@@ -38,9 +47,11 @@ export class Header extends BaseComponent {
     (<HTMLElement>this.authButton).addEventListener('click', this.onAuthClick.bind(this));
   }
 
-  // Create custom events that can be listened from documents, likes
-  // document.addEventListener(IHeaderMenu.Main, (event) => ...)
-  private onAuthClick(): void {
-    document.dispatchEvent(AUTH_BUTTON_CLICK_EVENT);
+  private onAuthClick(event: Event): void {
+    const isAutorized = !!(<HTMLElement>event.target).closest('[autorized]');
+    if (isAutorized) {
+      this.auth.unloginUser();
+      window.location.reload();
+    }
   }
 }
