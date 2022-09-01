@@ -44,11 +44,11 @@ export class TextbookService {
     return query;
   }
 
-  public static createUserWord(wordId: string, body: IUserWord) {
-    void Api.createUserWord(wordId, body).catch((error: IError) => console.log(error.errorMessage));
+  public static async createUserWord(wordId: string, body: IUserWord) {
+    return await Api.createUserWord(wordId, body).catch((error: IError) => console.log(error.errorMessage));
   }
 
   public static async updateUserWord(wordId: string, body: IUserWord) {
-    void Api.updateUserWord(wordId, body).catch((error: IError) => console.log(error.errorMessage));
+    return await Api.updateUserWord(wordId, body).catch((error: IError) => console.log(error.errorMessage));
   }
 }

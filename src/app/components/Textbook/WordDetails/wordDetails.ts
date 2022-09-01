@@ -1,12 +1,26 @@
-/* eslint-disable */
-import { activityClass, Api, baseUrl, EDiffButtonState, DiffButtonState, StudButtonState, EUserWordStatus, IUserWord, IWord, IWordDetailsView, EStudButtonState, TextbookService, USER_WORD_TEMPLATE } from '../../../basic';
+import {
+  activityClass,
+  Api,
+  baseUrl,
+  DiffButtonState,
+  StudButtonState,
+  EUserWordStatus,
+  IUserWord,
+  IWord,
+  IWordDetailsView,
+  TextbookService,
+  USER_WORD_TEMPLATE,
+  ITextbookView,
+} from '../../../basic';
+import { WordGroup } from '../WordGroup';
 import WordDetailsView from './wordDetails.view';
+
 export class WordDetails {
   private readonly view: IWordDetailsView;
   private readonly audio: HTMLElement;
   static instance: WordDetails;
-  userWord: IUserWord | undefined;
-  constructor(private parentNode: HTMLElement, private wordInfo: IWord) {
+  private userWord: IUserWord | undefined;
+  constructor(private textbook: ITextbookView, private parentNode: HTMLElement, private wordInfo: IWord) {
     const currentDetails = this.parentNode.childNodes[2];
     currentDetails?.remove();
     this.userWord = wordInfo.userWord;
@@ -22,6 +36,10 @@ export class WordDetails {
     return WordDetails.instance;
   }
 
+  /**
+   * Обрабатывает клики по иконке аудио
+   * @param wordInfo объект слова IWord
+   */
   private audioClickHandler(wordInfo: IWord): void {
     const button: HTMLElement | null = this.view.audioButton.node;
     const icon = button.children[0];
@@ -31,26 +49,38 @@ export class WordDetails {
     audio.onended = () => icon?.classList.remove(activityClass);
   }
 
-  private diffButtonClickHandler(state: EUserWordStatus | undefined) {
-    const body = state !== EUserWordStatus.difficult ? 
-      this.setDifficulty(EUserWordStatus.difficult) :
-      this.setDifficulty(EUserWordStatus.normal);
+  /**
+   * Обрабатывает клики по кнопке 'Mark as difficult'
+   * @param state
+   */
+  private async diffButtonClickHandler(state: EUserWordStatus | undefined) {
+    const body =
+      state !== EUserWordStatus.difficult
+        ? this.setDifficulty(EUserWordStatus.difficult)
+        : this.setDifficulty(EUserWordStatus.normal);
     if (this.userWord) {
-      TextbookService.updateUserWord(this.wordInfo._id, body);
+      await TextbookService.updateUserWord(this.wordInfo._id, body);
     } else {
-      TextbookService.createUserWord(this.wordInfo._id, body);
+      await TextbookService.createUserWord(this.wordInfo._id, body);
     }
+    this.reloadWords();
   }
 
-  private studButtonClickHandler(state: EUserWordStatus | undefined) {
-    const body = state !== EUserWordStatus.studied ? 
-      this.setDifficulty(EUserWordStatus.studied) :
-      this.setDifficulty(EUserWordStatus.normal);
+  /**
+   * Обрабатывает клики по кнопке 'Add to studied'
+   * @param state Сложность слова
+   */
+  private async studButtonClickHandler(state: EUserWordStatus | undefined): Promise<void> {
+    const body =
+      state !== EUserWordStatus.studied
+        ? this.setDifficulty(EUserWordStatus.studied)
+        : this.setDifficulty(EUserWordStatus.normal);
     if (this.userWord) {
-      TextbookService.updateUserWord(this.wordInfo._id, body);
+      await TextbookService.updateUserWord(this.wordInfo._id, body);
     } else {
-      TextbookService.createUserWord(this.wordInfo._id, body);
+      await TextbookService.createUserWord(this.wordInfo._id, body);
     }
+    this.reloadWords();
   }
 
   /**
@@ -70,6 +100,11 @@ export class WordDetails {
     }
   }
 
+  /**
+   * Создает тело запроса к базе данных
+   * @param state Сложность слова
+   * @returns Объект IUserWord, для дальнейшего обновления слова
+   */
   private setDifficulty(state: EUserWordStatus): IUserWord {
     if (this.userWord) {
       this.userWord.difficulty = state;
@@ -79,5 +114,10 @@ export class WordDetails {
       userWord.difficulty = state;
       return userWord;
     }
+  }
+
+  private reloadWords(): void {
+    const group = new WordGroup(this.textbook);
+    group.renderCards();
   }
 }
