@@ -1,5 +1,6 @@
 import { baseUrl } from '../../../basic';
 import { IWord } from '../../../basic/interfaces/interfaces';
+import Burger from '../../../components/Burger/Burger';
 import { Button } from '../../../components/Button';
 import { Creator } from '../../../components/Creator';
 import './gamepage.scss';
@@ -23,6 +24,7 @@ export default class AudioCallGamePage extends Creator {
   constructor(parent: HTMLElement, curIndex: number, gameWords: IWord[], onExit: () => void) {
     super(parent, 'div', 'gamepage');
     this.word = gameWords[curIndex];
+    new Burger(parent);
     const progressWnd = new Creator(this.node, 'div', 'gamepage__progress-window');
     for (let i = 0; i < gameWords.length; i++) {
       const item = new Creator(progressWnd.node, 'div', 'gamepage__progress-item');
