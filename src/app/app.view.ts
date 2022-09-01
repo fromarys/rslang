@@ -29,6 +29,13 @@ export class AppView {
     route.render();
   }
 
+  public renderMain(): void {
+    if (this.root) this.root.innerHTML = '';
+    this.header.init();
+    this.main.init();
+    this.footer.init();
+  }
+
   public renderModal(route: AuthPage, previousRoute: string) {
     route.onExit = () => (window.location.hash = previousRoute);
     route.render();
