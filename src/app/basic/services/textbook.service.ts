@@ -14,7 +14,7 @@ export class TextbookService {
   private static async getUserAggregatedWords(group: string, page: string, isGroup: boolean): Promise<IWord[] | void> {
     const query = this.setQuery(group, page, isGroup);
     const response: void | IError | IAggregatedWords[] = await Api.getUserAllAgregatedWords(query).catch((error) =>
-      console.log(error)
+      console.log(error.errorMessage)
     );
     if (Array.isArray(response)) {
       return response[0].paginatedResults;
@@ -44,11 +44,11 @@ export class TextbookService {
     return query;
   }
 
-  public static async createUserWord(wordId: string, body: IUserWord) {
-    const result = await Api.createUserWord(wordId, body).catch((error: IError) => console.log(error.errorMessage));
+  public static createUserWord(wordId: string, body: IUserWord) {
+    void Api.createUserWord(wordId, body).catch((error: IError) => console.log(error.errorMessage));
   }
 
   public static async updateUserWord(wordId: string, body: IUserWord) {
-    const result = await Api.updateUserWord(wordId, body).catch((error: IError) => console.log(error.errorMessage));
+    void Api.updateUserWord(wordId, body).catch((error: IError) => console.log(error.errorMessage));
   }
 }

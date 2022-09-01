@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { activityClass, Api, baseUrl, DiffButtonState, EUserWordStatus, IUserWord, IWord, IWordDetailsView, StudButtonState, TextbookService, USER_WORD_TEMPLATE } from '../../../basic';
+import { activityClass, Api, baseUrl, EDiffButtonState, DiffButtonState, StudButtonState, EUserWordStatus, IUserWord, IWord, IWordDetailsView, EStudButtonState, TextbookService, USER_WORD_TEMPLATE } from '../../../basic';
 import WordDetailsView from './wordDetails.view';
 export class WordDetails {
   private readonly view: IWordDetailsView;
@@ -31,30 +31,26 @@ export class WordDetails {
     audio.onended = () => icon?.classList.remove(activityClass);
   }
 
-  private diffButtonClickHandler(state: EUserWordStatus | undefined, button: HTMLElement) {
-    if (state === EUserWordStatus.normal || state == EUserWordStatus.studied) {
-      const body = this.setDifficulty(EUserWordStatus.difficult);
-      if (this.userWord) {
-        TextbookService.updateUserWord(this.wordInfo._id, body);
-      } else {
-        TextbookService.createUserWord(this.wordInfo._id, body);
-      }
+  private diffButtonClickHandler(state: EUserWordStatus | undefined) {
+    const body = state !== EUserWordStatus.difficult ? 
+      this.setDifficulty(EUserWordStatus.difficult) :
+      this.setDifficulty(EUserWordStatus.normal);
+    if (this.userWord) {
+      TextbookService.updateUserWord(this.wordInfo._id, body);
     } else {
-      const body = this.setDifficulty(EUserWordStatus.normal);
-      if (!this.userWord) {
-        TextbookService.updateUserWord(this.wordInfo._id, body);
-      } else {
-        TextbookService.createUserWord(this.wordInfo._id, body);
-      }
+      TextbookService.createUserWord(this.wordInfo._id, body);
     }
   }
 
-  private studButtonClickHandler(state: EUserWordStatus | undefined, button: HTMLElement) {
-    // if (state === EUserWordStatus.studied) {
-    //   button.innerHTML = StudButtonState.normal;
-    // } else {
-    //   button.innerHTML = StudButtonState.studied;
-    // }
+  private studButtonClickHandler(state: EUserWordStatus | undefined) {
+    const body = state !== EUserWordStatus.studied ? 
+      this.setDifficulty(EUserWordStatus.studied) :
+      this.setDifficulty(EUserWordStatus.normal);
+    if (this.userWord) {
+      TextbookService.updateUserWord(this.wordInfo._id, body);
+    } else {
+      TextbookService.createUserWord(this.wordInfo._id, body);
+    }
   }
 
   /**
@@ -65,20 +61,12 @@ export class WordDetails {
     const difficultButton = this.view.difficultButton?.node;
     const studiedButton = this.view.studiedButton?.node;
     if (difficultButton) {
-      if (difficulty === EUserWordStatus.difficult) {
-        difficultButton.innerHTML = DiffButtonState.difficult;
-      } else {
-        difficultButton.innerHTML = DiffButtonState.normal;
-      }
-      difficultButton.onclick = () => this.diffButtonClickHandler(difficulty, difficultButton);
+      difficultButton.innerHTML = DiffButtonState[difficulty] || DiffButtonState[EUserWordStatus.normal];
+      difficultButton.onclick = () => this.diffButtonClickHandler(difficulty);
     }
     if (studiedButton) {
-      if (difficulty === EUserWordStatus.studied) {
-        studiedButton.innerHTML = StudButtonState.studied;
-      } else {
-        studiedButton.innerHTML = StudButtonState.normal;
-      }
-      studiedButton.onclick = () => this.studButtonClickHandler(difficulty, studiedButton);
+      studiedButton.innerHTML = StudButtonState[difficulty] || StudButtonState[EUserWordStatus.normal];
+      studiedButton.onclick = () => this.studButtonClickHandler(difficulty);
     }
   }
 

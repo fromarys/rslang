@@ -44,3 +44,13 @@ export const USER_WORD_TEMPLATE = {
     },
   },
 };
+
+export const DiffButtonState: Record<string, string> = {
+  normal: 'Mark as difficult',
+  difficult: 'Mark as easy',
+};
+
+export const StudButtonState: Record<string, string> = {
+  normal: 'Add to studied',
+  studied: 'Remove from studied',
+};
