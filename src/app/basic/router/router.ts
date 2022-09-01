@@ -31,6 +31,8 @@ export class Router {
       this.loadGame(Route);
     } else if (key === ERoutes.auth) {
       this.loadModal(Route as typeof AuthPage);
+    } else if (key === ERoutes.main) {
+      this.main.renderMain();
     } else {
       this.loadPage(Route, key);
     }
