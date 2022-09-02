@@ -14,7 +14,7 @@ export default class SprintGamePage extends Creator {
   onNext!: (result: boolean) => void;
   keyHandlerBind: (e: KeyboardEvent) => void;
   btnMass: Button[] = [];
-  btnBack: Button;
+  // btnBack: Button;
   word: IWord;
   translate: string;
   timer: Creator<HTMLElement>;
@@ -23,14 +23,14 @@ export default class SprintGamePage extends Creator {
     parent: HTMLElement,
     curIndex: number,
     gameWords: IWord[],
-    onExit: () => void,
+    // onExit: () => void,
     private audioRight: HTMLAudioElement,
     private audioWrong: HTMLAudioElement,
     curTimer: number
   ) {
     super(parent, 'div', 'gamepage-sprint');
     this.word = gameWords[curIndex];
-    new Burger(parent);
+    new Burger(parent, () => this.destroy());
     this.timer = new Creator(this.node, 'div', 'gamepage-sprint__timer', `${curTimer}`);
     if (curTimer < 10) this.timer.node.classList.add('timer_time-expire');
     new Creator(this.node, 'div', 'gamepage-sprint__progress-window', `Слов: ${curIndex}`);
@@ -52,8 +52,8 @@ export default class SprintGamePage extends Creator {
       )
     );
 
-    const btnWrapper2 = new Creator(this.node, 'div', 'gamepage-sprint__btn-wrapper');
-    this.btnBack = new Button(btnWrapper2.node, 'gamepage-sprint__back', 'Quit', () => onExit());
+    // const btnWrapper2 = new Creator(this.node, 'div', 'gamepage-sprint__btn-wrapper');
+    // this.btnBack = new Button(btnWrapper2.node, 'gamepage-sprint__back', 'Quit', () => onExit());
     this.keyHandlerBind = this.keyHandler.bind(this);
     window.addEventListener('keyup', this.keyHandlerBind);
   }
