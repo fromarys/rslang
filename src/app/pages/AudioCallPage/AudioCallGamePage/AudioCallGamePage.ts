@@ -13,7 +13,7 @@ export default class AudioCallGamePage extends Creator {
   btnMass: Button[] = [];
   audioWindow: Creator<HTMLElement>;
   btnNext: Button;
-  btnBack: Button;
+  //  btnBack: Button;
   word: IWord;
   audio: HTMLAudioElement;
   btnPlay: Button;
@@ -21,10 +21,10 @@ export default class AudioCallGamePage extends Creator {
   answer = false;
   answers: string[];
 
-  constructor(parent: HTMLElement, curIndex: number, gameWords: IWord[], onExit: () => void) {
+  constructor(parent: HTMLElement, curIndex: number, gameWords: IWord[] /*, onExit: () => void */) {
     super(parent, 'div', 'gamepage');
     this.word = gameWords[curIndex];
-    new Burger(parent);
+    new Burger(parent, () => this.destroy());
     const progressWnd = new Creator(this.node, 'div', 'gamepage__progress-window');
     for (let i = 0; i < gameWords.length; i++) {
       const item = new Creator(progressWnd.node, 'div', 'gamepage__progress-item');
@@ -49,7 +49,7 @@ export default class AudioCallGamePage extends Creator {
     this.btnNext = new Button(btnWrapper2.node, 'gamepage__next', 'Next', () => {
       if (this.isAnswered) this.onNext(this.answer);
     });
-    this.btnBack = new Button(btnWrapper2.node, 'gamepage__back', 'Quit', () => onExit());
+    // this.btnBack = new Button(btnWrapper2.node, 'gamepage__back', 'Quit', () => onExit());
     this.keyHandlerBind = this.keyHandler.bind(this);
     window.addEventListener('keyup', this.keyHandlerBind);
     this.isAnswered = false;
