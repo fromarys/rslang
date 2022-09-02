@@ -11,15 +11,6 @@ export default class GameResultPage extends Creator {
       ` <input type="radio" class="result__radio" name="radio" id="radio1" checked>
         <input type="radio" class="result__radio" name="radio" id="radio2">`
     );
-    // const radio1 = new Creator<HTMLInputElement>(this.node, 'input', 'result__checkbox');
-    // radio1.node.type = 'radio';
-    // radio1.node.name = 'radio';
-    // radio1.node.id = 'radio1';
-    // radio1.node.checked = true;
-    // const radio2 = new Creator<HTMLInputElement>(this.node, 'input', 'result__checkbox');
-    // radio2.node.type = 'radio';
-    // radio2.node.name = 'radio';
-    // radio2.node.id = 'radio2';
 
     const rightAnswers = gameResult.filter((el) => el).length;
     const wnd = new Creator(this.node, 'div', 'result__main-window');

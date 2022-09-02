@@ -5,8 +5,6 @@ import SprintGamePage from './SprintGamePage/SprintGamePage';
 import GameResultPage from '../GameResultPage/GameResultPage';
 import SprintRules from './SprintRules/SprintRules';
 
-const WORDS_IN_GAME = 20;
-
 export class Sprint {
   private rules!: SprintRules;
   private sprintModel: SprintModel;
@@ -43,7 +41,7 @@ export class Sprint {
     loading.destroy();
     this.answerResult = [];
 
-    this.gameWords = words.sort(() => Math.random() - 0.5).slice(0, WORDS_IN_GAME);
+    this.gameWords = words.sort(() => Math.random() - 0.5);
     this.counter = 60;
     this.timer = setInterval(() => this.timerHandler(), 1000);
     for (this.index = 0; this.index < this.gameWords.length; this.index++) {
@@ -76,6 +74,7 @@ export class Sprint {
       this.game.showCount(this.counter);
     }
     if (!this.counter) {
+      this.game.destroy();
       this.endGame();
     }
   }
