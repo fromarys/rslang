@@ -3,11 +3,11 @@ import { Creator } from '../../components';
 import './textbook.scss';
 
 export class TextbookView implements ITextbookView {
+  private readonly textbookHeader: ICreator<HTMLElement>;
+  private readonly title: ICreator<HTMLElement>;
   public readonly textbook: ICreator<HTMLElement>;
-  public readonly textbookHeader: ICreator<HTMLElement>;
   public readonly group: ICreator<HTMLElement>;
   public readonly words: ICreator<HTMLElement>;
-  public readonly title: ICreator<HTMLElement>;
   public readonly wordsContainer: ICreator<HTMLElement>;
   public activeGroup: HTMLElement;
   constructor(parentNode: HTMLElement | null) {

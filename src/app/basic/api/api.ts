@@ -1,6 +1,16 @@
-import { IAuth, IUser, IUserResponse, IError, IUserWord, IStatistic, ISetting, IWord } from '../interfaces';
+import {
+  IAuth,
+  IUser,
+  IUserResponse,
+  IError,
+  IUserWord,
+  IStatistic,
+  ISetting,
+  IWord,
+  IAggregatedWords,
+} from '../interfaces';
 import { baseUrl } from '../common/constants';
-
+/* eslint-disable */
 export class Api {
   static mainToken = '';
   static refreshToken = '';
@@ -201,6 +211,7 @@ export class Api {
    * @returns Информация о слове
    */
   static async createUserWord(wordId: string, body: IUserWord): Promise<IUserWord | IError> {
+    console.log(body);
     return Api.sendPost<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`, body, true);
   }
 
@@ -243,11 +254,11 @@ export class Api {
    * @param query query-параметры запроса
    * @returns Массив Agregated слов
    */
-  static async getUserAllAgregatedWords(query: Record<string, string>): Promise<IUser[] | IError> {
+  static async getUserAllAgregatedWords(query: Record<string, string>): Promise<IAggregatedWords[] | IError> {
     const queryString = Object.entries(query)
       .reduce((acc, cur) => acc + `${cur[0]}=${cur[1]}&`, '?')
       .slice(0, -1);
-    return Api.getGetAuth<IUser[]>(`${baseUrl}/users/${Api.userId}/aggregatedWords${queryString}`);
+    return Api.getGetAuth<IAggregatedWords[]>(`${baseUrl}/users/${Api.userId}/aggregatedWords${queryString}`);
   }
 
   /**

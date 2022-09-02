@@ -3,11 +3,9 @@ import { WordGroup } from '../..';
 import { WordPaginationView } from './wordPagination.view';
 
 export class WordPagination {
-  private readonly textbook: TextbookView;
-  wordsContainer;
-  constructor(textbook: TextbookView) {
-    this.textbook = textbook;
-    this.wordsContainer = textbook.wordsContainer.node;
+  wordsContainer: HTMLElement;
+  constructor(private textbook: TextbookView) {
+    this.wordsContainer = this.textbook.wordsContainer.node;
   }
 
   public paginate(totalPages: number, page?: number): void {
@@ -33,6 +31,7 @@ export class WordPagination {
     this.wordsContainer.innerHTML = '';
     pagination.destroy();
     this.paginate(totalPages, page);
+    //TODO изменить правило создание пагинации. Необходимо чтобы пагинация создавалась со вкладками
     const wordGroup: WordGroup = new WordGroup(this.textbook);
     localStorage.setItem('page', JSON.stringify(serverPagination));
     void wordGroup.renderCards(undefined, serverPagination);

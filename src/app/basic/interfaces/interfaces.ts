@@ -47,6 +47,7 @@ export interface IUserWord {
 
 export interface IWord {
   id: string;
+  _id: string;
   group: number;
   page: number;
   word: string;
@@ -60,6 +61,7 @@ export interface IWord {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
+  userWord?: IUserWord;
 }
 
 export interface IStatistic {
@@ -79,4 +81,9 @@ export interface ICreator<NodeType extends HTMLElement = HTMLElement> {
 
 export interface IRoutes {
   textbook: ITextbook;
+}
+
+export interface IAggregatedWords {
+  paginatedResults: IWord[];
+  totalCount: Record<string, number>;
 }

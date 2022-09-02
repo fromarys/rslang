@@ -36,7 +36,7 @@ export class AudioCall {
     const gameWords = words.sort(() => Math.random() - 0.5).slice(0, WORDS_IN_GAME);
     console.log(gameWords);
     for (let i = 0; i < gameWords.length; i++) {
-      const game = new AudioCallGamePage(this.parent, i, gameWords, () => this.exitGame());
+      const game = new AudioCallGamePage(this.parent, i, gameWords /* , () => this.exitGame() */);
       const promise = new Promise<boolean>((resolve) => {
         game.onNext = (str) => resolve(str);
       });

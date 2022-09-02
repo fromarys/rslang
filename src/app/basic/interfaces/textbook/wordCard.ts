@@ -1,13 +1,3 @@
-import { ICreator, IWord } from '../interfaces';
-import { IWordDetails, IWordGroupView } from './';
-
-export interface IWordCard {
-  readonly wordCard: IWordCardView;
-  readonly wordInfo: IWord;
-  readonly wordsWrapper: HTMLElement;
-  readonly wordsContainer: HTMLElement;
-  readonly wordDetails: IWordDetails | undefined;
-  readonly wordGroup: IWordGroupView;
-}
+import { ICreator } from '../interfaces';
 
 export type IWordCardView = ICreator;
