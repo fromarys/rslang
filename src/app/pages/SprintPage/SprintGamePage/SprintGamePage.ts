@@ -18,6 +18,7 @@ export default class SprintGamePage extends Creator {
   word: IWord;
   translate: string;
   timer: Creator<HTMLElement>;
+  burger: Burger;
 
   constructor(
     parent: HTMLElement,
@@ -30,7 +31,7 @@ export default class SprintGamePage extends Creator {
   ) {
     super(parent, 'div', 'gamepage-sprint');
     this.word = gameWords[curIndex];
-    new Burger(parent, () => this.destroy());
+    this.burger = new Burger(parent, () => this.destroy());
     this.timer = new Creator(this.node, 'div', 'gamepage-sprint__timer', `${curTimer}`);
     if (curTimer < 10) this.timer.node.classList.add('timer_time-expire');
     new Creator(this.node, 'div', 'gamepage-sprint__progress-window', `Слов: ${curIndex}`);
@@ -70,6 +71,7 @@ export default class SprintGamePage extends Creator {
 
   public destroy() {
     window.removeEventListener('keyup', this.keyHandlerBind);
+    this.burger.destroy();
     super.destroy();
   }
 
