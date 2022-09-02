@@ -32,7 +32,7 @@ export default class SprintGamePage extends Creator {
     super(parent, 'div', 'gamepage-sprint');
     this.word = gameWords[curIndex];
     this.burger = new Burger(parent, () => this.destroy());
-    this.timer = new Creator(this.node, 'div', 'gamepage-sprint__timer', `${curTimer}`);
+    this.timer = new Creator(this.node, 'div', 'gamepage-sprint__timer', ('0' + `${curTimer}`).slice(-2));
     if (curTimer < 10) this.timer.node.classList.add('timer_time-expire');
     new Creator(this.node, 'div', 'gamepage-sprint__progress-window', `Слов: ${curIndex}`);
     const wordWnd = new Creator(this.node, 'div', 'gamepage-sprint__word-window');
@@ -100,8 +100,5 @@ export default class SprintGamePage extends Creator {
     if (count < 10) this.timer.node.classList.add('timer_time-expire');
     this.timer.node.classList.add('timer_tick');
     setTimeout(() => this.timer.node.classList.remove('timer_tick'), 300);
-    // this.timer.node.addEventListener('onanimationend', () => , {
-    //   once: true,
-    // });
   }
 }
