@@ -47,7 +47,7 @@ export class Sprint {
         this.parent,
         i,
         gameWords,
-        () => this.exitGame(),
+        // () => this.exitGame(),
         audioRight,
         audioWrong,
         this.counter
