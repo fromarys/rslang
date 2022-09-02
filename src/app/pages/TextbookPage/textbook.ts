@@ -5,6 +5,7 @@ import { Api, difficult, groups, ITextbook, maxWordsPages } from '../../basic';
 export class Textbook implements ITextbook {
   constructor(private parentNode: HTMLElement) {
     WordGroup.instance = undefined;
+    // WordPagination.instance = undefined;
   }
 
   /**
@@ -13,7 +14,7 @@ export class Textbook implements ITextbook {
   public render(): void {
     const textbook = new TextbookView(this.parentNode);
     this.renderGroupButtons(textbook);
-    this.renderPagination(textbook);
+    // this.renderPagination(textbook);
   }
 
   /**
