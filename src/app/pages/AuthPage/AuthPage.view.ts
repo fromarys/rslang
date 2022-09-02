@@ -3,7 +3,7 @@ import { Button } from '../../components/Button';
 import LabelInput from './LabelInput';
 import './register.scss';
 import { ERegisterButtonText } from '../../basic/enums/enums';
-import { AuthPage } from './AuthPage';
+// import { AuthPage } from './AuthPage';
 
 export default class AuthPageView {
   private screen!: Creator<HTMLElement>;

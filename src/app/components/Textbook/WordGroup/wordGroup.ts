@@ -4,7 +4,7 @@ import WordGroupView from './wordGroup.view';
 
 export class WordGroup implements IWordGroup {
   private readonly view: IWordGroupView;
-  public static instance: WordGroup;
+  public static instance: WordGroup | undefined;
   constructor(private textbook: ITextbookView) {
     this.view = new WordGroupView(this.textbook);
     if (!WordGroup.instance) {

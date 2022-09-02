@@ -1,9 +1,11 @@
 /* eslint-disable */
 import { TextbookView } from './textbook.view';
-import { WordTab, WordPagination } from '../../components';
+import { WordTab, WordPagination, WordGroup } from '../../components';
 import { Api, difficult, groups, ITextbook, maxWordsPages } from '../../basic';
 export class Textbook implements ITextbook {
-  constructor(private parentNode: HTMLElement) {}
+  constructor(private parentNode: HTMLElement) {
+    WordGroup.instance = undefined;
+  }
 
   /**
    * Создает инстанс класса страницы
