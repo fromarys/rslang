@@ -2,6 +2,7 @@ import { AppView } from '../../app.view';
 import { RouteClass, RouteInstance, TRoutes } from '../types';
 import { ERoutes } from '../enums';
 import { AuthPage } from '../../pages/AuthPage';
+import { Textbook } from '../../pages';
 
 export class Router {
   route: string;
@@ -43,6 +44,7 @@ export class Router {
       this.loadModal(Route as typeof AuthPage);
     } else if (key === ERoutes.main) {
       this.main.renderMain();
+      this.clearLocalStorage();
     } else {
       this.loadPage(Route, key);
     }
@@ -57,6 +59,7 @@ export class Router {
       const route = new Route(this.root, group, page);
       this.route = '';
       this.main.renderGame(route);
+      this.clearLocalStorage();
     }
   }
 
@@ -69,12 +72,21 @@ export class Router {
     }
     this.previousRoute = key;
     this.main.renderPage(route);
+    this.clearLocalStorage();
   }
 
   private loadModal(Route: typeof AuthPage) {
     if (this.root) {
       const route = new Route(this.mainNode);
       this.main.renderModal(route, this.previousRoute);
+    }
+  }
+
+  clearLocalStorage() {
+    const route = this.routes[this.previousRoute];
+    if (!(route === Textbook)) {
+      localStorage.setItem('group', '');
+      localStorage.setItem('page', '');
     }
   }
 }

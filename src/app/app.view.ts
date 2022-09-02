@@ -1,6 +1,5 @@
 import { Header, Main, Footer } from './';
 import { RouteInstance } from './basic/types';
-import { Textbook } from './pages';
 import { AuthPage } from './pages/AuthPage';
 
 export class AppView {
@@ -23,7 +22,6 @@ export class AppView {
   public renderGame(route: RouteInstance): void {
     if (this.root) this.root.innerHTML = '';
     route.render();
-    this.clearLocalStorage();
   }
 
   public renderPage(route: RouteInstance): void {
@@ -33,9 +31,6 @@ export class AppView {
     this.main.instance.innerHTML = '';
     this.footer.init();
     route.render();
-    if (!(route instanceof Textbook)) {
-      this.clearLocalStorage();
-    }
   }
 
   public renderMain(): void {
@@ -43,16 +38,10 @@ export class AppView {
     this.header.init();
     this.main.init();
     this.footer.init();
-    this.clearLocalStorage();
   }
 
   public renderModal(route: AuthPage, previousRoute: string) {
     route.onExit = () => (window.location.hash = previousRoute);
     route.render();
-  }
-
-  clearLocalStorage() {
-    localStorage.setItem('group', '');
-    localStorage.setItem('page', '');
   }
 }

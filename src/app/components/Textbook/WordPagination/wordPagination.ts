@@ -9,7 +9,7 @@ export class WordPagination {
   }
 
   public paginate(totalPages: number, page?: number): void {
-    const currentPage: number = page || (JSON.parse(localStorage.getItem('page') as string) as number) + 1 || 1;
+    const currentPage: number = page || Number(localStorage.getItem('page')) + 1 || 1;
     const pagination: WordPaginationView = new WordPaginationView(this.textbook);
     if (currentPage > 1) {
       this.showPreviousButton(pagination, totalPages, currentPage);
