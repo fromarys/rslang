@@ -70,7 +70,6 @@ export class AuthPage {
    * Удаляет окно из DOM
    */
   public destroy(): void {
-    // TODO Сделать плавную анимацию исчезновеня
     this.authPageView.destroy();
   }
 
@@ -115,22 +114,7 @@ export class AuthPage {
         );
         return true;
       } else {
-        void Api.getUserNewToken().then((tokens) => {
-          if ('token' in tokens) {
-            const user = Api.getAuthToken();
-            Api.setAuthData(
-              {
-                message: '',
-                token: tokens.token,
-                refreshToken: tokens.refreshToken,
-                userId: user ? user.userId : '',
-                name: '',
-              },
-              Date.now()
-            );
-          }
-        });
-        return true;
+        return false;
       }
     } catch {
       return false;

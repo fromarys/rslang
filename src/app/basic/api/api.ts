@@ -10,7 +10,7 @@ import {
   IAggregatedWords,
 } from '../interfaces';
 import { baseUrl } from '../common/constants';
-/* eslint-disable */
+
 export class Api {
   static mainToken = '';
   static refreshToken = '';
@@ -27,7 +27,12 @@ export class Api {
    * @returns true - пользователь авторизирован
    */
   static isAuthorized(): boolean {
-    return !!Api.mainToken;
+    if (Api.mainToken && Date.now() - Api.tokenTime < 4 * 60 * 60 * 1000) return true; // 4 часа
+    Api.mainToken = '';
+    Api.refreshToken = '';
+    Api.userId = '';
+    Api.tokenTime = 0;
+    return false;
   }
 
   /**
