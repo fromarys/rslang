@@ -6,9 +6,9 @@ import { IError, IUserWord, IWord } from '../../basic/interfaces/interfaces';
 const NORMAL_DIFFICULTY = 3;
 const DIFFICULT_DIFFICULTY = 5;
 
-export default class AudioCallModel {
+export default class sprintModel {
   constructor() {
-    console.log('AudioCallModel constructor');
+    console.log('sprintModel constructor');
   }
 
   /**
@@ -41,20 +41,20 @@ export default class AudioCallModel {
         delete wordInfo.wordId;
         if (answer) {
           // Если правильный ответ
-          wordInfo.optional.audioCall.right++;
-          wordInfo.optional.audioCall.longRight++;
+          wordInfo.optional.sprint.right++;
+          wordInfo.optional.sprint.longRight++;
           if (
             (wordInfo.difficulty === EUserWordStatus.normal &&
-              wordInfo.optional.audioCall.longRight > NORMAL_DIFFICULTY) ||
+              wordInfo.optional.sprint.longRight > NORMAL_DIFFICULTY) ||
             (wordInfo.difficulty === EUserWordStatus.difficult &&
-              wordInfo.optional.audioCall.longRight > DIFFICULT_DIFFICULTY)
+              wordInfo.optional.sprint.longRight > DIFFICULT_DIFFICULTY)
           ) {
             wordInfo.difficulty = EUserWordStatus.studied;
           }
         } else {
           // Если неправильный
-          wordInfo.optional.audioCall.wrong++;
-          wordInfo.optional.audioCall.longRight = 0;
+          wordInfo.optional.sprint.wrong++;
+          wordInfo.optional.sprint.longRight = 0;
           if (wordInfo.difficulty === EUserWordStatus.normal) {
             wordInfo.difficulty = EUserWordStatus.difficult;
           } else if (wordInfo.difficulty === EUserWordStatus.studied) {
@@ -67,12 +67,12 @@ export default class AudioCallModel {
         const newWordInfo: IUserWord = {
           difficulty: answer ? EUserWordStatus.normal : EUserWordStatus.difficult,
           optional: {
-            sprint: {
+            audioCall: {
               right: 0,
               wrong: 0,
               longRight: 0,
             },
-            audioCall: {
+            sprint: {
               right: answer ? 1 : 0,
               wrong: !answer ? 1 : 0,
               longRight: answer ? 1 : 0,
