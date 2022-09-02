@@ -4,4 +4,5 @@ export enum IHeaderMenu {
   Games = 'GAMES',
   Statistics = 'STATISTICS',
   Login = 'LOG IN',
+  Logout = 'LOGOUT',
 }
