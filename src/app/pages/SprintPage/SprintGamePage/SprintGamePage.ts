@@ -1,4 +1,5 @@
 import { IWord } from '../../../basic/interfaces/interfaces';
+import Burger from '../../../components/Burger/Burger';
 import { Button } from '../../../components/Button';
 import { Creator } from '../../../components/Creator';
 import './gamepage.scss';
@@ -29,6 +30,7 @@ export default class SprintGamePage extends Creator {
   ) {
     super(parent, 'div', 'gamepage-sprint');
     this.word = gameWords[curIndex];
+    new Burger(parent);
     this.timer = new Creator(this.node, 'div', 'gamepage-sprint__timer', `${curTimer}`);
     new Creator(this.node, 'div', 'gamepage-sprint__progress-window', `Слов: ${curIndex}`);
     const wordWnd = new Creator(this.node, 'div', 'gamepage-sprint__word-window');
