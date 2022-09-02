@@ -28,6 +28,10 @@
     line-height: $size;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2rem;
+
+    &.timer_time-expire {
+      border-color: red;
+    }
   }
 
   &__progress-window {
@@ -42,7 +46,6 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3rem;
     text-align: center;
-
   }
 
   &__btn-wrapper {
@@ -114,4 +117,37 @@ $right-color: #00a000;
 
 .btn_right {
   color: darkgreen;
+}
+
+.timer_tick::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  border-radius: 50%;
+  width: 0;
+  height: 0;
+  // margin-left: -2px;
+  // margin-top: -2px;
+  animation: pinAfterWave 0.3s ease-in;
+}
+
+@keyframes pinAfterWave {
+  from {
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    margin-top: -50px;
+    opacity: 1;
+    border: 0px solid $background-secondary-color;
+  }
+  to {
+    width: 150px;
+    height: 150px;
+    margin-left: -78px;
+    margin-top: -78px;
+    opacity: 0;
+    border: 3px solid $background-main-color;
+  }
 }

@@ -32,6 +32,7 @@ export default class SprintGamePage extends Creator {
     this.word = gameWords[curIndex];
     new Burger(parent);
     this.timer = new Creator(this.node, 'div', 'gamepage-sprint__timer', `${curTimer}`);
+    if (curTimer < 10) this.timer.node.classList.add('timer_time-expire');
     new Creator(this.node, 'div', 'gamepage-sprint__progress-window', `Слов: ${curIndex}`);
     const wordWnd = new Creator(this.node, 'div', 'gamepage-sprint__word-window');
     new Creator(wordWnd.node, 'div', 'gamepage-sprint__word', `${gameWords[curIndex].word}`);
@@ -39,7 +40,7 @@ export default class SprintGamePage extends Creator {
     do {
       randomInt = this.getRandomInt(gameWords.length);
     } while (randomInt === curIndex);
-    this.translate = gameWords[Math.random() > 0.5 ? randomInt : curIndex].wordTranslate;
+    this.translate = gameWords[Math.round(Math.random() * 10) % 2 ? randomInt : curIndex].wordTranslate;
     new Creator(wordWnd.node, 'div', 'gamepage-sprint__word', `${this.translate}`);
     const btnWrapper1 = new Creator(this.node, 'div', 'gamepage-sprint__btn-wrapper');
     this.btnMass.push(
@@ -94,5 +95,11 @@ export default class SprintGamePage extends Creator {
 
   public showCount(count: number): void {
     this.timer.node.textContent = ('0' + `${count}`).slice(-2);
+    if (count < 10) this.timer.node.classList.add('timer_time-expire');
+    this.timer.node.classList.add('timer_tick');
+    setTimeout(() => this.timer.node.classList.remove('timer_tick'), 300);
+    // this.timer.node.addEventListener('onanimationend', () => , {
+    //   once: true,
+    // });
   }
 }
