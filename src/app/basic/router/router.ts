@@ -13,6 +13,9 @@ export class Router {
     this.previousRoute = '';
   }
 
+  /**
+   * Назначает обработчик событий и запускает функцию для переключения роута
+   */
   public run(): void {
     this.switchRoute(this.getHash());
     window.addEventListener('hashchange', () => {
@@ -20,10 +23,17 @@ export class Router {
     });
   }
 
-  private getHash() {
+  /**
+   * Получает hash из URL
+   */
+  private getHash(): string {
     return window.location.hash.slice(1);
   }
 
+  /**
+   * Создает инстанс класса роута и передает номер страницы и группы в качестве аргумента
+   * @param hash URL hash
+   */
   private switchRoute(hash: string): void {
     const key: string = this.routes[hash] ? hash : ERoutes.main;
     const Route: RouteClass = this.routes[key];

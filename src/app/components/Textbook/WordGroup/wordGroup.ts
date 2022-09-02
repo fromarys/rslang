@@ -3,15 +3,18 @@ import { WordCard } from '../..';
 import WordGroupView from './wordGroup.view';
 
 export class WordGroup implements IWordGroup {
-  readonly view: IWordGroupView;
-  readonly textbook: ITextbookView;
-  constructor(textbook: ITextbookView) {
-    this.textbook = textbook;
-    this.view = new WordGroupView(textbook);
+  private readonly view: IWordGroupView;
+  public static instance: WordGroup | undefined;
+  constructor(private textbook: ITextbookView) {
+    this.view = new WordGroupView(this.textbook);
+    if (!WordGroup.instance) {
+      WordGroup.instance = this;
+    }
+    return WordGroup.instance;
   }
 
-  private async getCards(group: string, page: string): Promise<IWord[] | void> {
-    const words: IWord[] | void = await TextbookService.getWords(group, page);
+  private async getCards(group: string, page: string, isGroup: boolean): Promise<IWord[] | void> {
+    const words: IWord[] | void = await TextbookService.getWords(group, page, isGroup);
     if (words) {
       this.textbook.wordsContainer.node.innerHTML = '';
       words.forEach((item, index) => {
@@ -23,11 +26,13 @@ export class WordGroup implements IWordGroup {
     return words;
   }
 
-  public renderCards(group?: number, page?: number): void {
+  public renderCards(group?: number, page?: number, isGroup = true): void {
+    //TODO необходимо реализовать сохранение группы "Сложные слова" при перезагрузке
+    //TODO можно использовать 7 номер для группы
     let storagedPage: number = parseInt(localStorage.getItem('page') as string, 10) || 0;
     let storagedGroup: number = parseInt(localStorage.getItem('group') as string, 10) || 0;
     if (page) storagedPage = page;
     if (group) storagedGroup = group;
-    void this.getCards(storagedGroup.toString(), storagedPage.toString());
+    void this.getCards(storagedGroup.toString(), storagedPage.toString(), isGroup);
   }
 }

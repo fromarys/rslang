@@ -15,6 +15,10 @@ export class AppView {
     this.footer.init();
   }
 
+  /**
+   * Генерирует страницу
+   * @param route Инстанс класса роута
+   */
   public renderGame(route: RouteInstance): void {
     if (this.root) this.root.innerHTML = '';
     route.render();

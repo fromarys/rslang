@@ -15,5 +15,11 @@
     &.active {
       background-color: lightblue;
     }
+    &.studied {
+      background-color: grey;
+    }
+    &.difficult {
+      background-color: pink;
+    }
   }
 }
