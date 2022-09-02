@@ -12,9 +12,9 @@ import {
 import { baseUrl } from '../common/constants';
 /* eslint-disable */
 export class Api {
-  static mainToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsImlhdCI6MTY2MjAyMzgxNSwiZXhwIjoxNjYyMDM4MjE1fQ.GbyxCQXnE_Igu1K79dsDE3llqVgSTHc4328GlkIlgxs';
-  static refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGNmZWY4ZjBiODhlNGViYzY4MDk5OCIsInRva2VuSWQiOiI3NDFmZTcxYS03MGQ3LTRjODQtOGIzMC03ODBlOThhMTc0YjMiLCJpYXQiOjE2NjIwMjM4MTUsImV4cCI6MTY2MjA0MDAxNX0.VTqslkpRBsSb_lxPfbZyVkb9fHPow09zLZCnofJ-1SU';
-  static userId = '630cfef8f0b88e4ebc680998';
+  static mainToken = '';
+  static refreshToken = '';
+  static userId = '';
   static tokenTime = 0;
 
   constructor(...rest: unknown[]) {
