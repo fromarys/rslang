@@ -6,5 +6,6 @@ export * from './Advantages';
 export * from './CardOpportunities';
 export * from './CardTeam';
 export * from './Footer';
+export * from './Games';
 export * from './Header';
 export * from './Main';
