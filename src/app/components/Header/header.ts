@@ -27,10 +27,10 @@ export class Header extends BaseComponent {
     if (this.auth.isAuthorized()) {
       this.authButton.setAttribute('autorized', '');
       const { name } = await this.getUser();
-      this.authButton.innerHTML = `${name} <a href="#"><span>${IHeaderMenu.Logout}</span></a>`;
+      this.authButton.innerHTML = `${name} <a href="#" class="condition"><span>${IHeaderMenu.Logout}</span></a>`;
     } else {
       this.authButton.removeAttribute('autorized');
-      this.authButton.innerHTML = `<a href="#${ERoutes.auth}"><span>${IHeaderMenu.Login}</span></a>`;
+      this.authButton.innerHTML = `<a href="#${ERoutes.auth}" class="condition"><span>${IHeaderMenu.Login}</span></a>`;
     }
   }
 

@@ -19,8 +19,13 @@ main {
 .our-team {
   padding: 0 20px;
 
+  .title-team {
+    margin-bottom: 20px;
+  }
+
   .container-team {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
     justify-content: space-between;
     margin-bottom: 120px;
   }
