@@ -34,7 +34,6 @@ export class AudioCall {
     const answerResult: boolean[] = [];
 
     const gameWords = words.sort(() => Math.random() - 0.5).slice(0, WORDS_IN_GAME);
-    console.log(gameWords);
     for (let i = 0; i < gameWords.length; i++) {
       const game = new AudioCallGamePage(this.parent, i, gameWords /* , () => this.exitGame() */);
       const promise = new Promise<boolean>((resolve) => {
@@ -56,6 +55,6 @@ export class AudioCall {
 
   private exitGame(): void {
     this.parent.innerHTML = '';
-    this.onExit();
+    location.href = '';
   }
 }
