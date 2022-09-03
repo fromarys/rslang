@@ -17,16 +17,15 @@ export class WordGroup implements IWordGroup {
 
   private async getCards(group: string, page: string, isGroup: boolean): Promise<IWord[] | void> {
     const words: IWord[] | void = await TextbookService.getWords(group, page, isGroup);
+    this.clearContainers();
     if (words) {
-      if (this.view) this.view.wordsContainer.node.innerHTML = '';
-      if (this.view) this.view.details.node.innerHTML = '';
       words.forEach((item, index) => {
         let className = '';
         if (index === 0) className = activityClass;
         this.renderCard(item, className);
       });
     }
-    this.renderPagination();
+    if (isGroup) this.renderPagination();
     return words;
   }
 
@@ -40,12 +39,20 @@ export class WordGroup implements IWordGroup {
     void this.getCards(storagedGroup.toString(), storagedPage.toString(), isGroup);
   }
 
-  private renderPagination() {
+  private renderPagination(): void {
     const pagination: WordPagination = new WordPagination(this.textbook);
     pagination.paginate();
   }
 
-  private renderCard(item: IWord, className: string) {
+  private renderCard(item: IWord, className: string): void {
     if (this.view) new WordCard(this.view, this.textbook, item, className);
+  }
+
+  private clearContainers(): void {
+    if (this.view) {
+      this.view.wordsContainer.node.innerHTML = '';
+      this.view.details.node.innerHTML = '';
+      this.textbook.pagination.node.innerHTML = '';
+    }
   }
 }
