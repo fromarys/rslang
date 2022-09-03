@@ -21,8 +21,6 @@ export class WordDetails {
   static instance: WordDetails;
   private userWord: IUserWord | undefined;
   constructor(private textbook: ITextbookView, private parentNode: HTMLElement, private wordInfo: IWord) {
-    const currentDetails = this.parentNode.childNodes[2];
-    currentDetails?.remove();
     this.userWord = wordInfo.userWord;
     this.view = new WordDetailsView(this.parentNode, this.wordInfo);
     this.audio = this.view.audioButton.node;
@@ -118,6 +116,6 @@ export class WordDetails {
 
   private reloadWords(): void {
     const group = new WordGroup(this.textbook);
-    group.renderCards();
+    group.renderGroup();
   }
 }

@@ -3,11 +3,12 @@ import { WordCard, WordPagination } from '../..';
 import WordGroupView from './wordGroup.view';
 
 export class WordGroup implements IWordGroup {
-  private readonly view: IWordGroupView;
+  private readonly view: IWordGroupView | undefined;
   public static instance: WordGroup | undefined;
   constructor(private textbook: ITextbookView) {
-    this.view = new WordGroupView(this.textbook);
-    // this.textbook.wordsContainer.node.innerHTML = '';
+    if (!WordGroupView.instance) {
+      this.view = new WordGroupView(this.textbook);
+    }
     if (!WordGroup.instance) {
       WordGroup.instance = this;
     }
@@ -17,19 +18,19 @@ export class WordGroup implements IWordGroup {
   private async getCards(group: string, page: string, isGroup: boolean): Promise<IWord[] | void> {
     const words: IWord[] | void = await TextbookService.getWords(group, page, isGroup);
     if (words) {
-      this.textbook.wordsContainer.node.innerHTML = '';
+      if (this.view) this.view.wordsContainer.node.innerHTML = '';
+      if (this.view) this.view.details.node.innerHTML = '';
       words.forEach((item, index) => {
         let className = '';
         if (index === 0) className = activityClass;
-        new WordCard(this.view, this.textbook, item, className);
+        this.renderCard(item, className);
       });
     }
-    const pagination = new WordPagination(this.textbook);
-    pagination.paginate();
+    this.renderPagination();
     return words;
   }
 
-  public renderCards(group?: number, page?: number, isGroup = true): void {
+  public renderGroup(group?: number, page?: number, isGroup = true): void {
     //TODO необходимо реализовать сохранение группы "Сложные слова" при перезагрузке
     //TODO можно использовать 7 номер для группы
     let storagedPage: number = parseInt(localStorage.getItem('page') as string, 10) || 0;
@@ -37,5 +38,14 @@ export class WordGroup implements IWordGroup {
     if (page) storagedPage = page;
     if (group) storagedGroup = group;
     void this.getCards(storagedGroup.toString(), storagedPage.toString(), isGroup);
+  }
+
+  private renderPagination() {
+    const pagination: WordPagination = new WordPagination(this.textbook);
+    pagination.paginate();
+  }
+
+  private renderCard(item: IWord, className: string) {
+    if (this.view) new WordCard(this.view, this.textbook, item, className);
   }
 }
