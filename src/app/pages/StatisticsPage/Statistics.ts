@@ -15,13 +15,13 @@ export class Statistics {
   }
 
   public render(): void {
-    this.mainWnd = new Creator(this.parent, 'main', 'statstics__main-window');
+    this.mainWnd = new Creator(this.parent, 'main', 'statistics__main-window');
     if (!this.auth.isAuthorized()) {
       // Не авторизирован
       new Creator(
         this.mainWnd.node,
         'div',
-        'statstics__not-authorized',
+        'statistics__not-authorized',
         'Только авторизированные пользователи могут просматривать статистику'
       );
     } else {

@@ -54,23 +54,23 @@ export default class StatisticsWords extends Creator {
     super(
       parent,
       'div',
-      'statistics__words words-window',
+      'statistics__window words-window',
       `
-        <div class="words-window__title">Статистика по словам</div>
+        <div class="statistics__window-title">Статистика по словам</div>
         <div class="words-window__words-window">
           <div class="words-window__statistic">
             <span class="sing-new"></span>
-            <span class="words-window__text">Новых слов за день: ${totalNewWords}</span>
+            <span class="statistics__text">Новых слов за день: ${totalNewWords}</span>
           </div>
           <div class="words-window__statistic">
             <span class="sing-exclamation"></span>
-            <span class="words-window__text">Изученных слов за день: ${
+            <span class="statistics__text">Изученных слов за день: ${
               totalStudiedWords ? totalStudiedWords.length : 0
             }</span>
           </div>
           <div class="words-window__statistic">
             <span class="sing-pie"></span>
-            <span class="words-window__text">процент правильных ответов за день: ${
+            <span class="statistics__text">процент правильных ответов за день: ${
               sprintRight && sprintWrong && audioCallRight && audioCallWrong
                 ? Math.round(
                     ((sprintRight.length + audioCallRight.length) * 100) /

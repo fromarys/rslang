@@ -68,20 +68,18 @@ export default class StatisticsGames extends Creator {
     super(
       parent,
       'div',
-      'statistics__games games-window',
+      'statistics__window games-window',
       `
-        <div class="games-window__title">Статистика игр</div>
+        <div class="statistics__window-title">Статистика игр</div>
         <div class="games-window__games-window">
           <div class="games-window__title-game">Игра "Аудиовызов"</div>
           <div class="games-window__statistic">
             <span class="sing-new"></span>
-            <span class="games-window__text">Новых слов за день: ${
-              newWordAudioCall ? newWordAudioCall.length : 0
-            }</span>
+            <span class="statistics__text">Новых слов за день: ${newWordAudioCall ? newWordAudioCall.length : 0}</span>
           </div>
           <div class="games-window__statistic">
             <span class="sing-pie"></span>
-            <span class="games-window__text">Процент правильных: ${
+            <span class="statistics__text">Процент правильных: ${
               audioCallRight && audioCallWrong
                 ? Math.round((audioCallRight.length * 100) / (audioCallRight.length + audioCallWrong.length))
                 : 0
@@ -89,15 +87,15 @@ export default class StatisticsGames extends Creator {
           </div>
           <div class="games-window__statistic">
             <span class="sing-right"></span>
-            <span class="games-window__text">Отгадано правильно: ${audioCallRight ? audioCallRight.length : 0}</span>
+            <span class="statistics__text">Отгадано правильно: ${audioCallRight ? audioCallRight.length : 0}</span>
           </div>
           <div class="games-window__statistic">
             <span class="sing-wrong"></span>
-            <span class="games-window__text">Отгадано неправильно: ${audioCallWrong ? audioCallWrong.length : 0}</span>
+            <span class="statistics__text">Отгадано неправильно: ${audioCallWrong ? audioCallWrong.length : 0}</span>
           </div>
           <div class="games-window__statistic">
             <span class="sing-right"></span>
-            <span class="games-window__text">
+            <span class="statistics__text">
               Самая длинная правильная последовательность: ${stat ? stat.optional.audioCall : 0}
             </span>
           </div>
@@ -107,11 +105,11 @@ export default class StatisticsGames extends Creator {
           <div class="games-window__title-game">Игра "Спринт"</div>
           <div class="games-window__statistic">
             <span class="sing-new"></span>
-            <span class="games-window__text">Новых слов за день: ${newWordSprint ? newWordSprint.length : 0}</span>
+            <span class="statistics__text">Новых слов за день: ${newWordSprint ? newWordSprint.length : 0}</span>
           </div>
           <div class="games-window__statistic">
             <span class="sing-pie"></span>
-            <span class="games-window__text">Процент правильных: ${
+            <span class="statistics__text">Процент правильных: ${
               sprintRight && sprintWrong
                 ? Math.round((sprintRight.length * 100) / (sprintRight.length + sprintWrong.length))
                 : 0
@@ -119,15 +117,15 @@ export default class StatisticsGames extends Creator {
           </div>
           <div class="games-window__statistic">
             <span class="sing-right"></span>
-            <span class="games-window__text">Отгадано правильно: ${sprintRight ? sprintRight.length : 0}</span>
+            <span class="statistics__text">Отгадано правильно: ${sprintRight ? sprintRight.length : 0}</span>
           </div>
           <div class="games-window__statistic">
             <span class="sing-wrong"></span>
-            <span class="games-window__text">Отгадано неправильно: ${sprintWrong ? sprintWrong.length : 0}</span>
+            <span class="statistics__text">Отгадано неправильно: ${sprintWrong ? sprintWrong.length : 0}</span>
           </div>
           <div class="games-window__statistic">
             <span class="sing-right"></span>
-            <span class="games-window__text">
+            <span class="statistics__text">
               Самая длинная правильная последовательность: ${stat ? stat.optional.sprint : 0}
             </span>
           </div>

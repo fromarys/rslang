@@ -1,7 +1,10 @@
-.statstics {
+@import '../../../styles/variables/variables.scss';
+
+.statistics {
   &__main-window {
     height: 100%;
     max-width: 900px;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -13,13 +16,48 @@
     text-align: center;
     color: #ff5100;
   }
+
+  &__window {
+    margin: 30px 0;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    border-radius: 20px;
+    border: 5px solid $background-secondary-color;
+    background-color: $background-main-color;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  &__window-title {
+    position: relative;
+    display: inline-block;
+    padding: 0 10px;
+    top: -2.5rem;
+    font-size: 3rem;
+    border: 2px solid $background-secondary-color;
+    border-radius: 5px;
+
+    background-color: $background-main-color;
+  }
+
+  &__text {
+    font-size: 2rem;
+    color: $text-main-color;
+  }
 }
 
 .games-window {
-  padding: 15px;
-  border: 2px solid red;
-}
+  &__games-window {
+    margin: 10px 0;
+  }
 
+  &__title-game {
+    margin-bottom: 10px;
+    height: 3rem;
+    line-height: 3rem;
+    font-size: 2.5rem;
+    border-bottom: 1px solid $background-secondary-color;
+
+  }
+}
 .sing-new,
 .sing-exclamation,
 .sing-pie,
