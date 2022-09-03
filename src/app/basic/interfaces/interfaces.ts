@@ -86,5 +86,5 @@ export interface IRoutes {
 
 export interface IAggregatedWords {
   paginatedResults: IWord[];
-  totalCount: Record<string, number>;
+  totalCount: Array<Record<string, number>>;
 }

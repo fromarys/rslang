@@ -3,7 +3,6 @@ import { Creator } from '../../../components';
 
 export default class StatisticsGames extends Creator {
   constructor(parent: HTMLElement, stat: IStatistic | null, words: IAggregatedWords[] | null) {
-    const totalNewWords = !words ? null : words[0].totalCount;
     const newWordAudioCall = !words
       ? null
       : words[0].paginatedResults.filter((word: IWord) => {
@@ -86,7 +85,7 @@ export default class StatisticsGames extends Creator {
               audioCallRight && audioCallWrong
                 ? Math.round((audioCallRight.length * 100) / (audioCallRight.length + audioCallWrong.length))
                 : 0
-            }</span>
+            } %</span>
           </div>
           <div class="games-window__statistic">
             <span class="sing-right"></span>
@@ -116,7 +115,7 @@ export default class StatisticsGames extends Creator {
               sprintRight && sprintWrong
                 ? Math.round((sprintRight.length * 100) / (sprintRight.length + sprintWrong.length))
                 : 0
-            }</span>
+            } %</span>
           </div>
           <div class="games-window__statistic">
             <span class="sing-right"></span>

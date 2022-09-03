@@ -4,6 +4,7 @@ import { AuthPage } from '../AuthPage';
 import LoadingPage from '../LoadingPage/LoadingPage';
 import './statistics.scss';
 import StatisticsGames from './StatisticsGames/StatisticsGames';
+import StatisticsWords from './StatisticsWords/StatisticsWords';
 
 export class Statistics {
   auth: AuthPage;
@@ -43,7 +44,8 @@ export class Statistics {
 
       void Promise.all(promises).then(([stat, words]) => {
         load.destroy();
-        new StatisticsGames(this.parent, 'error' in stat ? null : stat, 'error' in words ? null : words);
+        new StatisticsGames(this.mainWnd.node, 'error' in stat ? null : stat, 'error' in words ? null : words);
+        new StatisticsWords(this.mainWnd.node, 'error' in words ? null : words);
       });
     }
   }
