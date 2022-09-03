@@ -1,12 +1,13 @@
 import { Creator } from '../../Creator';
-import { TextbookView } from '../../../pages';
+// import { TextbookView } from '../../../pages';
 import './wordPagination.scss';
+import { ITextbookView } from '../../../basic';
 
 export class WordPaginationView {
   private readonly pagination: Creator<HTMLElement>;
   private readonly list: Creator<HTMLElement>;
-  constructor(textbook: TextbookView) {
-    this.pagination = new Creator(textbook.textbook.node, 'div', 'pagination');
+  constructor(textbook: ITextbookView) {
+    this.pagination = new Creator(textbook.wordsContainer.node, 'div', 'pagination');
     this.list = new Creator(this.pagination.node, 'ul');
   }
 
