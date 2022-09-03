@@ -47,6 +47,10 @@ export class AudioCall {
         void this.audioCallModel.saveResultToServer(gameWords[i], result);
       }
     }
+    if (Api.isAuthorized()) {
+      void this.audioCallModel.saveRightSequenceToStatistics(answerResult);
+    }
+
     new GameResultPage(this.parent, gameWords, answerResult, () => this.exitGame());
   }
 
