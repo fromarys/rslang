@@ -24,7 +24,8 @@ main {
   }
 
   .container-team {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
     justify-content: space-between;
     margin-bottom: 120px;
   }
