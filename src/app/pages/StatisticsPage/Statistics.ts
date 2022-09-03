@@ -2,15 +2,13 @@ import { Api, IError, IStatistic } from '../../basic';
 import { Creator } from '../../components';
 import { AuthPage } from '../AuthPage';
 import LoadingPage from '../LoadingPage/LoadingPage';
-import StatisticsModel from './Statistics.model';
+import './statistics.scss';
 
 export class Statistics {
-  statisticsModel: StatisticsModel;
   auth: AuthPage;
   mainWnd!: Creator<HTMLElement>;
 
   constructor(private parent: HTMLElement) {
-    this.statisticsModel = new StatisticsModel();
     this.auth = new AuthPage(this.parent);
   }
 
@@ -21,7 +19,7 @@ export class Statistics {
       new Creator(
         this.mainWnd.node,
         'div',
-        'statstic__not-authorized',
+        'statstics__not-authorized',
         'Только авторизированные пользователи могут просматривать статистику'
       );
     } else {
@@ -29,7 +27,8 @@ export class Statistics {
       const load = new LoadingPage(this.parent);
       void Api.getUserStatistics().then((stat: IStatistic | IError) => {
         load.destroy();
-
+        new Creator(this.mainWnd.node, 'div', 'statstic__not-authorized', 'Здесь будет статистика');
+        console.log(stat);
       });
     }
   }
