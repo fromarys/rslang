@@ -1,0 +1,45 @@
+@import '../../../styles/variables/variables.scss';
+@import '../../../styles/mixins/mixins.scss';
+
+//games-page
+.mini-games {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: $sky-blue;
+  height: calc(100vh - 280px);
+}
+
+.item-game {
+  width: 225px;
+  height: 225px;
+  background: center / cover no-repeat;
+  position: relative;
+  cursor: pointer;
+  border-radius: 20px;
+
+  .title-game {
+    color: #fff;
+    position: absolute;
+    top: 85%;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+  }
+
+  .game-audio {
+    left: 18%;
+  }
+
+  .game-sprint {
+    left: 32%;
+  }
+}
+
+.audio-call {
+  background-image: url(/public/static/audio-call.jpg);
+}
+
+.sprint {
+  background-image: url(/public/static/sprint.jpg);
+}
