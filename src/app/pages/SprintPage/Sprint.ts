@@ -83,6 +83,10 @@ export class Sprint {
     clearInterval(this.timer);
     const words = this.gameWords.slice(0, this.index);
     const answers = this.answerResult.slice(0, this.index);
+    if (Api.isAuthorized()) {
+      void this.sprintModel.saveRightSequenceToStatistics(answers);
+    }
+
     new GameResultPage(this.parent, words, answers, () => this.exitGame());
   }
 

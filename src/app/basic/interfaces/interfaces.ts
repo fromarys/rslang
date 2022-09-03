@@ -65,6 +65,7 @@ export interface IWord {
 }
 
 export interface IStatistic {
+  id?: string;
   learnedWords: number;
   optional: Record<string, string>;
 }
