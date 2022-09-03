@@ -18,3 +18,8 @@ export enum EUserWordStatus {
   normal = 'normal',
   difficult = 'difficult',
 }
+
+export enum EStorage {
+  page = 'page',
+  group = 'group',
+}
