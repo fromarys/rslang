@@ -14,7 +14,7 @@ export const CARD_OPPORTUNITIES: ICardOpportunities[] = [
     srcBackgr: '../public/static/card-backgr2.jpeg',
     srcIcon: '../public/static/play.png',
     text: 'Mini-games for repeating the learned words',
-    id: IHeaderMenu.Games,
+    id: IHeaderMenu.AudioCall,
     route: ERoutes.audiocall,
   },
   {
@@ -28,21 +28,21 @@ export const CARD_OPPORTUNITIES: ICardOpportunities[] = [
 
 export const CARD_TEAM: ICardTeam[] = [
   {
-    srcPerson: '../public/static/person.jpg',
+    srcPerson: '../public/static/yevgenii-foto.jpg',
     hrefPerson: 'https://github.com/fromarys',
     namePerson: 'Yevgenii Mineyev',
-    donePerson: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    donePerson: 'Created a MongoDB database, configured routing, created textbook.',
   },
   {
-    srcPerson: '../public/static/person.jpg',
+    srcPerson: '../public/static/oksana-foto.jpg',
     hrefPerson: 'https://github.com/OksanaSeregina',
     namePerson: 'Oksana Seregina',
-    donePerson: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    donePerson: 'Created the main page.',
   },
   {
-    srcPerson: '../public/static/person.jpg',
+    srcPerson: '../public/static/andrey-foto.jpg',
     hrefPerson: 'https://github.com/Andronio2',
     namePerson: 'Andrey Smirnov',
-    donePerson: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    donePerson: 'Created the "Registration" page, created API functions, created mini-games "Audio Call" and "Sprint"',
   },
 ];
