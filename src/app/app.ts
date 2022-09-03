@@ -1,9 +1,11 @@
 import { AppView } from './app.view';
 import { TRoutes, Router } from './basic';
-import { Main } from './components';
+import { Games, Main } from './components';
 import { Textbook } from './pages';
 import { AudioCall } from './pages/AudioCallPage';
 import { AuthPage } from './pages/AuthPage';
+import { Sprint } from './pages/SprintPage';
+import { Statistics } from './pages/StatisticsPage';
 
 export class App {
   private readonly view: AppView;
@@ -16,11 +18,11 @@ export class App {
     this.routes = {
       '/': Main,
       auth: AuthPage,
-      games: Textbook,
-      sprint: Textbook,
+      games: Games,
+      sprint: Sprint,
       textbook: Textbook,
       audiocall: AudioCall,
-      statistics: Textbook,
+      statistics: Statistics,
     };
     this.router = new Router(this.root, this.view, this.routes);
   }

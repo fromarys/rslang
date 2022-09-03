@@ -1,14 +1,20 @@
-import { TextbookView } from '../../../pages';
+// import { TextbookView } from '../../../pages';
 import { WordGroup } from '../..';
 import { WordPaginationView } from './wordPagination.view';
+import { activityClass, ITextbookView, maxWordsPages } from '../../../basic';
 
 export class WordPagination {
-  wordsContainer: HTMLElement;
-  constructor(private textbook: TextbookView) {
+  private readonly wordsContainer: HTMLElement;
+  // static instance: WordPagination | undefined;
+  constructor(private textbook: ITextbookView) {
     this.wordsContainer = this.textbook.wordsContainer.node;
+    // if (!WordPagination.instance) {
+    //   WordPagination.instance = this;
+    // }
+    // return WordPagination.instance;
   }
 
-  public paginate(totalPages: number, page?: number): void {
+  public paginate(totalPages: number = maxWordsPages, page?: number): void {
     const currentPage: number = page || Number(localStorage.getItem('page')) + 1 || 1;
     const pagination: WordPaginationView = new WordPaginationView(this.textbook);
     if (currentPage > 1) {
@@ -31,10 +37,7 @@ export class WordPagination {
     this.wordsContainer.innerHTML = '';
     pagination.destroy();
     this.paginate(totalPages, page);
-    //TODO изменить правило создание пагинации. Необходимо чтобы пагинация создавалась со вкладками
-    const wordGroup: WordGroup = new WordGroup(this.textbook);
-    localStorage.setItem('page', JSON.stringify(serverPagination));
-    void wordGroup.renderCards(undefined, serverPagination);
+    this.renderWordGroup(undefined, serverPagination);
   }
 
   private showFirstItem(pagination: WordPaginationView, totalPages: number, page: number): void {
@@ -79,7 +82,7 @@ export class WordPagination {
         plength = plength + 1;
       }
       if (page == plength) {
-        active = 'active';
+        active = activityClass;
       } else {
         active = '';
       }
@@ -94,5 +97,11 @@ export class WordPagination {
     }
     const element: HTMLElement = pagination.createPage('last number', `<span>${totalPages}</span>`);
     element.onclick = () => this.clickHandler(pagination, totalPages, totalPages);
+  }
+
+  private renderWordGroup(group: number | undefined, page: number) {
+    const wordGroup: WordGroup = new WordGroup(this.textbook);
+    localStorage.setItem('page', JSON.stringify(page));
+    void wordGroup.renderCards(group, page);
   }
 }

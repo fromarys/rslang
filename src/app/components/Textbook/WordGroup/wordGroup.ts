@@ -1,5 +1,5 @@
 import { activityClass, IWord, TextbookService, IWordGroup, ITextbookView, IWordGroupView } from '../../../basic';
-import { WordCard } from '../..';
+import { WordCard, WordPagination } from '../..';
 import WordGroupView from './wordGroup.view';
 
 export class WordGroup implements IWordGroup {
@@ -7,6 +7,7 @@ export class WordGroup implements IWordGroup {
   public static instance: WordGroup | undefined;
   constructor(private textbook: ITextbookView) {
     this.view = new WordGroupView(this.textbook);
+    // this.textbook.wordsContainer.node.innerHTML = '';
     if (!WordGroup.instance) {
       WordGroup.instance = this;
     }
@@ -23,6 +24,8 @@ export class WordGroup implements IWordGroup {
         new WordCard(this.view, this.textbook, item, className);
       });
     }
+    const pagination = new WordPagination(this.textbook);
+    pagination.paginate();
     return words;
   }
 
