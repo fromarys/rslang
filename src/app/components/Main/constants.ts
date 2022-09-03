@@ -14,8 +14,8 @@ export const CARD_OPPORTUNITIES: ICardOpportunities[] = [
     srcBackgr: '../public/static/card-backgr2.jpeg',
     srcIcon: '../public/static/play.png',
     text: 'Mini-games for repeating the learned words',
-    id: IHeaderMenu.AudioCall,
-    route: ERoutes.audiocall,
+    id: IHeaderMenu.Games,
+    route: ERoutes.games,
   },
   {
     srcBackgr: '../public/static/card-backgr3.jpeg',
