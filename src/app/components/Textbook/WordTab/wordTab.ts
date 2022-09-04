@@ -25,7 +25,7 @@ export class WordTab {
   private clickHandler(): void {
     const group: WordGroup = new WordGroup(this.textbook);
     localStorage.setItem('group', JSON.stringify(this.groupNumber));
-    group.renderCards(this.groupNumber, undefined, this.isGroup);
+    group.renderGroup(this.groupNumber, undefined, this.isGroup);
     this.switchStyles();
   }
 
@@ -38,7 +38,7 @@ export class WordTab {
   private renderGroupOnLoad(): void {
     if (!WordGroup.instance) {
       const group = new WordGroup(this.textbook);
-      group.renderCards(this.groupNumber, undefined, this.isGroup);
+      group.renderGroup(this.groupNumber, undefined, this.isGroup);
     }
   }
 

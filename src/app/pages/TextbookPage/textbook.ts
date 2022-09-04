@@ -1,11 +1,14 @@
 /* eslint-disable */
 import { TextbookView } from './textbook.view';
-import { WordTab, WordPagination, WordGroup } from '../../components';
-import { Api, difficult, groups, ITextbook, maxWordsPages } from '../../basic';
+import { WordTab, WordGroup } from '../../components';
+import { Api, difficult, groups, ITextbook } from '../../basic';
+import WordGroupView from '../../components/Textbook/WordGroup/wordGroup.view';
+import { GameLinks } from '../../components/';
+
 export class Textbook implements ITextbook {
   constructor(private parentNode: HTMLElement) {
     WordGroup.instance = undefined;
-    // WordPagination.instance = undefined;
+    WordGroupView.instance = undefined;
   }
 
   /**
@@ -14,7 +17,7 @@ export class Textbook implements ITextbook {
   public render(): void {
     const textbook = new TextbookView(this.parentNode);
     this.renderGroupButtons(textbook);
-    // this.renderPagination(textbook);
+    this.renderGameLinks(textbook);
   }
 
   /**
@@ -30,12 +33,7 @@ export class Textbook implements ITextbook {
     }
   }
 
-  /**
-   * Создает пагинацию
-   * @param textbook Инстанс класса страницы
-   */
-  private renderPagination(textbook: TextbookView): void {
-    const pagination: WordPagination = new WordPagination(textbook);
-    pagination.paginate(maxWordsPages);
+  private renderGameLinks(textbook: TextbookView): void {
+    new GameLinks(textbook.textbook.node);
   }
 }

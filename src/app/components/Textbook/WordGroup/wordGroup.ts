@@ -1,13 +1,23 @@
-import { activityClass, IWord, TextbookService, IWordGroup, ITextbookView, IWordGroupView } from '../../../basic';
+import {
+  activityClass,
+  IWord,
+  TextbookService,
+  IWordGroup,
+  ITextbookView,
+  IWordGroupView,
+  EStorage,
+  EUserWordStatus,
+} from '../../../basic';
 import { WordCard, WordPagination } from '../..';
 import WordGroupView from './wordGroup.view';
 
 export class WordGroup implements IWordGroup {
-  private readonly view: IWordGroupView;
+  private readonly view: IWordGroupView | undefined;
   public static instance: WordGroup | undefined;
   constructor(private textbook: ITextbookView) {
-    this.view = new WordGroupView(this.textbook);
-    // this.textbook.wordsContainer.node.innerHTML = '';
+    if (!WordGroupView.instance) {
+      this.view = new WordGroupView(this.textbook);
+    }
     if (!WordGroup.instance) {
       WordGroup.instance = this;
     }
@@ -16,26 +26,56 @@ export class WordGroup implements IWordGroup {
 
   private async getCards(group: string, page: string, isGroup: boolean): Promise<IWord[] | void> {
     const words: IWord[] | void = await TextbookService.getWords(group, page, isGroup);
+    this.clearContainers();
     if (words) {
-      this.textbook.wordsContainer.node.innerHTML = '';
       words.forEach((item, index) => {
         let className = '';
         if (index === 0) className = activityClass;
-        new WordCard(this.view, this.textbook, item, className);
+        this.renderCard(item, className);
       });
+      const allStudied = words.every(
+        (item) => item.userWord?.difficulty !== EUserWordStatus.normal && item.userWord?.difficulty !== undefined
+      );
+      allStudied ? this.disableLinks() : this.enableLinks();
     }
-    const pagination = new WordPagination(this.textbook);
-    pagination.paginate();
+    if (isGroup) this.renderPagination();
     return words;
   }
 
-  public renderCards(group?: number, page?: number, isGroup = true): void {
+  public renderGroup(group?: number, page?: number, isGroup = true): void {
     //TODO необходимо реализовать сохранение группы "Сложные слова" при перезагрузке
     //TODO можно использовать 7 номер для группы
-    let storagedPage: number = parseInt(localStorage.getItem('page') as string, 10) || 0;
-    let storagedGroup: number = parseInt(localStorage.getItem('group') as string, 10) || 0;
+    let storagedPage: number = Number(localStorage.getItem(EStorage.page)) || 0;
+    let storagedGroup: number = Number(localStorage.getItem(EStorage.group)) || 0;
     if (page) storagedPage = page;
     if (group) storagedGroup = group;
     void this.getCards(storagedGroup.toString(), storagedPage.toString(), isGroup);
+  }
+
+  private renderPagination(): void {
+    const pagination: WordPagination = new WordPagination(this.textbook);
+    pagination.paginate();
+  }
+
+  private renderCard(item: IWord, className: string): void {
+    if (this.view) new WordCard(this.view, this.textbook, item, className);
+  }
+
+  private clearContainers(): void {
+    if (this.view) {
+      this.view.wordsContainer.node.innerHTML = '';
+      this.view.details.node.innerHTML = '';
+      this.textbook.pagination.node.innerHTML = '';
+    }
+  }
+
+  private disableLinks(): void {
+    const event = new Event('DisableLinks', { bubbles: true });
+    document.dispatchEvent(event);
+  }
+
+  private enableLinks(): void {
+    const event = new Event('EnableLinks', { bubbles: true });
+    document.dispatchEvent(event);
   }
 }
