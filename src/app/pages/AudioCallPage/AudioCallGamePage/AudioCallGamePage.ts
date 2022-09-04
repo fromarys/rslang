@@ -8,7 +8,6 @@ import './gamepage.scss';
 const ANSWER_BUTTONS = 5;
 
 export default class AudioCallGamePage extends Creator {
-  onNext!: (result: boolean) => void;
   keyHandlerBind: (e: KeyboardEvent) => void;
   btnMass: Button[] = [];
   audioWindow: Creator<HTMLElement>;
@@ -21,7 +20,7 @@ export default class AudioCallGamePage extends Creator {
   answer = false;
   answers: string[];
 
-  constructor(parent: HTMLElement, curIndex: number, gameWords: IWord[] /*, onExit: () => void */) {
+  constructor(parent: HTMLElement, curIndex: number, gameWords: IWord[], private onNext: (result: boolean) => void) {
     super(parent, 'div', 'gamepage');
     this.word = gameWords[curIndex];
     new Burger(parent, () => this.destroy());
@@ -49,7 +48,6 @@ export default class AudioCallGamePage extends Creator {
     this.btnNext = new Button(btnWrapper2.node, 'gamepage__next', 'Next', () => {
       if (this.isAnswered) this.onNext(this.answer);
     });
-    // this.btnBack = new Button(btnWrapper2.node, 'gamepage__back', 'Quit', () => onExit());
     this.keyHandlerBind = this.keyHandler.bind(this);
     window.addEventListener('keyup', this.keyHandlerBind);
     this.isAnswered = false;
