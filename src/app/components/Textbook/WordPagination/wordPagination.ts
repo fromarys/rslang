@@ -1,6 +1,6 @@
 import { WordGroup } from '../..';
 import { WordPaginationView } from './wordPagination.view';
-import { activityClass, ITextbookView, maxWordsPages } from '../../../basic';
+import { activityClass, EStorage, ITextbookView, maxWordsPages } from '../../../basic';
 
 export class WordPagination {
   private readonly wordsContainer: HTMLElement;
@@ -132,8 +132,9 @@ export class WordPagination {
    * @param page номер страницы
    */
   private renderWordGroup(group: number | undefined, page: number) {
+    console.log(page);
     const wordGroup: WordGroup = new WordGroup(this.textbook);
-    localStorage.setItem('page', JSON.stringify(page));
+    localStorage.setItem(EStorage.page, JSON.stringify(page));
     void wordGroup.renderGroup(group, page);
   }
 

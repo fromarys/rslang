@@ -71,6 +71,7 @@ export class Router {
     } else {
       this.route = '';
     }
+    this.previousRoute = key;
     this.main.renderPage(route);
     this.clearLocalStorage();
   }
