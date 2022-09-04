@@ -1,3 +1,6 @@
+@import '../../../../styles/variables/variables.scss';
+@import '../../../../styles/mixins/mixins.scss';
+
 .words {
   &__container {
     display: flex;
@@ -12,14 +15,35 @@
     height: 10rem;
     border-radius: 1rem;
     border: none;
+    position: relative;
+    @include font(bold, $font-12, $text-main-color);
+
     &.active {
       background-color: lightblue;
     }
-    &.studied {
-      background-color: grey;
+
+    &.studied::after {
+      content: '';
+      width: 3rem;
+      height: 3rem;
+      display: block;
+      position: absolute;
+      background-color: $candlelight;
+      right: 0;
+      border-radius: 1rem 0 1rem 0;
+      bottom: 0;
     }
-    &.difficult {
-      background-color: pink;
+
+    &.difficult::after {
+      content: '';
+      width: 3rem;
+      height: 3rem;
+      display: block;
+      position: absolute;
+      background-color: $dark-blue;
+      right: 0;
+      border-radius: 1rem 0 1rem 0;
+      bottom: 0;
     }
   }
 }

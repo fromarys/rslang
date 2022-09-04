@@ -8,6 +8,8 @@ $gallery: #efefef;
 $white: #fff;
 $green: rgb(0, 255, 0, 0.5);
 $pomegranate: rgb(236,57,22, 0.5);
+$tuatara: #393837;
+$dustygray: #a39998;
 
 $background-main-color: $sky-blue;
 $text-main-color: $dark-blue;
@@ -17,3 +19,18 @@ $page-number-color: $candlelight;
 $tabs-color: $gallery;
 $wrong-answer-color: $pomegranate;
 $right-answer-color: $green;
+$audio-button-active: $tuatara;
+$audio-button-normal: $dustygray;
+
+$desktop-width:1280px;
+$laptop-width-L:1200px;
+$laptop-width:1024px;
+$tablet-width:769px;
+$mobile-width-XL:700px;
+$mobile-width-L:426px;
+$mobile-width-M:376px;
+$mobile-width-S:320px;
+
+$font-12: 1.2rem;
+$font-15: 1.5rem;
+$font-17: 1.7rem;
