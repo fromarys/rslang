@@ -7,6 +7,7 @@ export enum ERegisterButtonText {
 export enum ERoutes {
   main = '/',
   textbook = 'textbook',
+  games = 'games',
   statistics = 'statistics',
   audiocall = 'audiocall',
   sprint = 'sprint',

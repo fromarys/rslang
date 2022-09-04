@@ -1,6 +1,10 @@
 @import '../../../styles/variables/variables.scss';
 @import '../../../styles/mixins/mixins.scss';
 
+link-github-team {
+  text-decoration: none;
+}
+
 .person {
   width: 300px;
   height: 400px;
@@ -8,13 +12,6 @@
   background-position: center;
   background-size: cover;
   position: relative;
-}
-
-.img-person {
-  object-fit: cover;
-  width: 352px;
-  height: 434px;
-  border-radius: 52px;
 }
 
 .info-person {
@@ -28,15 +25,11 @@
   left: 0;
   bottom: 0;
 
-  .link-github-team {
-    text-decoration: none;
-
-    .name-person {
-      font-weight: 700;
-      font-size: 24px;
-      line-height: 36px;
-      color: $dark-blue;
-    }
+  .name-person {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+    color: $dark-blue;
   }
 
   .done-person {
@@ -44,5 +37,9 @@
     font-size: 16px;
     line-height: 24px;
     color: $bluish-grey;
+
+    mark {
+      display: block;
+    }
   }
 }

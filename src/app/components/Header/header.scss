@@ -58,8 +58,17 @@ header a {
     margin-right: 40px;
   }
 }
+.item:hover {
+  a {
+    color: #ffff00;
+  }
+}
 
 .condition {
   margin-right: 20px;
   margin-left: 15px;
+}
+
+.condition:hover {
+  color: #ffff00;
 }
