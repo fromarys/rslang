@@ -2,19 +2,23 @@
 @import '../../../styles/mixins/mixins.scss';
 
 .card-opportunities {
+  width: 300px;
+  height: 180px;
+  display: block;
+  background-position: center;
+  background-size: cover;
   position: relative;
-  cursor: pointer;
-  .card-backgr {
-    width: 300px;
-    height: 180px;
-  }
+  border-radius: 20px;
 }
 
 .content-card {
-  position: absolute;
+  position: relative;
   display: flex;
-  width: 300px;
-  bottom: 26px;
+  width: 50%;
+  height: inherit;
+  background-position: left;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .icon-opportunities {
@@ -23,12 +27,14 @@
 }
 
 .text-opportunities {
-  display: flex;
+  position: absolute;
+  top: 20px;
+  right: 0;
   align-items: center;
   @include noto-sans;
   font-weight: bold;
   color: #fff;
   letter-spacing: 2.5px;
   text-align: center;
-  margin: 0;
+  width: 50%;
 }
