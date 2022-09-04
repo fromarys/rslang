@@ -4,6 +4,8 @@ import SprintModel from './Sprint.model';
 import SprintGamePage from './SprintGamePage/SprintGamePage';
 import GameResultPage from '../GameResultPage/GameResultPage';
 import SprintRules from './SprintRules/SprintRules';
+import { GamesGetData } from '../../utils/GamesGetData';
+import { AuthPage } from '../AuthPage';
 
 export class Sprint {
   private rules!: SprintRules;
@@ -16,10 +18,12 @@ export class Sprint {
   gameWords!: IWord[];
   index!: number;
   answerResult!: boolean[];
+  gamesGetData: GamesGetData;
 
   constructor(parent: HTMLElement, private group?: number, private page?: number) {
     this.parent = parent;
     this.sprintModel = new SprintModel();
+    this.gamesGetData = new GamesGetData();
   }
 
   public render(): void {
@@ -37,7 +41,11 @@ export class Sprint {
 
     const loading = new LoadingPage(this.parent);
     const currGroup = this.group !== undefined ? this.group : group;
-    const words = await this.sprintModel.getWordsFromGroup(currGroup, this.page);
+    const auth = new AuthPage(document.body);
+    const words: IWord[] =
+      group !== -1 || !auth.isAuthorized()
+        ? await this.gamesGetData.getWordsFromGroup(currGroup, this.page)
+        : await this.gamesGetData.getAggregatedWordsFromGroup(this.group as number, this.page as number);
     loading.destroy();
     this.answerResult = [];
 
@@ -45,17 +53,16 @@ export class Sprint {
     this.counter = 60;
     this.timer = setInterval(() => this.timerHandler(), 1000);
     for (this.index = 0; this.index < this.gameWords.length; this.index++) {
-      this.game = new SprintGamePage(
-        this.parent,
-        this.index,
-        this.gameWords,
-        // () => this.exitGame(),
-        audioRight,
-        audioWrong,
-        this.counter
-      );
       const promise = new Promise<boolean>((resolve) => {
-        this.game.onNext = (str) => resolve(str);
+        this.game = new SprintGamePage(
+          this.parent,
+          this.index,
+          this.gameWords,
+          (str) => resolve(str),
+          audioRight,
+          audioWrong,
+          this.counter
+        );
       });
       const result: boolean = await promise;
       this.game.destroy();
