@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { TextbookView } from './textbook.view';
 import { WordTab, WordGroup } from '../../components';
 import { Api, difficult, groups, ITextbook } from '../../basic';

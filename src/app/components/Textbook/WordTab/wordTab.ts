@@ -1,4 +1,4 @@
-import { activityClass, EStorage, groups } from '../../../basic';
+import { activityClass, EStorage, groups, TOTAL_GROUPS } from '../../../basic';
 import { TextbookView } from '../../../pages';
 import { WordGroup } from '../WordGroup';
 import WordTabView from './wordTab.view';
@@ -12,9 +12,8 @@ export class WordTab {
   constructor(private textbook: TextbookView, private groupData: string[]) {
     this.isGroup = !!this.groupData[0];
     this.parentNode = this.textbook.group.node;
-    this.groupNumber = this.isGroup ? Object.keys(groups).indexOf(this.groupData[0]) : 0;
+    this.groupNumber = this.isGroup ? Object.keys(groups).indexOf(this.groupData[0]) : TOTAL_GROUPS;
     this.view = new WordTabView(this.parentNode, this.groupData);
-    this.renderGroupOnLoad();
     this.groupButton = this.view.groupButton.node;
     this.groupButton.onclick = () => this.clickHandler();
     this.setActiveTab();
@@ -43,6 +42,9 @@ export class WordTab {
   private setActiveTab(): void {
     const currentGroup = Number(localStorage.getItem(EStorage.group));
     if (currentGroup === this.groupNumber) this.groupButton.classList.add(activityClass);
-    if (this.groupButton.classList.contains(activityClass)) this.textbook.activeGroup = this.groupButton;
+    if (this.groupButton.classList.contains(activityClass)) {
+      this.textbook.activeGroup = this.groupButton;
+      this.renderGroupOnLoad();
+    }
   }
 }
