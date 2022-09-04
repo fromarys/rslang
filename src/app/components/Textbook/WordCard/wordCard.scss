@@ -32,6 +32,10 @@
       max-width: 10rem;
     }
 
+    &:hover {
+      filter: brightness(0.8);
+    }
+
     &.active {
       background-color: lightblue;
     }

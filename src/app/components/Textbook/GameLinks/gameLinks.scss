@@ -15,6 +15,10 @@
     max-width: 20rem;
     text-decoration: none;
     text-align: center;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
   }
 
   &__title {

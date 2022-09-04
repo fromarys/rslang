@@ -116,6 +116,10 @@
       border: none;
       outline: none;
       cursor: pointer;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
     }
 
     &-difficult {

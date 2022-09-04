@@ -27,25 +27,35 @@
     padding: 0 2rem;
     outline: none;
     @include font(bold, $font-17, $text-main-color);
+    
+    &:hover {
+      filter: brightness(0.8);
+    }
 
     &.active:nth-child(1) {
       background-color: #FF7171;
     }
+
     &.active:nth-child(2) {
       background-color: #f88c1c;
     }
+
     &.active:nth-child(3) {
       background-color: #fff400;
     }
+
     &.active:nth-child(4) {
       background-color: #00ff93;
     }
+
     &.active:nth-child(5) {
       background-color: #00eeff;
     }
+
     &.active:nth-child(6) {
       background-color: #5D7CFD;
     }
+
     &.active:nth-child(7) {
       background-color: #8A78FA;
     }
