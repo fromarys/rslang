@@ -1,3 +1,5 @@
+@import '../../../../styles/variables/variables.scss';
+
 .group {
   display: flex;
   column-gap: 1.5rem;
@@ -13,7 +15,7 @@
     align-items: center;
     padding: 0 2rem;
     &.active {
-      background-color: lightblue;
+      background-color: $tabs-color;
     }
     &-left, &-right {
       font-size: 2rem;

@@ -64,7 +64,7 @@ export class WordPagination {
    * @param page номер страницы
    */
   private showPreviousButton(pagination: WordPaginationView, totalPages: number, page: number): void {
-    const element: HTMLElement = pagination.createPage('pagination__button prev', 'Пред.');
+    const element: HTMLElement = pagination.createPage('pagination__button prev', 'Previous');
     element.onclick = () => this.clickHandler(totalPages, page - 1);
   }
 
@@ -75,7 +75,7 @@ export class WordPagination {
    * @param page номер страницы
    */
   private showNextButton(pagination: WordPaginationView, totalPages: number, page: number): void {
-    const element: HTMLElement = pagination.createPage('pagination__button next', `<span>След.</span>`);
+    const element: HTMLElement = pagination.createPage('pagination__button next', `<span>Next</span>`);
     element.onclick = () => this.clickHandler(totalPages, page + 1);
   }
 
