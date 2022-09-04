@@ -1,9 +1,11 @@
-import { Api } from '../../basic';
+import { Api, IWord } from '../../basic';
 import LoadingPage from '../LoadingPage/LoadingPage';
 import AudioCallModel from './AudioCall.model';
 import AudioCallGamePage from './AudioCallGamePage/AudioCallGamePage';
 import GameResultPage from '../GameResultPage/GameResultPage';
 import AudioCallRules from './AudioCallRules/AudioCallRules';
+import { AuthPage } from '../AuthPage';
+import { GamesGetData } from '../../utils/GamesGetData';
 
 const WORDS_IN_GAME = 20;
 
@@ -12,10 +14,12 @@ export class AudioCall {
   private audioCallModel: AudioCallModel;
   private parent: HTMLElement;
   public onExit!: () => void;
+  gamesGetData: GamesGetData;
 
   constructor(parent: HTMLElement, private group?: number, private page?: number) {
     this.parent = parent;
     this.audioCallModel = new AudioCallModel();
+    this.gamesGetData = new GamesGetData();
   }
 
   public render(): void {
@@ -29,7 +33,11 @@ export class AudioCall {
   private async mainCycle(group: number) {
     const loading = new LoadingPage(this.parent);
     const currGroup = this.group !== undefined ? this.group : group;
-    const words = await this.audioCallModel.getWordsFromGroup(currGroup, this.page);
+    const auth = new AuthPage(document.body);
+    const words: IWord[] =
+      group !== -1 || !auth.isAuthorized()
+        ? await this.gamesGetData.getWordsFromGroup(currGroup, this.page)
+        : await this.gamesGetData.getAggregatedWordsFromGroup(this.group as number, this.page as number);
     loading.destroy();
     const answerResult: boolean[] = [];
 
