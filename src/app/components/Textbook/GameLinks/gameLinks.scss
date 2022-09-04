@@ -9,6 +9,9 @@
     @include media-tablet {
       flex-direction: column;
     }
+    @include media-mobile-L {
+      margin-top: 2rem;
+    }
   }
 
   &__game {
