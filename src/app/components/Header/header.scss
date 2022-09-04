@@ -9,11 +9,17 @@ header {
   top: 0;
   left: 0;
   background-color: $bluish-grey;
+  @include media-mobile-L {
+    padding: 1.5rem 0;
+  }
 }
 
 header a {
   text-decoration: none;
   @include noto-sans;
+  @include media-mobile-L {
+    text-align: center;
+  }
 }
 
 .content-header {
@@ -23,6 +29,11 @@ header a {
   max-width: 1920px;
   width: 100%;
   margin: 0 auto;
+  @include media-tablet {
+    flex-direction: column;
+    row-gap: 1rem;
+    align-items: center;
+  }
 }
 
 .link-logo {
@@ -36,11 +47,18 @@ header a {
     height: 80px;
     margin-right: 10px;
     border-radius: 30px;
+    @include media-laptop {
+      width: 5rem;
+      height: auto;
+    }
   }
 
   .title-logo {
     margin: 0;
     color: $dark-blue;
+    @include media-laptop {
+      font-size: $font-20;
+    }
   }
 }
 
@@ -53,11 +71,16 @@ header a {
 .menu {
   display: flex;
   align-items: end;
-
-  .item {
-    margin-right: 40px;
+  justify-content: space-between;
+  column-gap: 4rem;
+  @include media-mobile-L {
+    font-size: $font-12;
+  }
+  @include media-mobile-M {
+    column-gap: 2rem;
   }
 }
+
 .item:hover {
   a {
     color: #ffff00;
@@ -71,4 +94,10 @@ header a {
 
 .condition:hover {
   color: #ffff00;
+}
+
+.condition, .visible {
+  @include media-laptop {
+    font-size: $font-12;
+  }
 }
