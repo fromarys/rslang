@@ -80,7 +80,7 @@ export default class StatisticsGames extends Creator {
           <div class="games-window__statistic">
             <span class="sing-pie"></span>
             <span class="statistics__text">Процент правильных: ${
-              audioCallRight && audioCallWrong
+              audioCallRight && audioCallWrong && (audioCallRight.length > 0 || audioCallWrong.length > 0)
                 ? Math.round((audioCallRight.length * 100) / (audioCallRight.length + audioCallWrong.length))
                 : 0
             } %</span>
@@ -110,7 +110,7 @@ export default class StatisticsGames extends Creator {
           <div class="games-window__statistic">
             <span class="sing-pie"></span>
             <span class="statistics__text">Процент правильных: ${
-              sprintRight && sprintWrong
+              sprintRight && sprintWrong && (sprintRight.length > 0 || sprintWrong.length > 0)
                 ? Math.round((sprintRight.length * 100) / (sprintRight.length + sprintWrong.length))
                 : 0
             } %</span>

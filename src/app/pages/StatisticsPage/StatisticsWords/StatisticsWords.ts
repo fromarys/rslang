@@ -3,7 +3,7 @@ import { Creator } from '../../../components';
 
 export default class StatisticsWords extends Creator {
   constructor(parent: HTMLElement, words: IAggregatedWords[] | null) {
-    const totalNewWords = words ? words[0].totalCount[0].count : 0;
+    const totalNewWords = words && words[0] && words[0].totalCount[0] ? words[0].totalCount[0].count : 0;
     const totalStudiedWords = !words
       ? null
       : words[0].paginatedResults.filter((word: IWord) => {
@@ -51,6 +51,20 @@ export default class StatisticsWords extends Creator {
           return false;
         });
 
+    let percent: number;
+    if (
+      sprintRight &&
+      sprintWrong &&
+      audioCallRight &&
+      audioCallWrong &&
+      (sprintRight.length > 0 || audioCallRight.length > 0 || sprintWrong.length > 0 || audioCallWrong.length > 0)
+    ) {
+      percent = Math.round(
+        ((sprintRight.length + audioCallRight.length) * 100) /
+          (sprintRight.length + sprintWrong.length + audioCallRight.length + audioCallWrong.length)
+      );
+    } else percent = 0;
+
     super(
       parent,
       'div',
@@ -70,14 +84,7 @@ export default class StatisticsWords extends Creator {
           </div>
           <div class="words-window__statistic">
             <span class="sing-pie"></span>
-            <span class="statistics__text">процент правильных ответов за день: ${
-              sprintRight && sprintWrong && audioCallRight && audioCallWrong
-                ? Math.round(
-                    ((sprintRight.length + audioCallRight.length) * 100) /
-                      (sprintRight.length + sprintWrong.length + audioCallRight.length + audioCallWrong.length)
-                  )
-                : 0
-            } %</span>
+            <span class="statistics__text">процент правильных ответов за день: ${percent} %</span>
           </div>
         </div>
       `
