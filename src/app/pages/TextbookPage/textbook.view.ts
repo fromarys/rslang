@@ -14,7 +14,7 @@ export class TextbookView implements ITextbookView {
     this.textbook = new Creator(parentNode, 'div', 'textbook');
     this.textbookHeader = new Creator(this.textbook.node, 'div', 'textbook__header');
     this.group = new Creator(this.textbookHeader.node, 'div', 'group');
-    this.title = new Creator(this.textbook.node, 'h1', 'textbook__title', 'Слова');
+    this.title = new Creator(this.textbook.node, 'h1', 'textbook__title', 'Words');
     this.words = new Creator(this.textbook.node, 'div', 'words');
     this.pagination = new Creator(this.textbook.node, 'div', 'pagination');
     this.activeGroup = this.title.node;

@@ -12,6 +12,9 @@ export class GameLinks {
     document.addEventListener('EnableLinks', () => this.enableLinks());
   }
 
+  /**
+   * Присваивает стили при деактивации ссылок
+   */
   private disableLinks(): void {
     this.sprint.style.opacity = '0.8';
     this.audiocall.style.opacity = '0.8';
@@ -19,6 +22,9 @@ export class GameLinks {
     this.audiocall.style.pointerEvents = 'none';
   }
 
+  /**
+   * Присваивает стили при активации ссылок
+   */
   private enableLinks(): void {
     this.sprint.style.opacity = '1';
     this.audiocall.style.opacity = '1';
