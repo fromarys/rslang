@@ -3,13 +3,21 @@
 
 .group {
   display: flex;
-  column-gap: 1.5rem;
+  gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @include media-laptop {
+    justify-content: flex-start;
+  }
+  @include media-tablet {
+    justify-content: center;
+  }
 
   &__button {
     cursor: pointer;
     width: 100%;
-    max-width: 22rem;
+    max-width: 15.5rem;
     height: 7rem;
     display: flex;
     justify-content: space-between;
@@ -18,7 +26,6 @@
     align-items: center;
     padding: 0 2rem;
     outline: none;
-    font-size: inherit;
     @include font(bold, $font-17, $text-main-color);
 
     &.active:nth-child(1) {
@@ -41,10 +48,6 @@
     }
     &.active:nth-child(7) {
       background-color: #8A78FA;
-    }
-
-    &-left, &-right {
-      font-size: 2rem;
     }
   }
 }

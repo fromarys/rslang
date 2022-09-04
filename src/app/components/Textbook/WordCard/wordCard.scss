@@ -2,10 +2,18 @@
 @import '../../../../styles/mixins/mixins.scss';
 
 .words {
+  @include media-laptop {
+    column-gap: 3rem;
+  }
+
   &__container {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    @include media-tablet {
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
   }
 
   &__card {
@@ -17,6 +25,12 @@
     border: none;
     position: relative;
     @include font(bold, $font-12, $text-main-color);
+    @include media-laptop {
+      max-width: 15rem;
+    }
+    @include media-tablet {
+      max-width: 10rem;
+    }
 
     &.active {
       background-color: lightblue;

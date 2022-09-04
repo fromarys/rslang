@@ -1,10 +1,13 @@
+@import '../../../styles/variables/variables.scss';
+@import '../../../styles/mixins/mixins.scss';
+
 .textbook {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 120rem;
-  padding: 3rem 0;
+  padding: 3rem 2rem;
   height: 100%;
 }
 
@@ -12,4 +15,9 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  @include media-tablet {
+    flex-direction: column-reverse;
+    align-items: center;
+    row-gap: 3rem;
+  }
 }
