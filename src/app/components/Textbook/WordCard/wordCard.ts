@@ -1,6 +1,7 @@
 import { activityClass, IWord, IWordCardView, IWordGroupView, ITextbookView } from '../../../basic';
 import WordCardView from './wordCard.view';
 import { WordDetails } from '../WordDetails/wordDetails';
+
 export class WordCard {
   private readonly wordCard: IWordCardView;
   private readonly wordsContainer: HTMLElement;
@@ -20,6 +21,9 @@ export class WordCard {
     this.wordCard.node.onclick = () => this.clickHandler();
   }
 
+  /**
+   * Обработчик кликов
+   */
   private clickHandler() {
     this.wordGroup.activeElement.classList.remove(activityClass);
     this.wordGroup.activeElement = this.wordCard.node;
@@ -27,6 +31,9 @@ export class WordCard {
     this.renderDetails();
   }
 
+  /**
+   * Генерирует детали для слова
+   */
   renderDetails() {
     const wordsWrapper = this.wordGroup.details.node;
     new WordDetails(this.textbook, wordsWrapper, this.wordInfo);

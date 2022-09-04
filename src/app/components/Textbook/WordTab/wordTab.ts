@@ -19,6 +19,9 @@ export class WordTab {
     this.setActiveTab();
   }
 
+  /**
+   * Обрабатывает клики по вкладкам
+   */
   private clickHandler(): void {
     const group: WordGroup = new WordGroup(this.textbook);
     localStorage.setItem(EStorage.group, JSON.stringify(this.groupNumber));
@@ -26,12 +29,18 @@ export class WordTab {
     this.switchStyles();
   }
 
+  /**
+   * Добавляет и удаляет класс active
+   */
   private switchStyles(): void {
     this.textbook.activeGroup.classList.remove(activityClass);
     this.textbook.activeGroup = this.groupButton;
     this.textbook.activeGroup.classList.add(activityClass);
   }
 
+  /**
+   * Создает группу при создании инстанса класса
+   */
   private renderGroupOnLoad(): void {
     if (!WordGroup.instance) {
       const group = new WordGroup(this.textbook);
@@ -39,6 +48,9 @@ export class WordTab {
     }
   }
 
+  /**
+   * Устанавливает вкладку в качестве активной
+   */
   private setActiveTab(): void {
     const currentGroup = Number(localStorage.getItem(EStorage.group));
     if (currentGroup === this.groupNumber) this.groupButton.classList.add(activityClass);

@@ -8,6 +8,11 @@ export class WordPagination {
     this.wordsContainer = this.textbook.words.node;
   }
 
+  /**
+   * Создает пагинацию, выполняет перемещение по страницам
+   * @param totalPages максимальное количество страниц
+   * @param page номер страницы
+   */
   public paginate(totalPages: number = maxWordsPages, page?: number): void {
     const currentPage: number = page || Number(localStorage.getItem('page')) + 1 || 1;
     this.destroyPagination();
@@ -27,12 +32,23 @@ export class WordPagination {
     }
   }
 
+  /**
+   * Обрабатывает клик по номеру страницы
+   * @param totalPages максимальное количество страниц
+   * @param page номер страницы
+   */
   private clickHandler(totalPages: number, page: number): void {
     const serverPagination: number = page - 1;
     this.paginate(totalPages, page);
     this.renderWordGroup(undefined, serverPagination);
   }
 
+  /**
+   * Отображает первый элемент пагинации, назначет обработчик события click
+   * @param pagination инстанс класса WordPaginationView
+   * @param totalPages максимально количество страниц
+   * @param page номер страницы
+   */
   private showFirstItem(pagination: WordPaginationView, totalPages: number, page: number): void {
     const element: HTMLElement = pagination.createPage('first number', `<span>1</span>`);
     element.onclick = () => this.clickHandler(totalPages, 1);
@@ -41,11 +57,23 @@ export class WordPagination {
     }
   }
 
+  /**
+   * Отображает кнопку для перемещения по страницам назад, назначет обработчик события click
+   * @param pagination нстанс класса WordPaginationView
+   * @param totalPages максимально количество страниц
+   * @param page номер страницы
+   */
   private showPreviousButton(pagination: WordPaginationView, totalPages: number, page: number): void {
     const element: HTMLElement = pagination.createPage('pagination__button prev', 'Пред.');
     element.onclick = () => this.clickHandler(totalPages, page - 1);
   }
 
+  /**
+   * Отображает кнопку для перемещения по страницам вперёд, назначет обработчик события click
+   * @param pagination нстанс класса WordPaginationView
+   * @param totalPages максимально количество страниц
+   * @param page номер страницы
+   */
   private showNextButton(pagination: WordPaginationView, totalPages: number, page: number): void {
     const element: HTMLElement = pagination.createPage('pagination__button next', `<span>След.</span>`);
     element.onclick = () => this.clickHandler(totalPages, page + 1);
@@ -84,6 +112,12 @@ export class WordPagination {
     }
   }
 
+  /**
+   * Отображает последний элемент пагинации, назначет обработчик события click
+   * @param pagination инстанс класса WordPaginationView
+   * @param totalPages максимально количество страниц
+   * @param page номер страницы
+   */
   private showLastItem(pagination: WordPaginationView, totalPages: number, page: number): void {
     if (page < totalPages - 2) {
       pagination.createPage('dots', '<span>...</span>');
@@ -92,12 +126,20 @@ export class WordPagination {
     element.onclick = () => this.clickHandler(totalPages, totalPages);
   }
 
+  /**
+   * Обновляет группу при пагинации
+   * @param group номер группы
+   * @param page номер страницы
+   */
   private renderWordGroup(group: number | undefined, page: number) {
     const wordGroup: WordGroup = new WordGroup(this.textbook);
     localStorage.setItem('page', JSON.stringify(page));
     void wordGroup.renderGroup(group, page);
   }
 
+  /**
+   * Очищает родительский блок для пагинации
+   */
   private destroyPagination(): void {
     this.textbook.pagination.node.innerHTML = '';
   }

@@ -32,6 +32,10 @@ export class Textbook implements ITextbook {
     }
   }
 
+  /**
+   * Создает ссылки на игры в учебнике
+   * @param textbook Инстанс класса страницы
+   */
   private renderGameLinks(textbook: TextbookView): void {
     new GameLinks(textbook.textbook.node);
   }

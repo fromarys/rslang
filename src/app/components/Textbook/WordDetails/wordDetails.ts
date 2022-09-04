@@ -114,6 +114,9 @@ export class WordDetails {
     }
   }
 
+  /**
+   * Обновляет группу при нажатии на кнопку
+   */
   private reloadWords(): void {
     const group = new WordGroup(this.textbook);
     group.renderGroup();
