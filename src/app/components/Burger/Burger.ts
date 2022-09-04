@@ -5,6 +5,7 @@ export default class Burger extends Creator {
   private menuItems = {
     'Main menu': '',
     Textbook: 'textbook',
+    Games: 'games',
     Statistics: 'statistics',
   };
   private burgerShown = false;

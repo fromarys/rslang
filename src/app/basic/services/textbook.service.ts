@@ -40,6 +40,8 @@ export class TextbookService {
     if (!isGroup) {
       query.filter = JSON.stringify(filter);
       query.wordsPerPage = `${DIFFICULT_WORDS_PER_PAGE}`;
+      delete query.group;
+      delete query.page;
     }
     return query;
   }

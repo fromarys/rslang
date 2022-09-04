@@ -7,10 +7,6 @@ const NORMAL_DIFFICULTY = 3;
 const DIFFICULT_DIFFICULTY = 5;
 
 export default class sprintModel {
-  constructor() {
-    console.log('sprintModel constructor');
-  }
-
   /**
    * Возвращает список слов из определенного раздела
    * @param group Номер раздела

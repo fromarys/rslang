@@ -1,0 +1,19 @@
+.textbook {
+  &__games {
+    display: flex;
+    align-self: center;
+    column-gap: 2rem;
+  }
+  &__game {
+    max-width: 20rem;
+    text-decoration: none;
+    text-align: center;
+  }
+  &__title {
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+  }
+  &__image {
+    width: 100%;
+  }
+}

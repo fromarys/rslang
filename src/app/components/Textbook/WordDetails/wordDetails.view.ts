@@ -3,7 +3,6 @@ import { Creator } from '../../Creator';
 import './wordDetails.scss';
 
 export default class WordDetailsView implements IWordDetailsView {
-  private readonly details: Creator;
   private readonly image: string;
   private readonly headerContent: string;
   private readonly information: Creator<HTMLElement>;
@@ -14,18 +13,17 @@ export default class WordDetailsView implements IWordDetailsView {
   private detailsButtons: Creator<HTMLElement> | undefined;
   public difficultButton: Creator<HTMLElement> | undefined;
   public studiedButton: Creator<HTMLElement> | undefined;
-  constructor(private parentNode: HTMLElement, private word: IWord) {
+  constructor(private details: HTMLElement, private word: IWord) {
     this.image = `<img src="${baseUrl}/${this.word.image}" class="words__image"></img>`;
     this.headerContent = this.renderHeader(this.word);
     this.descriptionContent = this.renderDescription(this.word);
-    this.details = new Creator(this.parentNode, 'div', 'words__details');
-    this.details.node.innerHTML = this.image;
+    this.details.innerHTML = this.image;
     if (Api.isAuthorized()) this.renderButtons();
-    this.information = new Creator(this.details.node, 'div', 'words__information');
+    this.information = new Creator(this.details, 'div', 'words__information');
     this.header = new Creator(this.information.node, 'div', 'words__header', this.headerContent);
     this.description = new Creator(this.information.node, 'div', 'words__description', this.descriptionContent);
     this.audioButton = new Creator(this.header.node, 'button', 'words__audio', this.renderAudioButton());
-    if (Api.isAuthorized()) this.details.node.insertAdjacentHTML('beforeend', this.renderStatistics());
+    if (Api.isAuthorized()) this.details.insertAdjacentHTML('beforeend', this.renderStatistics());
   }
 
   private renderHeader(word: IWord): string {
@@ -56,7 +54,7 @@ export default class WordDetailsView implements IWordDetailsView {
   }
 
   private renderButtons(): void {
-    this.detailsButtons = new Creator(this.details.node, 'div', 'words__buttons');
+    this.detailsButtons = new Creator(this.details, 'div', 'words__buttons');
     const diffBtnClass = 'words__buttons-difficult';
     const studBtnClass = 'words__buttons-studied';
     this.difficultButton = new Creator(this.detailsButtons.node, 'button', diffBtnClass, DiffButtonState.normal);

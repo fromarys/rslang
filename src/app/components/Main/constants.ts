@@ -6,7 +6,7 @@ export const CARD_OPPORTUNITIES: ICardOpportunities[] = [
   {
     srcBackgr: '../public/static/card-backgr1.jpeg',
     srcIcon: '../public/static/textbook.png',
-    text: 'Electronic textbook with a database of words to study',
+    text: 'Electronic <mark>textbook</mark> with a database of words to study',
     id: IHeaderMenu.Textbook,
     route: ERoutes.textbook,
   },
@@ -20,7 +20,7 @@ export const CARD_OPPORTUNITIES: ICardOpportunities[] = [
   {
     srcBackgr: '../public/static/card-backgr3.jpeg',
     srcIcon: '../public/static/stat.png',
-    text: 'Detailed statistics of your achievements',
+    text: 'Detailed <mark>statistics</mark> of your achievements',
     id: IHeaderMenu.Statistics,
     route: ERoutes.statistics,
   },
