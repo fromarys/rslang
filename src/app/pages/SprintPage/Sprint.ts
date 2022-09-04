@@ -53,17 +53,16 @@ export class Sprint {
     this.counter = 60;
     this.timer = setInterval(() => this.timerHandler(), 1000);
     for (this.index = 0; this.index < this.gameWords.length; this.index++) {
-      this.game = new SprintGamePage(
-        this.parent,
-        this.index,
-        this.gameWords,
-        // () => this.exitGame(),
-        audioRight,
-        audioWrong,
-        this.counter
-      );
       const promise = new Promise<boolean>((resolve) => {
-        this.game.onNext = (str) => resolve(str);
+        this.game = new SprintGamePage(
+          this.parent,
+          this.index,
+          this.gameWords,
+          (str) => resolve(str),
+          audioRight,
+          audioWrong,
+          this.counter
+        );
       });
       const result: boolean = await promise;
       this.game.destroy();

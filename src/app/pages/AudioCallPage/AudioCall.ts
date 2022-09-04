@@ -15,6 +15,7 @@ export class AudioCall {
   private parent: HTMLElement;
   public onExit!: () => void;
   gamesGetData: GamesGetData;
+  game!: AudioCallGamePage;
 
   constructor(parent: HTMLElement, private group?: number, private page?: number) {
     this.parent = parent;
@@ -43,12 +44,11 @@ export class AudioCall {
 
     const gameWords = words.sort(() => Math.random() - 0.5).slice(0, WORDS_IN_GAME);
     for (let i = 0; i < gameWords.length; i++) {
-      const game = new AudioCallGamePage(this.parent, i, gameWords /* , () => this.exitGame() */);
       const promise = new Promise<boolean>((resolve) => {
-        game.onNext = (str) => resolve(str);
+        this.game = new AudioCallGamePage(this.parent, i, gameWords, (str) => resolve(str));
       });
       const result: boolean = await promise;
-      game.destroy();
+      this.game.destroy();
       answerResult.push(result);
       if (Api.isAuthorized()) {
         void this.audioCallModel.saveResultToServer(gameWords[i], result);

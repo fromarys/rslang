@@ -41,7 +41,7 @@ export class GamesGetData {
       filter: JSON.stringify(filter),
     };
 
-    for (let i = 0; i < page; i++) {
+    for (let i = 0; i <= page; i++) {
       obj.page = `${i}`;
       promises.push(Api.getUserAllAgregatedWords(obj));
     }
@@ -51,6 +51,10 @@ export class GamesGetData {
         if (!('error' in page)) {
           words = words.concat(page[0].paginatedResults);
         }
+      });
+      words = words.map((item: IWord) => {
+        item.id = item._id;
+        return item;
       });
       return words.reverse();
     });

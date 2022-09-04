@@ -11,7 +11,6 @@ enum EAnswer {
 }
 
 export default class SprintGamePage extends Creator {
-  onNext!: (result: boolean) => void;
   keyHandlerBind: (e: KeyboardEvent) => void;
   btnMass: Button[] = [];
   // btnBack: Button;
@@ -24,7 +23,7 @@ export default class SprintGamePage extends Creator {
     parent: HTMLElement,
     curIndex: number,
     gameWords: IWord[],
-    // onExit: () => void,
+    private onNext: (result: boolean) => void,
     private audioRight: HTMLAudioElement,
     private audioWrong: HTMLAudioElement,
     curTimer: number
