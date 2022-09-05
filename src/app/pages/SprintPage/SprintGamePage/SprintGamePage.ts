@@ -13,7 +13,6 @@ enum EAnswer {
 export default class SprintGamePage extends Creator {
   keyHandlerBind: (e: KeyboardEvent) => void;
   btnMass: Button[] = [];
-  // btnBack: Button;
   word: IWord;
   translate: string;
   timer: Creator<HTMLElement>;
@@ -26,11 +25,15 @@ export default class SprintGamePage extends Creator {
     private onNext: (result: boolean) => void,
     private audioRight: HTMLAudioElement,
     private audioWrong: HTMLAudioElement,
-    curTimer: number
+    curTimer: number,
+    private clearTimer: () => void
   ) {
     super(parent, 'div', 'gamepage-sprint');
     this.word = gameWords[curIndex];
-    this.burger = new Burger(parent, () => this.destroy());
+    this.burger = new Burger(parent, () => {
+      this.clearTimer();
+      this.destroy();
+    });
     this.timer = new Creator(this.node, 'div', 'gamepage-sprint__timer', ('0' + `${curTimer}`).slice(-2));
     if (curTimer < 10) this.timer.node.classList.add('timer_time-expire');
     new Creator(this.node, 'div', 'gamepage-sprint__progress-window', `Слов: ${curIndex}`);
@@ -52,8 +55,6 @@ export default class SprintGamePage extends Creator {
       )
     );
 
-    // const btnWrapper2 = new Creator(this.node, 'div', 'gamepage-sprint__btn-wrapper');
-    // this.btnBack = new Button(btnWrapper2.node, 'gamepage-sprint__back', 'Quit', () => onExit());
     this.keyHandlerBind = this.keyHandler.bind(this);
     window.addEventListener('keyup', this.keyHandlerBind);
   }

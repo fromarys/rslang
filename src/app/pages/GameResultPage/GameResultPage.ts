@@ -25,7 +25,9 @@ export default class GameResultPage extends Creator {
         <div class="result__word_middle"><div class="result__result-sign result-sign_wrong"></div>
           <span>Неправильных ответов: ${gameResult.length - rightAnswers}</span></div>
         <br>
-        <div class="result__word_middle">Ваш результат: ${Math.round((rightAnswers * 100) / gameResult.length)} %</div>`
+        <div class="result__word_middle">Ваш результат: ${
+          gameResult.length ? Math.round((rightAnswers * 100) / gameResult.length) : 0
+        } %</div>`
     );
     const svgWrapper = new Creator(wndLeft.node, 'div', 'result__svg-wrapper');
     const diagram = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
