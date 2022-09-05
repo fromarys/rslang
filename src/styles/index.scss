@@ -1,0 +1,23 @@
+@import './variables/variables.scss';
+@import './mixins/mixins.scss';
+
+html {
+  font-size: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  @include recursive;
+  margin: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: initial;
+}

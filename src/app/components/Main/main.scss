@@ -1,0 +1,44 @@
+@import '../../../styles/variables/variables.scss';
+@import '../../../styles/mixins/mixins.scss';
+
+main {
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 16px;
+}
+
+// opportunities
+.opportunities {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 20px 40px 20px;
+  row-gap: 3rem;
+}
+
+// Our team
+.our-team {
+  padding: 0 20px;
+
+  .title-team {
+    margin-bottom: 20px;
+    @include media-laptop {
+      text-align: center;
+    }
+  }
+
+  .container-team {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 120px;
+    gap: 2rem;
+    @include media-laptop {
+      justify-content: center;
+    }
+    & > div {
+      height: 50rem;
+    }
+  }
+}

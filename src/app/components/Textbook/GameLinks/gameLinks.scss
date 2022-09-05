@@ -1,0 +1,39 @@
+@import '../../../../styles/variables/variables.scss';
+@import '../../../../styles/mixins/mixins.scss';
+
+.textbook {
+  &__games {
+    display: flex;
+    align-self: center;
+    column-gap: 2rem;
+    @include media-tablet {
+      flex-direction: column;
+    }
+    @include media-mobile-L {
+      margin-top: 2rem;
+    }
+  }
+
+  &__game {
+    max-width: 20rem;
+    text-decoration: none;
+    text-align: center;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+
+  &__title {
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+    color: $dark-blue;
+  }
+
+  &__image {
+    width: 20rem;
+    height: 20rem;
+    border-radius: 2rem;
+    object-fit: cover;
+  }
+}

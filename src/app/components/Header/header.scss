@@ -1,0 +1,103 @@
+@import '../../../styles/variables/variables.scss';
+@import '../../../styles/mixins/mixins.scss';
+
+header {
+  font-size: 16px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: $bluish-grey;
+  @include media-mobile-L {
+    padding: 1.5rem 0;
+  }
+}
+
+header a {
+  text-decoration: none;
+  @include noto-sans;
+  @include media-mobile-L {
+    text-align: center;
+  }
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+  @include media-tablet {
+    flex-direction: column;
+    row-gap: 1rem;
+    align-items: center;
+  }
+}
+
+.link-logo {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+
+  .img-logo {
+    @include images;
+    width: 100px;
+    height: 80px;
+    margin-right: 10px;
+    border-radius: 30px;
+    @include media-laptop {
+      width: 5rem;
+      height: auto;
+    }
+  }
+
+  .title-logo {
+    margin: 0;
+    color: $dark-blue;
+    @include media-laptop {
+      font-size: $font-20;
+    }
+  }
+}
+
+.header-menu {
+  display: flex;
+  text-transform: uppercase;
+  justify-content: space-around;
+}
+
+.menu {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  column-gap: 4rem;
+  @include media-mobile-L {
+    font-size: $font-12;
+  }
+  @include media-mobile-M {
+    column-gap: 2rem;
+  }
+}
+
+.item:hover {
+  a {
+    color: #ffff00;
+  }
+}
+
+.condition {
+  margin-right: 20px;
+  margin-left: 15px;
+}
+
+.condition:hover {
+  color: #ffff00;
+}
+
+.condition, .visible {
+  @include media-laptop {
+    font-size: $font-12;
+  }
+}
