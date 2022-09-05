@@ -19,7 +19,7 @@ export const cardOnLoad = 0;
 
 export const activityClass = 'active';
 
-export const baseUrl = 'http://127.0.0.1:3000';
+export const baseUrl = 'https://rslang-fromarys.herokuapp.com';
 
 export const GROUP_AMOUNT = 6;
 
