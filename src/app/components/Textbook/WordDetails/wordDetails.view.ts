@@ -62,7 +62,7 @@ export default class WordDetailsView implements IWordDetailsView {
   private renderAudioButton(): string {
     return `
     <svg class="words__audio-icon">
-      <use xlink:href="../../../public/static/audio.svg#audio"></use>
+      <use xlink:href="public/static/audio.svg#audio"></use>
     </svg>
     `;
   }

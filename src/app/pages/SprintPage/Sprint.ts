@@ -35,9 +35,9 @@ export class Sprint {
   }
 
   private async mainCycle(group: number) {
-    const audioWrong = new Audio('../../../public/static/sound/wrong.mp3');
+    const audioWrong = new Audio('public/static/sound/wrong.mp3');
     audioWrong.volume = 0.5;
-    const audioRight = new Audio('../../../public/static/sound/right.mp3');
+    const audioRight = new Audio('public/static/sound/right.mp3');
 
     const loading = new LoadingPage(this.parent);
     const currGroup = this.group !== undefined ? this.group : group;
