@@ -11,6 +11,7 @@ import {
   TextbookService,
   USER_WORD_TEMPLATE,
   ITextbookView,
+  PLAY_LIST,
 } from '../../../basic';
 import { WordGroup } from '../WordGroup';
 import WordDetailsView from './wordDetails.view';
@@ -24,7 +25,7 @@ export class WordDetails {
     this.userWord = wordInfo.userWord;
     this.view = new WordDetailsView(this.parentNode, this.wordInfo);
     this.audio = this.view.audioButton.node;
-    this.audio.onclick = () => this.audioClickHandler(this.wordInfo);
+    this.audio.onclick = () => this.audioClickHandler();
     if (Api.isAuthorized()) {
       this.setButtons();
     }
@@ -36,15 +37,26 @@ export class WordDetails {
 
   /**
    * Обрабатывает клики по иконке аудио
-   * @param wordInfo объект слова IWord
    */
-  private audioClickHandler(wordInfo: IWord): void {
-    const button: HTMLElement | null = this.view.audioButton.node;
-    const icon = button.children[0];
-    const audio: HTMLAudioElement = new Audio(`${baseUrl}/${wordInfo.audio}`);
-    void audio.play();
+  private audioClickHandler(): void {
+    const icon = this.audio.children[0];
     icon?.classList.add(activityClass);
-    audio.onended = () => icon?.classList.remove(activityClass);
+    this.playAudio(0);
+  }
+
+  /**
+   * Запускает проигрывание аудио
+   * @param index индекс элемента в массиве PLAY_LIST
+   */
+  private playAudio(index: number) {
+    const icon = this.audio.children[0];
+    const audio: HTMLAudioElement = new Audio(`${baseUrl}/${this.wordInfo[PLAY_LIST[index]]}`);
+    void audio.play();
+    if (index < PLAY_LIST.length - 1) {
+      audio.onended = () => this.playAudio(index + 1);
+    } else {
+      audio.onended = () => icon?.classList.remove(activityClass);
+    }
   }
 
   /**

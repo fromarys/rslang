@@ -1,4 +1,5 @@
 import { EUserWordStatus } from '../enums';
+import { IWordKeys } from '../types';
 
 export const groups: Record<string, string> = {
   A1: 'Easy',
@@ -56,3 +57,5 @@ export const StudButtonState: Record<string, string> = {
 };
 
 export const TOTAL_GROUPS = 7;
+
+export const PLAY_LIST: IWordKeys[] = ['audio', 'audioMeaning', 'audioExample'];
