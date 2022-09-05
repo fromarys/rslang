@@ -2,7 +2,7 @@ import { IAggregatedWords, IError, IUserWord, IWord } from '../interfaces';
 import { WORDS_PER_PAGE, DIFFICULT_WORDS_PER_PAGE } from '../common';
 import { Api } from '../api';
 import { EUserWordStatus } from '../enums';
-/* eslint-disable */
+
 export class TextbookService {
   public static async getWords(group: string, page: string, isGroup: boolean): Promise<void | IWord[]> {
     const response: void | IWord[] = Api.isAuthorized()
@@ -14,7 +14,7 @@ export class TextbookService {
   private static async getUserAggregatedWords(group: string, page: string, isGroup: boolean): Promise<IWord[] | void> {
     const query = this.setQuery(group, page, isGroup);
     const response: void | IError | IAggregatedWords[] = await Api.getUserAllAgregatedWords(query).catch((error) =>
-      console.log(error.errorMessage)
+      console.log(error)
     );
     if (Array.isArray(response)) {
       return response[0].paginatedResults;

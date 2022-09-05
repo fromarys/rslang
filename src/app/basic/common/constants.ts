@@ -54,3 +54,5 @@ export const StudButtonState: Record<string, string> = {
   normal: 'Add to studied',
   studied: 'Remove from studied',
 };
+
+export const TOTAL_GROUPS = 7;

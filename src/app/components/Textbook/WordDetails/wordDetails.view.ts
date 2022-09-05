@@ -26,6 +26,11 @@ export default class WordDetailsView implements IWordDetailsView {
     if (Api.isAuthorized()) this.details.insertAdjacentHTML('beforeend', this.renderStatistics());
   }
 
+  /**
+   * Создает шапку блока для определенного слова
+   * @param word Объект слова
+   * @returns  Шапка блока
+   */
   private renderHeader(word: IWord): string {
     return `
       <h2 class="words__word">${word.word}</h2>
@@ -34,6 +39,11 @@ export default class WordDetailsView implements IWordDetailsView {
     `;
   }
 
+  /**
+   * Создает элемент description для определенного слова
+   * @param word Объект слова
+   * @returns  Элемент description
+   */
   private renderDescription(word: IWord): string {
     return `
       <h3 class="words__subtitle">Значение</h3>
@@ -45,6 +55,10 @@ export default class WordDetailsView implements IWordDetailsView {
     `;
   }
 
+  /**
+   * Создает иконку для кнопки аудио
+   * @returns svg иконку
+   */
   private renderAudioButton(): string {
     return `
     <svg class="words__audio-icon">
@@ -53,6 +67,9 @@ export default class WordDetailsView implements IWordDetailsView {
     `;
   }
 
+  /**
+   * Если пользователь авторизован создает кнопки для блока
+   */
   private renderButtons(): void {
     this.detailsButtons = new Creator(this.details, 'div', 'words__buttons');
     const diffBtnClass = 'words__buttons-difficult';
@@ -61,6 +78,10 @@ export default class WordDetailsView implements IWordDetailsView {
     this.studiedButton = new Creator(this.detailsButtons.node, 'button', studBtnClass, StudButtonState.normal);
   }
 
+  /**
+   * Если пользователь авторизован создает статистику для блока
+   * @returns Статистика по играм
+   */
   private renderStatistics(): string {
     const statistics = this.word.userWord?.optional;
     const audiocall = statistics?.audioCall;

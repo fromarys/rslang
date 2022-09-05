@@ -24,6 +24,12 @@ export class WordGroup implements IWordGroup {
     return WordGroup.instance;
   }
 
+  /**
+   * Обрабатывает полученные данные о словах
+   * @param group номер группы
+   * @param page номер страницы
+   * @param isGroup проверка, является ли вкладка группой для слов или же разделом Difficult words
+   */
   private async getCards(group: string, page: string, isGroup: boolean): Promise<IWord[] | void> {
     const words: IWord[] | void = await TextbookService.getWords(group, page, isGroup);
     this.clearContainers();
@@ -39,12 +45,15 @@ export class WordGroup implements IWordGroup {
       allStudied ? this.disableLinks() : this.enableLinks();
     }
     if (isGroup) this.renderPagination();
-    return words;
   }
 
+  /**
+   * Получает из localstorage или принимает в качестве аргументов и передает данные группы и страницы
+   * @param group номер группы
+   * @param page номер страницы
+   * @param isGroup проверка, является ли вкладка группой для слов или же разделом Difficult words
+   */
   public renderGroup(group?: number, page?: number, isGroup = true): void {
-    //TODO необходимо реализовать сохранение группы "Сложные слова" при перезагрузке
-    //TODO можно использовать 7 номер для группы
     let storagedPage: number = Number(localStorage.getItem(EStorage.page)) || 0;
     let storagedGroup: number = Number(localStorage.getItem(EStorage.group)) || 0;
     if (page) storagedPage = page;
@@ -52,15 +61,26 @@ export class WordGroup implements IWordGroup {
     void this.getCards(storagedGroup.toString(), storagedPage.toString(), isGroup);
   }
 
+  /**
+   * Создает пагинацию для группы
+   */
   private renderPagination(): void {
     const pagination: WordPagination = new WordPagination(this.textbook);
     pagination.paginate();
   }
 
+  /**
+   * Создает инстанс класса карточки слова
+   * @param item объект слова
+   * @param className класс активности
+   */
   private renderCard(item: IWord, className: string): void {
     if (this.view) new WordCard(this.view, this.textbook, item, className);
   }
 
+  /**
+   * Очищает родительские элементы для генерации нового содержимого
+   */
   private clearContainers(): void {
     if (this.view) {
       this.view.wordsContainer.node.innerHTML = '';
@@ -69,11 +89,17 @@ export class WordGroup implements IWordGroup {
     }
   }
 
+  /**
+   * Создает event для деактивации ссылок и диспатчит на объект document
+   */
   private disableLinks(): void {
     const event = new Event('DisableLinks', { bubbles: true });
     document.dispatchEvent(event);
   }
 
+  /**
+   * Создает event для активации ссылок и диспатчит на объект document
+   */
   private enableLinks(): void {
     const event = new Event('EnableLinks', { bubbles: true });
     document.dispatchEvent(event);
