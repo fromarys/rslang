@@ -46,7 +46,7 @@ export class WordDetails {
 
   /**
    * Запускает проигрывание аудио
-   * @param index индекс элемента в массиве PlayList
+   * @param index индекс элемента в массиве PLAY_LIST
    */
   private playAudio(index: number) {
     const icon = this.audio.children[0];
