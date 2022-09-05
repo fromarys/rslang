@@ -61,7 +61,8 @@ export class Sprint {
           (str) => resolve(str),
           audioRight,
           audioWrong,
-          this.counter
+          this.counter,
+          () => clearInterval(this.timer)
         );
       });
       const result: boolean = await promise;
