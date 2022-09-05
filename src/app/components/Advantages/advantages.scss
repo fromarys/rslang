@@ -1,0 +1,46 @@
+@import '../../../styles/variables/variables.scss';
+@import '../../../styles/mixins/mixins.scss';
+
+.advantages {
+  display: flex;
+  background-color: $sky-blue;
+  margin: 40px 20px;
+  justify-content: space-around;
+  @include media-mobile-L {
+    flex-direction: column-reverse;
+    padding: 0 2rem 2rem;
+  }
+}
+
+.left-content-advantages {
+  padding-top: 120px;
+  width: 30%;
+  @include media-mobile-L {
+    padding: 0;
+    width: 100%;
+  }
+
+  .title-advantages {
+    font-size: 2em;
+    margin-bottom: 20px;
+    @include media-tablet {
+      font-size: 2.5rem;
+    }
+  }
+
+  .text-advantages {
+    margin: 0;
+  }
+}
+
+.right-content-advantages {
+  @include media-tablet {
+    max-width: 25rem;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.img-advantages {
+  width: 100%;
+}

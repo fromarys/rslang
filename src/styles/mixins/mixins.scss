@@ -17,3 +17,38 @@
     max-width: 100%;
     object-fit: cover;
 }
+
+@mixin media-laptop-L {
+  @media (max-width: $laptop-width-L) { @content };
+}
+
+@mixin media-laptop {
+  @media (max-width: $laptop-width) { @content };
+}
+
+@mixin media-tablet {
+  @media (max-width: $tablet-width) { @content };
+}
+
+@mixin media-mobile-XL {
+  @media (max-width: $mobile-width-XL) { @content };
+}
+
+@mixin media-mobile-L {
+  @media (max-width: $mobile-width-L) { @content };
+}
+
+@mixin media-mobile-M {
+  @media (max-width: $mobile-width-M) { @content };
+}
+
+@mixin media-mobile-S {
+  @media (max-width: $mobile-width-S) { @content };
+}
+
+@mixin font($weight, $size, $color) {
+  font-weight: $weight;
+  font-size: $size;
+  font-family: "Noto Sans", sans-serif;
+  color: $color;
+}

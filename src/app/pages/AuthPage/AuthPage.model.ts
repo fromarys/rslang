@@ -1,15 +1,16 @@
-import Api from '../../basic/api/api';
-import { IAuth, IError } from '../../basic/interfaces/interfaces';
+import { Api } from '../../basic/api';
+import { IAuth, IError, IUserResponse } from '../../basic/interfaces/interfaces';
 
 export default class AuthPageModel {
-  api: Api;
-
-  constructor() {
-    this.api = new Api('http://127.0.0.1:8080');
-  }
-
-  public registerNewUser(name: string, email: string, password: string) {
-    return this.api.createNewUser({ name, email, password });
+  /**
+   * Производит регистрацию нового пользователя
+   * @param name Имя пользователя
+   * @param email е-мейл пользователя
+   * @param password Пароль пользователя
+   * @returns Данные о регистрации или ошибку
+   */
+  public async registerNewUser(name: string, email: string, password: string): Promise<IUserResponse | IError> {
+    return Api.createNewUser({ name, email, password });
   }
 
   /**
@@ -19,7 +20,7 @@ export default class AuthPageModel {
    * @returns Токен логина или ошибка
    */
   public async loginUser(email: string, password: string): Promise<IAuth | IError> {
-    return this.api.loginUser({ email, password });
+    return Api.loginUser({ email, password });
   }
 
   /**
@@ -27,6 +28,6 @@ export default class AuthPageModel {
    * @param response Токен логина и ИД
    */
   public setAuthData(response: IAuth): void {
-    this.api.setAuthData(response);
+    Api.setAuthData(response);
   }
 }

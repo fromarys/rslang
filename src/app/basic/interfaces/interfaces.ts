@@ -1,3 +1,7 @@
+import { EUserWordStatus } from '../enums';
+
+import { ITextbook } from './textbook';
+
 export interface IUser {
   name: string;
   email: string;
@@ -24,12 +28,26 @@ export interface IError {
 }
 
 export interface IUserWord {
-  difficulty: string;
-  optional: Record<string, string>;
+  id?: string;
+  wordId?: string;
+  difficulty: EUserWordStatus;
+  optional: {
+    sprint: {
+      right: number;
+      wrong: number;
+      longRight: number;
+    };
+    audioCall: {
+      right: number;
+      wrong: number;
+      longRight: number;
+    };
+  };
 }
 
 export interface IWord {
   id: string;
+  _id: string;
   group: number;
   page: number;
   word: string;
@@ -43,9 +61,11 @@ export interface IWord {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
+  userWord?: IUserWord;
 }
 
 export interface IStatistic {
+  id?: string;
   learnedWords: number;
   optional: Record<string, string>;
 }
@@ -53,4 +73,18 @@ export interface IStatistic {
 export interface ISetting {
   wordsPerDay: number;
   optional: Record<string, string>;
+}
+
+export interface ICreator<NodeType extends HTMLElement = HTMLElement> {
+  node: NodeType;
+  destroy(): void;
+}
+
+export interface IRoutes {
+  textbook: ITextbook;
+}
+
+export interface IAggregatedWords {
+  paginatedResults: IWord[];
+  totalCount: Array<Record<string, number>>;
 }

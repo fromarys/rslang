@@ -1,0 +1,170 @@
+@import '../../../styles/variables/variables.scss';
+$window-size: 600px;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.result {
+  height: 100vh;
+  width: 100vw;
+  padding: 10px;
+  background-color: $background-main-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__radio {
+    appearance: none;
+  }
+
+  &__main-window {
+    position: relative;
+    max-height: 100%;
+    height: 110%;
+    width: $window-size;
+    padding: 15px;
+    color: $text-secondary-color;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.3rem;
+    border-radius: 20px;
+    background-color: $background-secondary-color;
+    display: flex;
+    overflow: hidden;
+  }
+
+  &__window-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    transition: left 0.5s;
+
+  }
+  
+  &__window-right {
+    position: absolute;
+    top: 0;
+    left: $window-size;
+    width: 100%;
+    max-height: 100%;
+    height: 100%;
+    padding: 20px;
+    transition: left 0.5s;
+  }
+
+  &__svg-wrapper {
+    text-align: center;
+  }
+
+  &__frame {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  &__line {
+    line-height: 2em;
+  }
+
+  &__play {
+    margin-right: 10px;
+    height: 3em;
+    width: 3em;
+    vertical-align: middle;
+    border-radius: 50%;
+    background-image: url(../../../../public/static/audio.svg);
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s;
+
+    &:hover {
+      background-size: 85%;
+    }
+  }
+
+  &__result-sign {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+  }
+
+  &__trascript {
+    margin-left: 10px;
+    color: rgb(255, 171, 0);
+  }
+
+  &__word_middle {
+    text-align: center;
+  }
+
+  &__exit {
+    width: 100px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: 0 0 10px 10px #A00000;
+    }
+  }
+}
+
+.result-sign_right,
+.result-sign_wrong {
+  background-image: url(../../../../public/static/check.png);
+  background-position: center;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+.result-sign_wrong {
+  background-image: url(../../../../public/static/cross.png);
+}
+
+#radio2:checked ~ .result__main-window > .result__window-left {
+  left: -$window-size;
+}
+#radio2:checked ~ .result__main-window > .result__window-right {
+  left: 0px;
+}
+
+.low-bar {
+  width: $window-size;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+
+  &__label-wrapper {
+    margin-top: 1rem;
+    
+  }
+
+  &__label {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: #a0a0a0;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 0 5px 0 #202020;
+    }
+  }
+}
+#radio1:checked ~ .low-bar [for="radio1"],
+#radio2:checked ~ .low-bar [for="radio2"] {
+  background-color: #202020;
+}

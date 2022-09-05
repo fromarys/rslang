@@ -5,133 +5,40 @@ main {
   max-width: 1920px;
   width: 100%;
   margin: 0 auto;
+  font-size: 16px;
 }
 
-// learn
-.learn {
+// opportunities
+.opportunities {
   display: flex;
-  background-color: $sky-blue;
-  margin: 40px 20px;
-  justify-content: space-around;
-}
-
-.left-content-learn {
-  padding-top: 120px;
-  width: 30%;
-
-  .title-learn {
-    font-size: 2em;
-  }
-
-  .text-learn {
-    margin: 0;
-  }
-
-  .btn-learn {
-    margin-top: 15px;
-  }
-}
-
-// app-features
-.app-features {
-  display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   margin: 0 20px 40px 20px;
-}
-
-.card-app-features {
-  position: relative;
-  cursor: pointer;
-  .card-backgr {
-    width: 300px;
-    height: 180px;
-  }
-}
-
-.content-card {
-  position: absolute;
-  display: flex;
-  width: 300px;
-  bottom: 26px;
-}
-
-.icon-app-features {
-  width: 132px;
-  height: 132px;
-}
-
-.text-app-features {
-  display: flex;
-  align-items: center;
-  @include noto-sans;
-  font-weight: bold;
-  color: #fff;
-  letter-spacing: 2.5px;
-  text-align: center;
-  margin: 0;
-}
-
-.descr-app-features {
-  width: 50%;
-  margin: 0;
-  margin-left: 40px;
-  display: flex;
-  align-items: center;
-  text-align: justify;
-  line-height: 35px;
-  color: $bluish-grey;
+  row-gap: 3rem;
 }
 
 // Our team
 .our-team {
   padding: 0 20px;
 
+  .title-team {
+    margin-bottom: 20px;
+    @include media-laptop {
+      text-align: center;
+    }
+  }
+
   .container-team {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-bottom: 120px;
-
-    .person {
-      width: 352px;
-      position: relative;
+    gap: 2rem;
+    @include media-laptop {
+      justify-content: center;
     }
-  }
-}
-
-.img-person {
-  object-fit: cover;
-  width: 352px;
-  height: 434px;
-  border-radius: 52px;
-}
-
-.info-person {
-  width: 272px;
-  height: 158px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(13px);
-  border-radius: 30px;
-  @include noto-sans;
-  text-align: center;
-  position: absolute;
-  left: 40px;
-  top: 329px;
-
-  .link-github-team {
-    text-decoration: none;
-
-    .name-person {
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 36px;
-      color: $dark-blue;
+    & > div {
+      height: 50rem;
     }
-  }
-
-  .done-person {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    color: $blue;
   }
 }

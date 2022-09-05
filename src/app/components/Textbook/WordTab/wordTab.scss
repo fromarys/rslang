@@ -1,0 +1,63 @@
+@import '../../../../styles/variables/variables.scss';
+@import '../../../../styles/mixins/mixins.scss';
+
+.group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @include media-laptop {
+    justify-content: flex-start;
+  }
+  @include media-tablet {
+    justify-content: center;
+  }
+
+  &__button {
+    cursor: pointer;
+    width: 100%;
+    max-width: 15.5rem;
+    height: 7rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 1rem;
+    border: none;
+    align-items: center;
+    padding: 0 2rem;
+    outline: none;
+    @include font(bold, $font-17, $text-main-color);
+    
+    &:hover {
+      filter: brightness(0.8);
+    }
+
+    &.active:nth-child(1) {
+      background-color: #FF7171;
+    }
+
+    &.active:nth-child(2) {
+      background-color: #f88c1c;
+    }
+
+    &.active:nth-child(3) {
+      background-color: #fff400;
+    }
+
+    &.active:nth-child(4) {
+      background-color: #00ff93;
+    }
+
+    &.active:nth-child(5) {
+      background-color: #00eeff;
+    }
+
+    &.active:nth-child(6) {
+      background-color: #5D7CFD;
+    }
+
+    &.active:nth-child(7) {
+      background-color: #8A78FA;
+    }
+  }
+}

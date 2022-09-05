@@ -1,11 +1,21 @@
-import { IAuth, IUser, IUserResponse, IError, IUserWord, IStatistic, ISetting, IWord } from '../interfaces/interfaces';
+import {
+  IAuth,
+  IUser,
+  IUserResponse,
+  IError,
+  IUserWord,
+  IStatistic,
+  ISetting,
+  IWord,
+  IAggregatedWords,
+} from '../interfaces';
+import { baseUrl } from '../common/constants';
 
-export default class Api {
-  static instance: Api;
+export class Api {
   static mainToken = '';
   static refreshToken = '';
   static userId = '';
-  static baseUrl = '';
+  static tokenTime = 0;
 
   constructor(...rest: unknown[]) {
     throw new Error("This class can't be invoked through constructor");
@@ -13,37 +23,35 @@ export default class Api {
   }
 
   /**
-   * Устанавливает базовый адрес для запросов
-   * @param baseUrl Базовый адрес сервера
-   */
-  static setBaseUrl(baseUrl: string) {
-    Api.baseUrl = baseUrl;
-  }
-
-  /**
    * Проверяет авторизирован ли пользователь
    * @returns true - пользователь авторизирован
    */
   static isAuthorized(): boolean {
-    return !!Api.mainToken;
+    if (Api.mainToken && Date.now() - Api.tokenTime < 4 * 60 * 60 * 1000) return true; // 4 часа
+    Api.mainToken = '';
+    Api.refreshToken = '';
+    Api.userId = '';
+    Api.tokenTime = 0;
+    return false;
   }
 
   /**
    * Возвращает токен-строку или null, если не авторизирован
    * @returns Токен-строка или null, если не авторизирован
    */
-  static getAuthToken(): Pick<IAuth, 'token' | 'userId'> | null {
-    return Api.isAuthorized() ? { token: Api.mainToken, userId: Api.userId } : null;
+  static getAuthToken(): Pick<IAuth, 'token' | 'userId' | 'refreshToken'> | null {
+    return Api.isAuthorized() ? { token: Api.mainToken, userId: Api.userId, refreshToken: Api.refreshToken } : null;
   }
 
   /**
    * Сохраняет токен и ИД пользователя для дальнейших запросов
    * @param response Токен логина и ИД
    */
-  static setAuthData(response: IAuth): void {
+  static setAuthData(response: IAuth, time?: number): void {
     Api.mainToken = response.token;
     Api.refreshToken = response.refreshToken;
     Api.userId = response.userId;
+    Api.tokenTime = time ? time : Date.now();
   }
 
   //static async responseHandler<T>(response: Response): Promise<T | IError> {}
@@ -73,11 +81,11 @@ export default class Api {
    * @param url URL адрес
    * @returns Respose-ответ без декодирования
    */
-  static async getGetAuth<T>(url: string): Promise<T | IError> {
+  static async getGetAuth<T>(url: string, mainToken = true): Promise<T | IError> {
     return fetch(url, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${Api.mainToken}`,
+        Authorization: `Bearer ${mainToken ? Api.mainToken : Api.refreshToken}`,
         Accept: 'application/json',
       },
     }).then(async (resp: Response) => {
@@ -148,7 +156,7 @@ export default class Api {
    * @returns Массив слов заданной группы и страницы
    */
   static async getWords(group: string, page: string): Promise<IWord[] | IError> {
-    return Api.getGet<IWord[]>(`${Api.baseUrl}/words?group=${group}&page=${page}`);
+    return Api.getGet<IWord[]>(`${baseUrl}/words?group=${group}&page=${page}`);
   }
 
   /**
@@ -157,7 +165,7 @@ export default class Api {
    * @returns Массив слов заданной группы и страницы
    */
   static async getWordsById(id: string): Promise<IWord | IError> {
-    return Api.getGet<IWord>(`${Api.baseUrl}/words/${id}`);
+    return Api.getGet<IWord>(`${baseUrl}/words/${id}`);
   }
 
   /*
@@ -172,7 +180,7 @@ export default class Api {
    * @returns Ответ о регистрации или ошибка
    */
   static async createNewUser(user: IUser): Promise<IUserResponse | IError> {
-    return Api.sendPost<IUserResponse>(`${Api.baseUrl}/users`, user);
+    return Api.sendPost<IUserResponse>(`${baseUrl}/users`, user);
   }
 
   /**
@@ -180,7 +188,11 @@ export default class Api {
    * @returns Имя и пароль пользователя
    */
   static async getUserInfo(): Promise<IUserResponse | IError> {
-    return Api.getGetAuth<IUserResponse>(`${Api.baseUrl}/users/${Api.userId}`);
+    return Api.getGetAuth<IUserResponse>(`${baseUrl}/users/${Api.userId}`);
+  }
+
+  static async getUserNewToken(): Promise<IAuth | IError> {
+    return Api.getGetAuth<IAuth>(`${baseUrl}/users/${Api.userId}/tokens`, false);
   }
 
   /*
@@ -194,7 +206,7 @@ export default class Api {
    * @returns Массив пользовательских слов
    */
   static async getUserAllWords(): Promise<IUserWord[] | IError> {
-    return Api.getGetAuth<IUserWord[]>(`${Api.baseUrl}/users/${Api.userId}/words`);
+    return Api.getGetAuth<IUserWord[]>(`${baseUrl}/users/${Api.userId}/words`);
   }
 
   /**
@@ -204,7 +216,7 @@ export default class Api {
    * @returns Информация о слове
    */
   static async createUserWord(wordId: string, body: IUserWord): Promise<IUserWord | IError> {
-    return Api.sendPost<IUserWord>(`${Api.baseUrl}/users/${Api.userId}/words/${wordId}`, body);
+    return Api.sendPost<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`, body, true);
   }
 
   /**
@@ -213,7 +225,7 @@ export default class Api {
    * @returns Информацию о слове пользователя
    */
   static async getUserWord(wordId: string): Promise<IUserWord | IError> {
-    return Api.getGetAuth<IUserWord>(`${Api.baseUrl}/users/${Api.userId}/words/${wordId}`);
+    return Api.getGetAuth<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`);
   }
 
   /**
@@ -223,7 +235,7 @@ export default class Api {
    * @returns Информация о слове
    */
   static async updateUserWord(wordId: string, body: IUserWord): Promise<IUserWord | IError> {
-    return Api.sendPut<IUserWord>(`${Api.baseUrl}/users/${Api.userId}/words/${wordId}`, body);
+    return Api.sendPut<IUserWord>(`${baseUrl}/users/${Api.userId}/words/${wordId}`, body);
   }
 
   /**
@@ -232,7 +244,7 @@ export default class Api {
    * @returns Удачно или нет
    */
   static async deleteUserWord(wordId: string): Promise<boolean> {
-    return Api.sendDelete(`${Api.baseUrl}/users/${Api.userId}/words/${wordId}`);
+    return Api.sendDelete(`${baseUrl}/users/${Api.userId}/words/${wordId}`);
   }
 
   /*
@@ -246,11 +258,11 @@ export default class Api {
    * @param query query-параметры запроса
    * @returns Массив Agregated слов
    */
-  static async getUserAllAgregatedWords(query: Record<string, string>): Promise<IUser[] | IError> {
+  static async getUserAllAgregatedWords(query: Record<string, string>): Promise<IAggregatedWords[] | IError> {
     const queryString = Object.entries(query)
       .reduce((acc, cur) => acc + `${cur[0]}=${cur[1]}&`, '?')
       .slice(0, -1);
-    return Api.getGetAuth<IUser[]>(`${Api.baseUrl}/users/${Api.userId}/aggregatedWords${queryString}`);
+    return Api.getGetAuth<IAggregatedWords[]>(`${baseUrl}/users/${Api.userId}/aggregatedWords${queryString}`);
   }
 
   /**
@@ -259,7 +271,7 @@ export default class Api {
    * @returns Информацию о Agregated слове
    */
   static async getUserAgregatedWord(wordId: string): Promise<IUserWord | IError> {
-    return Api.getGetAuth<IUserWord>(`${Api.baseUrl}/users/${Api.userId}/aggregatedWords/${wordId}`);
+    return Api.getGetAuth<IUserWord>(`${baseUrl}/users/${Api.userId}/aggregatedWords/${wordId}`);
   }
 
   /*
@@ -273,7 +285,7 @@ export default class Api {
    * @returns Статистика о пользователе
    */
   static async getUserStatistics(): Promise<IStatistic | IError> {
-    return Api.getGetAuth<IStatistic>(`${Api.baseUrl}/users/${Api.userId}/statistics`);
+    return Api.getGetAuth<IStatistic>(`${baseUrl}/users/${Api.userId}/statistics`);
   }
 
   /**
@@ -282,7 +294,7 @@ export default class Api {
    * @returns Новая статистика
    */
   static async updateUserStatistics(body: IStatistic): Promise<IStatistic | IError> {
-    return Api.sendPut<IStatistic>(`${Api.baseUrl}/users/${Api.userId}/statistics`, body);
+    return Api.sendPut<IStatistic>(`${baseUrl}/users/${Api.userId}/statistics`, body);
   }
 
   /*
@@ -296,7 +308,7 @@ export default class Api {
    * @returns Настройки пользователя
    */
   static async getUserSettings(): Promise<ISetting | IError> {
-    return Api.getGetAuth<ISetting>(`${Api.baseUrl}/users/${Api.userId}/settings`);
+    return Api.getGetAuth<ISetting>(`${baseUrl}/users/${Api.userId}/settings`);
   }
 
   /**
@@ -305,7 +317,7 @@ export default class Api {
    * @returns Новая статистика
    */
   static async updateUserSettings(body: ISetting): Promise<ISetting | IError> {
-    return Api.sendPut<ISetting>(`${Api.baseUrl}/users/${Api.userId}/settings`, body);
+    return Api.sendPut<ISetting>(`${baseUrl}/users/${Api.userId}/settings`, body);
   }
 
   /*
@@ -320,6 +332,13 @@ export default class Api {
    * @returns Токен логина или ошибка
    */
   static async loginUser(user: { email: string; password: string }): Promise<IAuth | IError> {
-    return Api.sendPost<IAuth>(`${Api.baseUrl}/signin`, user);
+    return Api.sendPost<IAuth>(`${baseUrl}/signin`, user);
+  }
+
+  static unloginUser(): void {
+    Api.mainToken = '';
+    Api.refreshToken = '';
+    Api.userId = '';
+    Api.tokenTime = 0;
   }
 }
