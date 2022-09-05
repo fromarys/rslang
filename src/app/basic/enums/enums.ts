@@ -24,3 +24,7 @@ export enum EStorage {
   page = 'page',
   group = 'group',
 }
+
+export enum EDeploy {
+  url = 'https://fromarys.github.io/rslang/rslang',
+}
