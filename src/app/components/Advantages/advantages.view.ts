@@ -8,7 +8,7 @@ export function getTemplate(): string {
               <p class="text-advantages">Start right now!</p>
             </div>
             <div class="right-content-advantages">
-              <img class="img-advantages" src="../public/static/learn.png" alt="learn" />
+              <img class="img-advantages" src="public/static/learn.png" alt="learn" />
             </div>
           </div>
   `;

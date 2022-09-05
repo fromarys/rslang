@@ -16,7 +16,7 @@ export function getTemplate(): string {
       >
     </ul>
     <a class="rslink-footer" href="https://rs.school/js/" target="_blank"
-        ><img src="../public/static/rs_school_js.svg" alt="logo" style="height: 50px"
+        ><img src="public/static/rs_school_js.svg" alt="logo" style="height: 50px"
     /></a>
    </div>
   `;
