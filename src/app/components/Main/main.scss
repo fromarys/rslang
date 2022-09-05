@@ -14,6 +14,7 @@ main {
   flex-wrap: wrap;
   justify-content: space-around;
   margin: 0 20px 40px 20px;
+  row-gap: 3rem;
 }
 
 // Our team
@@ -22,12 +23,22 @@ main {
 
   .title-team {
     margin-bottom: 20px;
+    @include media-laptop {
+      text-align: center;
+    }
   }
 
   .container-team {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
+    display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-bottom: 120px;
+    gap: 2rem;
+    @include media-laptop {
+      justify-content: center;
+    }
+    & > div {
+      height: 50rem;
+    }
   }
 }

@@ -20,11 +20,8 @@ export function getTemplate(menu: typeof IHeaderMenu): string {
               <div data-id="${menu.Textbook}" class="item">
                 <a href="#${ERoutes.textbook}"><span>${menu.Textbook}</span></a>
               </div>
-              <div data-id="${menu.AudioCall}" class="item">
-                <a href="#${ERoutes.audiocall}"><span>${menu.AudioCall}</span></a>
-              </div>
-              <div data-id="${menu.Sprint}" class="item">
-                <a href="#${ERoutes.sprint}"><span>${menu.Sprint}</span></a>
+              <div data-id="${menu.Games}" class="item">
+                <a href="#${ERoutes.games}"><span>${menu.Games}</span></a>
               </div>
               <div data-id="${menu.Statistics}" class="item">
                 <a href="#${ERoutes.statistics}"><span>${menu.Statistics}</span></a>

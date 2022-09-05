@@ -9,6 +9,9 @@
   max-width: 120rem;
   padding: 3rem 2rem;
   height: 100%;
+  @include media-mobile-L {
+    padding: 2rem 1rem;
+  }
 }
 
 .words {
