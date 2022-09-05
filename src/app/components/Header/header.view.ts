@@ -1,12 +1,12 @@
 import './header.scss';
 import { IHeaderMenu } from '../../basic/events/models';
-import { EDeploy, ERoutes } from '../../basic';
+import { ERoutes } from '../../basic';
 
 export function getTemplate(menu: typeof IHeaderMenu): string {
   return `
         <div class="content-header">
           <div class="logo">
-            <a href="${EDeploy.url + ERoutes.main}" class="link-logo">
+            <a href="#" class="link-logo">
               <img class="img-logo" src="public/static/logo.jpg" alt="logo" />
               <h1 class="title-logo">RSLang</h1>
             </a>
@@ -15,7 +15,7 @@ export function getTemplate(menu: typeof IHeaderMenu): string {
           <nav data-role="header-menu" class="header-menu">
             <div class="menu">
               <div data-id="${menu.Main}" class="item">
-                <a href="${EDeploy.url + ERoutes.main}"><span>${menu.Main}</span></a>
+                <a href="#"><span>${menu.Main}</span></a>
               </div>
               <div data-id="${menu.Textbook}" class="item">
                 <a href="#${ERoutes.textbook}"><span>${menu.Textbook}</span></a>
